@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="300" height="137" viewBox="0 0 224.87999 102.749999">
+  <defs>
+    <linearGradient id="greenGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Logo Background -->
+  <rect width="224.87999" height="102.749999" fill="white" rx="8"/>
+  
+  <!-- Logo Text - NighwanTech -->
+  <text x="112.44" y="65" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="url(#greenGradient)">
+    NighwanTech
+  </text>
+  
+  <!-- Logo Icon/Shape -->
+  <circle cx="40" cy="51.3749995" r="25" fill="url(#greenGradient)"/>
+  <text x="40" y="60" font-family="Arial, sans-serif" font-size="20" font-weight="bold" text-anchor="middle" fill="white">
+    N
+  </text>
+</svg>

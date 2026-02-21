@@ -1,23 +1,36 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
-import Navbar from "@/components/layout/Navbar";
+// Industry Standard: Analytics & Speed monitoring
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
+import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/layout/footer/Footer";
+import AnimatedCursor from "@/components/layout/AnimatedCursor";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0a0a0a",
+};
 
 export const metadata: Metadata = {
-  title: "Nighwan Technology",
-  description: "Empowering Businesses Through Technology",
+  metadataBase: new URL('https://nighwan.tech'), // Global URL base
+  title: {
+    default: "Nighwan Technology | Global AI & Fintech Ecosystem",
+    template: "%s | Nighwan Technology",
+  },
+  description: "Accelerating digital transformation through AI, Cloud Core, and Zero-Trust Security.",
+  // Professional Verification (Industry Standard)
+  verification: {
+    google: "google-site-verification-id", // Future use
+  },
+  openGraph: {
+    type: "website",
+    siteName: "Nighwan Technology",
+    images: [{ url: "/og-image.png" }],
+  },
 };
 
 export default function RootLayout({
@@ -25,18 +38,45 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Professional JSON-LD (Schema.org) Data
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Nighwan Technology",
+    "url": "https://nighwan.tech",
+    "logo": "https://nighwan.tech/logo.png",
+    "sameAs": [
+      "https://linkedin.com/company/nighwantech",
+      "https://twitter.com/nighwantech"
+    ],
+    "description": "Enterprise-grade AI and Cloud solutions."
+  };
+
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
+      <head>
+        {/* Injecting Structured Data for Search Engines */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+        suppressHydrationWarning={true}
+        className="antialiased flex flex-col min-h-screen"
       >
+        <AnimatedCursor />
         <Navbar />
 
-        <main className="flex-grow">
+        <main className="flex-grow relative z-10 w-full">
           {children}
         </main>
 
         <Footer />
+        
+        {/* Industry standard monitoring */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

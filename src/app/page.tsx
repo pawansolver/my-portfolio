@@ -1,33 +1,29 @@
 /**
  * Home Page - Next.js 13+ App Router
  * 
- * Hydration-safe implementation:
- * - Server component (no "use client")
- * - ParticleHero is a client component with all browser-only code isolated
- * - No function props passed (functions can't serialize from server to client)
+ * Full-screen hero page with multiple sections:
+ * 1. Particle effect section with 3D text
+ * 2. Video background section with animations
+ * 3. Services section with interactive cards
+ * 
+ * Features:
+ * - Smooth navigation between sections
+ * - Keyboard and wheel navigation
+ * - Responsive design
+ * - Performance optimized
  */
 
-import ParticleHero from "@/components/home/ParticleHero";
+import HomeContent from './HomeContent';
 
 export const metadata = {
-  title: "NighwanTech - Transform Your Business",
-  description: "Next-generation SaaS solutions powered by AI and cutting-edge technology",
+  title: "NighwanTech - AI Innovation & Technology Solutions",
+  description: "Experience cutting-edge AI solutions with interactive particle effects and video demonstrations",
 };
 
 /**
  * Home Page - Server Component
- * Click handlers are defined inside ParticleHero (client component)
+ * Uses client components for interactive elements
  */
 export default function HomePage() {
-  return (
-    <main className="min-h-screen">
-      <ParticleHero
-        headline="Transform Your Business"
-        subheadline="Next-generation SaaS solutions powered by AI and cutting-edge technology"
-        primaryCta="Get Started"
-        secondaryCta="Learn More"
-        particleText="NighwanTech"
-      />
-    </main>
-  );
+  return <HomeContent />;
 }
