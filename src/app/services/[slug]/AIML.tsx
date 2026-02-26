@@ -1,95 +1,213 @@
-import { ArrowRight, BrainCircuit, Network, Cpu, Zap, Target, LineChart, Binary, Bot } from 'lucide-react';
-import Link from 'next/link';
+"use client";
 
-export default function AIML() {
+import { motion } from "framer-motion";
+import { CheckCircle, ArrowRight, BrainCircuit, Cpu, ShieldAlert, Sparkles, Network, Terminal } from "lucide-react";
+import Image from "next/image";
+import { useModal } from "@/components/context/ModalContext"; 
+
+export default function AISolutionsPage() {
+  const { openModal } = useModal();
+
   return (
-    <main className="bg-white">
-      {/* 🚀 Integrated Slider Logic (Inline CSS) */}
-      <style>{`
-        @keyframes infinite-scroll {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-        .animate-infinite-scroll {
-          display: flex;
-          width: max-content;
-          animation: infinite-scroll 25s linear infinite;
-        }
-      `}</style>
-      
-      {/* 1. HERO SECTION */}
-      <section className="bg-textmain pt-40 pb-24 text-white relative overflow-hidden">
-        <div className="container-custom relative z-10">
-          <h1 className="heading-xl !text-white !text-left !mb-6">
-            AI & Machine <span className="text-brandOrange">Learning</span>
-          </h1>
-          <p className="text-muted !text-white !text-left !mx-0">
-            Intelligent Evolution. We build custom neural architectures and predictive models that transform raw data into autonomous decision-making engines for the modern enterprise.
-          </p>
-          <div className="mt-10">
-            <Link href="#contact" className="btn-primary inline-block">
-              Deploy Intelligence
-            </Link>
-          </div>
-        </div>
-        <div className="absolute -right-10 -bottom-10 text-white/5 font-bold text-[30vw] select-none pointer-events-none uppercase leading-none">
-          AI
+    <div className="bg-white text-textmain overflow-hidden font-sans">
+
+      {/* --- 1. HERO SECTION (Mirror Synced) --- */}
+      <section className="relative h-[90vh] flex items-center justify-center text-white">
+        <Image
+          src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2070"
+          alt="Artificial Intelligence"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/60 to-black/90" />
+
+        <div className="relative z-10 text-center px-6 max-w-5xl container-custom">
+          <motion.span 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-brandOrange font-bold tracking-[0.3em] uppercase text-sm mb-4 block"
+          >
+            Machine Learning & Neural Networks
+          </motion.span>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="heading-xl !text-white !mb-8"
+          >
+            Predictive Models. <br />
+            <span className="text-gray-300">Autonomous Growth.</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-muted !text-gray-300 mb-10"
+          >
+            Deploy custom AI models and MLOps pipelines that turn complex data 
+            into competitive advantages. We bridge the gap between raw data 
+            and cognitive decision-making.
+          </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="flex justify-center gap-6 flex-wrap"
+          >
+            <button onClick={() => openModal("AI Solutions")} className="btn-primary">
+              Deploy AI Now
+            </button>
+            <button onClick={() => openModal("AI Use Cases")} className="btn-secondary !border-white !text-white hover:!bg-white hover:!text-black">
+              View Use Cases
+            </button>
+          </motion.div>
         </div>
       </section>
 
-      {/* 2. LOGO SLIDER (AI Tech Stack) */}
-      <section className="py-12 bg-zinc-50 border-y border-zinc-100 overflow-hidden relative">
+      {/* --- 2. THE CHALLENGE (Sync Logic) --- */}
+      <section className="section-padding bg-white">
         <div className="container-custom">
-          <div className="flex overflow-hidden">
-            <div className="animate-infinite-scroll flex items-center">
-              {["PyTorch", "TensorFlow", "OpenAI", "NVIDIA", "HuggingFace", "Python", "AWS SageMaker", "Azure AI", "LangChain", "Databricks"].map((brand, index) => (
-                <span key={index} className="text-3xl font-black uppercase tracking-tighter text-textmain px-12 block">
-                  {brand}
-                </span>
-              ))}
-              {/* Loop Duplicate */}
-              {["PyTorch", "TensorFlow", "OpenAI", "NVIDIA", "HuggingFace", "Python", "AWS SageMaker", "Azure AI", "LangChain", "Databricks"].map((brand, index) => (
-                <span key={`loop-${index}`} className="text-3xl font-black uppercase tracking-tighter text-textmain px-12 block">
-                  {brand}
-                </span>
-              ))}
+          <div className="grid lg:grid-cols-2 gap-16 items-start">
+            <div>
+              <h2 className="heading-xl !text-left !mb-6">Data Wealth, <br />Insight Poverty</h2>
+              <p className="text-brandGreen font-medium text-lg mb-8 leading-relaxed">
+                Most enterprises capture massive data but lack the algorithmic 
+                infrastructure to extract value. Without AI, you're looking at 
+                the past; with it, you're engineering the future.
+              </p>
+              <div className="space-y-6">
+                {[
+                  { t: "Cognitive Bottlenecks", d: "Human-led analysis cannot process TBs of real-time data efficiently." },
+                  { t: "Reactive Decision Making", d: "Operating on historical reports instead of real-time predictive foresight." },
+                  { t: "Operational Inertia", d: "Repetitive manual tasks draining 70% of high-value workforce energy." }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4">
+                    <div className="mt-1"><BrainCircuit className="text-brandOrange w-6 h-6" /></div>
+                    <div>
+                      <h4 className="font-bold text-textmain">{item.t}</h4>
+                      <p className="text-sm text-gray-500">{item.d}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-orange-100/50 rounded-3xl -z-10 group-hover:bg-orange-100 transition-colors" />
+              <div className="bg-white p-10 rounded-2xl shadow-2xl border border-gray-100">
+                <h3 className="text-2xl font-bold mb-6">MLOps Architecture</h3>
+                <p className="text-gray-600 mb-8 text-sm leading-relaxed">
+                  Our integration strategy follows a strict 
+                  <strong> Data Strategy &gt; Model Training &gt; API Deployment </strong> 
+                  lifecycle for production-grade reliability.
+                </p>
+                
+                <div className="my-6 text-center text-gray-400 italic">
+                  
+
+[Image of Machine Learning Pipeline]
+
+                </div>
+
+                <ul className="space-y-4">
+                  {["Data Pre-processing", "Neural Arch Design", "Feature Engineering", "Continuous Learning"].map((list, i) => (
+                    <li key={i} className="flex items-center gap-3 text-sm font-semibold text-textmain">
+                      <CheckCircle className="text-brandOrange w-5 h-5" /> {list}
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={() => openModal("AI Solutions Stack")} className="mt-10 text-brandOrange font-bold flex items-center gap-2 hover:gap-4 transition-all">
+                  Explore AI Stack <ArrowRight size={18} />
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. COGNITIVE VISION */}
-      <section className="section-padding container-custom">
-        <div className="max-w-4xl">
-          <h2 className="text-brandOrange font-bold uppercase text-xs tracking-[0.4em] mb-6">01 / The Intelligence</h2>
-          <p className="text-textmain font-bold text-3xl md:text-5xl leading-tight">
-            Stop guessing. <span className="text-brandOrange underline">Start predicting.</span>
-          </p>
-          <p className="text-muted !text-left !mx-0 mt-8">
-            Our AI solutions go beyond simple automation. We implement Deep Learning and NLP (Natural Language Processing) to create systems that learn, adapt, and solve complex business challenges with mathematical precision.
-          </p>
+      {/* --- 3. AI PERFORMANCE STATS --- */}
+      <section className="section-padding bg-textmain text-white">
+        <div className="container-custom">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Algorithmic Impact</h2>
+            <p className="text-gray-400">Our models are optimized for precision, latency, and real-world ROI.</p>
+          </div>
+          <div className="grid md:grid-cols-4 gap-12 text-center">
+            {[
+              { v: "98%", l: "Model Accuracy", d: "High-precision scoring." },
+              { v: "70%", l: "Task Automation", d: "Reduction in manual tasks." },
+              { v: "10TB+", l: "Daily Processing", d: "Real-time data ingestion." },
+              { v: "200ms", l: "Inference Speed", d: "Ultra-fast decision logic." }
+            ].map((stat, i) => (
+              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} key={i}>
+                <h3 className="text-6xl font-bold text-brandOrange mb-4">{stat.v}</h3>
+                <p className="text-xl font-bold mb-2">{stat.l}</p>
+                <p className="text-sm text-gray-500 max-w-[200px] mx-auto">{stat.d}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 4. AI CAPABILITIES (Horizontal Slider) */}
-      <section className="py-20 bg-textmain overflow-hidden">
-        <div className="container-custom mb-12">
-          <h2 className="heading-xl !text-white !text-left !mb-0">Core Expertise</h2>
+      {/* --- 4. CORE CAPABILITIES (Flip Cards) --- */}
+      <section className="section-padding bg-gray-50">
+        <div className="container-custom text-center mb-16">
+          <h2 className="heading-xl">Cognitive Stack</h2>
+          <p className="text-muted">Domain-specific AI solutions built for enterprise reliability.</p>
         </div>
-        <div className="flex overflow-x-auto gap-8 px-6 md:px-32 no-scrollbar snap-x">
+
+        <div className="grid md:grid-cols-3 gap-8 container-custom">
           {[
-            { t: "Generative AI", d: "Custom LLMs and creative automation for enterprise scale.", img: "https://images.unsplash.com/photo-1677442136019-21780ecad995" },
-            { t: "Computer Vision", d: "Real-time object detection and visual recognition systems.", img: "https://images.unsplash.com/photo-1507146426996-ef05306b995a" },
-            { t: "Predictive Analytics", d: "Forecasting market trends with high-accuracy ML models.", img: "https://images.unsplash.com/photo-1551288049-bbbda5366392" },
-            { t: "Neural Automation", d: "Replacing manual workflows with self-learning robotic processes.", img: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e" }
-          ].map((item, i) => (
-            <div key={i} className="min-w-[85%] md:min-w-[40%] snap-center group">
-              <div className="h-96 rounded-[2rem] overflow-hidden relative mb-6 border border-white/10">
-                <img src={item.img} className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" alt={item.t} />
-                <div className="absolute inset-0 bg-gradient-to-t from-textmain via-transparent to-transparent opacity-90" />
-                <div className="absolute bottom-8 left-8">
-                  <h4 className="text-white font-bold text-2xl uppercase mb-2">{item.t}</h4>
-                  <p className="text-white/60 text-sm italic">{item.d}</p>
+            { 
+              t: "Predictive Analytics", 
+              icon: <Network />,
+              d: "Leveraging historical data to forecast future trends, sales, and market behaviors.",
+              backTitle: "Future Vision",
+              points: ["Trend Forecasting", "Risk Assessment", "Demand Planning", "Dynamic Pricing"]
+            },
+            { 
+              t: "Generative AI & LLMs", 
+              icon: <Sparkles />,
+              d: "Custom LLM deployments tailored to your private data for content and code generation.",
+              backTitle: "Creative Logic",
+              points: ["Custom LLMs", "AI Agents", "Knowledge Graphs", "Private Instances"]
+            },
+            { 
+              t: "Computer Vision", 
+              icon: <Cpu />,
+              d: "Training machines to interpret visual data for object detection and medical imaging.",
+              backTitle: "Visual Intelligence",
+              points: ["Object Detection", "OCR Systems", "Motion Tracking", "Image Tagging"]
+            }
+          ].map((service, index) => (
+            <div key={index} className="group h-[450px] [perspective:1000px]">
+              <div className="relative h-full w-full rounded-3xl transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] shadow-lg">
+                
+                <div className="absolute inset-0 h-full w-full rounded-3xl bg-white p-10 [backface-visibility:hidden] border border-gray-100 flex flex-col items-center text-center justify-center">
+                  <div className="w-16 h-16 bg-orange-50 text-brandOrange rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+                    {service.icon}
+                  </div>
+                  <h3 className="font-bold text-2xl mb-4 text-textmain">{service.t}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{service.d}</p>
+                  <div className="mt-8 text-brandOrange font-bold text-xs uppercase tracking-widest flex items-center gap-2">
+                    Hover to Flip <ArrowRight size={14} />
+                  </div>
+                </div>
+
+                <div className="absolute inset-0 h-full w-full rounded-3xl bg-textmain p-10 text-white [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-center">
+                  <h3 className="text-brandOrange font-bold text-xl mb-6">{service.backTitle}</h3>
+                  <ul className="space-y-4">
+                    {service.points.map((point, i) => (
+                      <li key={i} className="flex items-center gap-3 text-sm font-light text-gray-200">
+                        <CheckCircle size={16} className="text-brandOrange" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                  <button onClick={() => openModal(service.t)} className="mt-8 bg-white/10 hover:bg-brandOrange text-white text-xs font-bold py-3 px-6 rounded-xl transition-colors border border-white/20">
+                    Get AI Specs
+                  </button>
                 </div>
               </div>
             </div>
@@ -97,58 +215,115 @@ export default function AIML() {
         </div>
       </section>
 
-      {/* 5. DEVELOPMENT ROADMAP */}
-      <section className="section-padding container-custom">
-        <h2 className="heading-xl !text-left !mb-16">The AI Lifecycle</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
-          {[
-            { icon: <Binary className="text-brandOrange" />, label: "Data Sourcing", desc: "Cleaning and labeling raw datasets for model training." },
-            { icon: <BrainCircuit className="text-brandOrange" />, label: "Model Arch", desc: "Selecting the right neural network and hyperparameters." },
-            { icon: <Cpu className="text-brandOrange" />, label: "Training", desc: "Running intense compute cycles to optimize performance." },
-            { icon: <Bot className="text-brandOrange" />, label: "Deployment", desc: "Integrating AI models into your production environment." }
-          ].map((step, i) => (
-            <div key={i} className="group">
-              <div className="mb-6">{step.icon}</div>
-              <h4 className="text-textmain font-bold uppercase mb-4 tracking-tighter text-xl">0{i+1}. {step.label}</h4>
-              <p className="text-muted !text-left !text-sm !mx-0">{step.desc}</p>
-              <div className="h-1 w-full bg-zinc-100 mt-6 group-hover:bg-brandOrange transition-colors" />
+      {/* --- 5. INDUSTRY VERTICALS --- */}
+      <section className="section-padding bg-white border-t border-gray-100">
+        <div className="container-custom">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+            <div className="max-w-xl">
+              <h2 className="heading-xl !text-left !mb-4">Use Cases</h2>
+              <p className="text-brandGreen font-medium">From fraud detection in FinTech to diagnostics in Healthcare, we deploy AI where it matters most.</p>
             </div>
-          ))}
+            <div className="text-gray-400 text-sm font-mono">/ SECTOR APPLICATIONS</div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              { title: "FinTech", icon: "💎", desc: "Real-time fraud detection and algorithmic trading." },
+              { title: "Healthcare", icon: "🏥", desc: "AI-assisted diagnostics and drug discovery." },
+              { title: "Logistics", icon: "📦", desc: "Predictive maintenance and route optimization." },
+              { title: "LegalTech", icon: "⚖️", desc: "Automated contract review and document mining." }
+            ].map((item, i) => (
+              <div key={i} className="p-8 border border-gray-100 rounded-2xl hover:bg-textmain hover:text-white transition-all duration-500 group">
+                <div className="text-4xl mb-6">{item.icon}</div>
+                <h4 className="font-bold text-lg mb-3">{item.title}</h4>
+                <p className="text-sm text-gray-500 group-hover:text-gray-300 leading-relaxed">{item.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* 6. AI PERFORMANCE METRICS */}
-      <section className="py-20 bg-zinc-50 border-y border-zinc-100">
-        <div className="container-custom grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          {[
-            { val: "98%", lab: "Model Accuracy" },
-            { val: "10x", lab: "Process Speed" },
-            { val: "60%", lab: "Cost Savings" },
-            { val: "Real-time", lab: "Inference" }
-          ].map((stat, i) => (
-            <div key={i}>
-              <div className="text-5xl font-bold text-textmain mb-2">{stat.val}</div>
-              <div className="text-brandOrange font-bold uppercase text-[10px] tracking-widest">{stat.lab}</div>
+      {/* --- 6. AI PHILOSOPHY (The 5 Intelligence Pillars) --- */}
+      <section className="section-padding bg-gray-50">
+        <div className="container-custom">
+          <div className="bg-white rounded-[3rem] p-8 md:p-16 shadow-inner border border-gray-100">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-textmain leading-tight">Our Core Philosophy: <br /><span className="text-brandOrange">Responsible Intelligence</span></h2>
+                <div className="space-y-6">
+                  {[
+                    { p: "Privacy by Design", d: "Your proprietary data is never used to train public models." },
+                    { p: "Explainable AI (XAI)", d: "Clear reasoning behind every algorithmic decision." },
+                    { p: "Transfer Learning", d: "Powerful performance even with limited initial datasets." },
+                    { p: "Seamless MLOps", d: "Continuous model retraining without system downtime." },
+                    { p: "Low Latency", d: "Optimized for real-time edge or cloud inference." }
+                  ].map((pillar, i) => (
+                    <div key={i} className="flex gap-4 items-start">
+                      <span className="bg-brandOrange/10 text-brandOrange font-bold px-3 py-1 rounded text-xs">{i + 1}</span>
+                      <div>
+                        <h5 className="font-bold text-textmain text-sm">{pillar.p}</h5>
+                        <p className="text-xs text-gray-500">{pillar.d}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="relative min-h-[400px]">
+                <Image 
+                  src="https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=2070" 
+                  alt="AI Training" 
+                  fill 
+                  className="rounded-3xl object-cover grayscale brightness-50"
+                />
+                <div className="absolute inset-0 flex items-center justify-center p-6">
+                   <div className="bg-white/10 backdrop-blur-md border border-white/20 text-white p-8 rounded-2xl shadow-2xl">
+                      <Terminal className="text-brandOrange mb-4" />
+                      <p className="text-xl font-mono">Running Inference: SUCCESS <br />Accuracy: 99.2%</p>
+                      <span className="text-xs mt-4 block opacity-60">System: Neural Core v4.0</span>
+                   </div>
+                </div>
+              </div>
             </div>
-          ))}
+          </div>
         </div>
       </section>
 
-      {/* 7. CTA SECTION */}
-      <section id="contact" className="section-padding container-custom">
-        <div className="bg-textmain rounded-[3rem] p-12 md:p-24 text-center text-white relative overflow-hidden">
-          <h2 className="heading-xl !text-white !mb-10">
-            Lead the <span className="text-brandOrange">Revolution</span>
-          </h2>
-          <p className="text-muted !text-white !mb-12">
-            The future is autonomous. Is your business ready to leverage the power of artificial intelligence?
-          </p>
-          <Link href="/contact" className="btn-primary !bg-brandOrange">
-            Start AI Project <ArrowRight className="inline ml-2 w-5 h-5" />
-          </Link>
+      {/* --- 7. SECURITY & TRUST --- */}
+      <section className="section-padding bg-white">
+        <div className="container-custom text-center">
+          <h2 className="heading-xl">Enterprise Safety</h2>
+          <p className="text-muted mb-16">AI is powerful; our job is to make it safe and sovereign for your business.</p>
+          
+          <div className="grid md:grid-cols-3 gap-12">
+            {[
+              { icon: <ShieldAlert className="text-red-600" />, t: "Data Sovereignty", d: "Models deployed on your infrastructure, ensuring 100% data ownership." },
+              { icon: <CheckCircle className="text-green-600" />, t: "Bias Mitigation", d: "Strict testing protocols to identify and eliminate algorithmic bias." },
+              { icon: <Terminal className="text-blue-600" />, t: "API Stability", d: "Robust versioning and monitoring for consistent performance." }
+            ].map((risk, i) => (
+              <div key={i} className="flex flex-col items-center text-center">
+                <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mb-6">{risk.icon}</div>
+                <h4 className="font-bold mb-3">{risk.t}</h4>
+                <p className="text-sm text-gray-500 max-w-xs">{risk.d}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
-    </main>
+      {/* --- 8. FINAL CTA --- */}
+      <section className="section-padding bg-brandOrange text-white relative">
+        <div className="container-custom text-center relative z-10">
+          <h2 className="heading-xl !text-white !mb-8">Ready to Build the <br />Autonomous Future?</h2>
+          <p className="text-muted !text-white/80 mb-12">Turn your data into your most valuable employee. Let's discuss your AI roadmap.</p>
+
+          <div className="flex justify-center items-center gap-4 flex-col sm:flex-row">
+            <button onClick={() => openModal("AI Solutions")} className="bg-textmain text-white px-12 py-4 rounded-full font-black hover:scale-105 transition-transform uppercase">
+              Build Your AI Model
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </div>
   );
 }

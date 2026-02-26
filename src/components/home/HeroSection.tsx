@@ -1,62 +1,107 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import ParticleSection from "./Particle";
+import { motion } from "framer-motion"; // 👈 AnimatePresence hata diya
+import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 import VideoSection from "./Video";
+import { useModal } from "@/components/context/ModalContext";
 
-// --- PARTNERS DATA ---
+// 🚀 DYNAMIC IMPORT
+const ParticleSection = dynamic(() => import("./Particle"), { ssr: false });
+
 const partners = [
-  { name: "Meta", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" },
-  { name: "Google", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
-  { name: "Netflix", logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
-  { name: "Microsoft", logo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
-  { name: "Stripe", logo: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" },
-  { name: "Amazon", logo: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
+  { name: "Licious", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" },
+  { name: "Flipkart", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+  { name: "PhonePe", logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
+  { name: "Gupshup", logo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
+  { name: "Cultfit", logo: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" },
 ];
 
-const MatrixSection = () => (
-  <div className="w-full h-full bg-[#050505] flex items-center justify-center relative overflow-hidden">
-    {/* Grid Overlay Sync with Brand */}
-    <div className="absolute inset-0 opacity-10" 
-         style={{ backgroundImage: 'linear-gradient(#FF6B00 1px, transparent 1px), linear-gradient(90deg, #FF6B00 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
-    
-    <div className="relative z-10 text-center space-y-6 px-6"> 
-      <motion.span className="font-black text-[11px] tracking-[0.5em] uppercase block text-brandOrange">
-        Digital Infrastructure
-      </motion.span>
-      <motion.h1 className="heading-xl !text-white !mb-0 italic leading-[0.85]">
-        TECH <span className="text-transparent" style={{ WebkitTextStroke: '1.5px white' }}>MATRIX</span>
-      </motion.h1>
+// --- 🚀 Growth Section ---
+const GrowthSection = ({ onContactClick }: { onContactClick: () => void }) => (
+  <div className="w-full h-full bg-[#fcfcfc] flex items-center justify-center relative overflow-hidden">
+    <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-brandOrange/5 rounded-full blur-[120px] -z-10" />
+
+    <div className="container-custom grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10 pt-32 pb-44 md:pb-52">
+      <div className="text-center md:text-left flex flex-col items-center md:items-start justify-center">
+        <motion.div
+          initial={{ x: -30, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="flex flex-col items-center md:items-start"
+        >
+          <span className="text-brandOrange font-black text-[11px] tracking-[0.4em] uppercase mb-4 block border-l-0 md:border-l-4 border-brandOrange md:pl-3">
+            Engineering Excellence
+          </span>
+          <h1 className="heading-xl !text-center md:!text-left !mb-6 !text-textmain">
+            NIGHWAN TECH <br />
+            <span className="text-brandOrange italic"></span>
+          </h1>
+          <p className="text-muted !text-center md:!text-left !mx-0 mb-8 opacity-80 max-w-md">
+            Engineering your path to growth where your business goals meet our engineering expertise.
+          </p>
+        </motion.div>
+
+        <div className="flex justify-center md:justify-start w-full mt-2">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={onContactClick}
+            className="btn-primary"
+          >
+            Get in Touch
+          </motion.button>
+        </div>
+      </div>
+
+      <div className="relative flex justify-center items-center">
+        <motion.div
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.7 }}
+          className="relative w-full max-w-lg px-4"
+        >
+          <div className="absolute -left-2 md:-left-8 top-10 space-y-4 z-20 hidden sm:block">
+            {['Quality >', 'Time <', 'Quantity >'].map((text, i) => (
+              <div key={i} className={`bg-white shadow-xl px-5 py-2.5 rounded-xl border-l-4 ${i === 1 ? 'border-brandGreen' : 'border-brandOrange'} font-bold text-xs md:text-sm text-textmain whitespace-nowrap`}>
+                {text}
+              </div>
+            ))}
+          </div>
+
+          <div className="bg-white rounded-[40px] md:rounded-[50px] p-4 border border-gray-100 shadow-2xl overflow-hidden flex justify-center items-center relative z-10">
+            <img
+              src="https://illustrations.popsy.co/amber/success.svg"
+              alt="Nighwan Tech Growth"
+              className="w-full h-auto max-h-[300px] md:max-h-[380px] object-contain drop-shadow-xl"
+            />
+          </div>
+        </motion.div>
+      </div>
     </div>
   </div>
 );
 
-// --- LOGO CLOUD (Box Spaced Sync) ---
+// --- 🏗️ Logo Slider ---
 const LogoCloudPremium = () => (
-  <div className="absolute bottom-12 md:bottom-20 left-0 w-full z-40">
-    <div className="container-custom">
-      <div className="max-w-7xl mx-auto mb-10 flex items-center justify-center gap-6 opacity-50">
-         <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-brandOrange" />
-         <p className="font-black text-[10px] text-white tracking-[0.5em] uppercase">Trusted Partners</p>
-         <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-brandOrange" />
-      </div>
+  <div className="absolute bottom-0 left-0 w-full z-40">
+    <div className="bg-white/95 backdrop-blur-md border-t border-gray-100 py-6 md:py-8 shadow-[0_-15px_40px_rgba(0,0,0,0.04)]">
+      <div className="container-custom">
+        <div className="relative flex overflow-hidden group select-none items-center">
+          <div className="absolute left-0 top-0 w-20 md:w-40 h-full bg-gradient-to-r from-white via-white/40 to-transparent z-10" />
+          <div className="absolute right-0 top-0 w-20 md:w-40 h-full bg-gradient-to-l from-white via-white/40 to-transparent z-10" />
 
-      <div className="relative flex overflow-hidden group select-none">
-        {/* Fades synced with Page Bg */}
-        <div className="absolute left-0 top-0 w-32 h-full bg-gradient-to-r from-black to-transparent z-10" />
-        <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-black to-transparent z-10" />
-
-        <div className="flex animate-marquee whitespace-nowrap gap-24 md:gap-40 items-center">
-          {[...partners, ...partners, ...partners].map((item, idx) => (
-            <motion.img
-              key={idx}
-              src={item.logo}
-              alt={item.name}
-              className="h-5 md:h-7 w-auto brightness-0 invert opacity-40 hover:opacity-100 transition-all duration-700 filter drop-shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:drop-shadow-[0_0_20px_rgba(255,107,0,0.4)]"
-              whileHover={{ scale: 1.1, y: -5 }}
-            />
-          ))}
+          <div className="flex animate-marquee whitespace-nowrap gap-16 md:gap-32 items-center">
+            {[...partners, ...partners, ...partners].map((item, idx) => (
+              <img
+                key={idx}
+                src={item.logo}
+                alt={item.name}
+                className="h-6 md:h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -65,76 +110,73 @@ const LogoCloudPremium = () => (
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  const renderSlide = () => {
-    switch (currentSlide) {
-      case 0: return <ParticleSection key="p" />;
-      case 1: return <VideoSection key="v" />;
-      case 2: return <MatrixSection key="m" />;
-      default: return null;
-    }
-  };
+  const { openModal } = useModal();
+  const pathname = usePathname();
 
   return (
-    <section className="relative w-full h-[100dvh] bg-black overflow-hidden m-0 p-0 block z-0">
-      
-      {/* Background Slides with Global Transition */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSlide}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 w-full h-full z-0"
-        >
-          {renderSlide()}
-        </motion.div>
-      </AnimatePresence>
+    <section className="relative w-full h-[100dvh] bg-white overflow-hidden m-0 p-0 block">
 
-      {/* Overlays to ensure Global Text Visibility */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 pointer-events-none z-10" />
+      {/* 🚀 PRE-RENDERING ALL SLIDES (Super Fast Switching) */}
 
-      {/* --- PREMIUM LOGO SLIDER --- */}
+      {/* Slide 0: Growth */}
+      <motion.div
+        animate={{ opacity: currentSlide === 0 ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+        className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 0 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}
+      >
+        <GrowthSection onContactClick={() => openModal(`Hero Section Slider - ${pathname}`)} />
+      </motion.div>
+
+      {/* Slide 1: Particle (Now it loads in background and stays ready) */}
+      <motion.div
+        animate={{ opacity: currentSlide === 1 ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+        className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 1 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}
+      >
+        <ParticleSection />
+      </motion.div>
+
+      {/* Slide 2: Video */}
+      <motion.div
+        animate={{ opacity: currentSlide === 2 ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+        className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 2 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}
+      >
+        <VideoSection />
+      </motion.div>
+
+      {/* -------------------------------------------------------- */}
+
       <LogoCloudPremium />
 
-      {/* Navigation Controls: Synced with Brand Colors */}
-      <div className="absolute right-8 md:right-12 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-10">
+      {/* Slider Controls */}
+      <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-8">
         {[0, 1, 2].map((i) => (
-          <button key={i} onClick={() => setCurrentSlide(i)} className="group flex items-center justify-end gap-5 outline-none">
-            <span className={`text-[10px] font-black tracking-[0.3em] uppercase transition-all duration-500
-              ${currentSlide === i ? "text-brandOrange opacity-100" : "text-white opacity-0 group-hover:opacity-60"}`}>
-              {i === 0 ? "Neural" : i === 1 ? "Identity" : "Matrix"}
+          <button key={i} onClick={() => setCurrentSlide(i)} className="group flex items-center justify-end gap-4 outline-none">
+            <span className={`text-[10px] font-black tracking-widest uppercase transition-all duration-300 px-2 py-1 rounded bg-black/5 backdrop-blur-sm
+              ${currentSlide === i ? "text-brandOrange" : "text-textmain opacity-0 group-hover:opacity-100"}`}>
+              {i === 0 ? "Growth" : i === 1 ? "Neural" : "Identity"}
             </span>
-            <div className={`transition-all duration-700 rounded-full
-              ${currentSlide === i 
-                ? "h-14 w-[4px] bg-brandOrange shadow-[0_0_20px_#FF6B00]" 
-                : "h-6 w-[2px] bg-white/20 group-hover:bg-white/60"}`} 
+            <div className={`transition-all duration-500 rounded-full border border-black/10
+              ${currentSlide === i
+                ? "h-12 w-[5px] bg-brandOrange"
+                : "h-5 w-[3px] bg-gray-300 group-hover:bg-brandOrange"}`}
             />
           </button>
         ))}
       </div>
 
-      {/* Counter: Refined for Global Look */}
-      <div className="absolute bottom-12 left-12 z-50 flex flex-col items-start gap-1">
-        <span className="text-[12px] font-black text-brandOrange tracking-tighter">0{currentSlide + 1}</span>
-        <div className="w-10 h-[1px] bg-white/20" />
-        <span className="text-[10px] font-bold text-white/30">03</span>
+      {/* Slide Index Display */}
+      <div className="absolute bottom-32 md:bottom-36 left-8 md:left-12 z-50 flex flex-col items-start pointer-events-none">
+        <span className="text-[16px] font-black text-brandOrange tracking-tighter drop-shadow-sm">0{currentSlide + 1}</span>
+        <div className="w-10 h-[2px] bg-brandOrange/30 my-1" />
+        <span className="text-[11px] font-bold text-gray-400">03</span>
       </div>
 
       <style jsx global>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-33.333%); }
-        }
-        .animate-marquee {
-          animation: marquee 40s linear infinite;
-        }
-        .container-custom {
-          max-width: 1400px;
-          margin: 0 auto;
-          padding: 0 2rem;
-        }
+        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .animate-marquee { animation: marquee 25s linear infinite; }
+        canvas { background: transparent !important; }
       `}</style>
     </section>
   );

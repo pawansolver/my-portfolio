@@ -1,139 +1,128 @@
 "use client";
-
-import React, { useRef, useMemo, useEffect, useState } from "react";
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import { motion } from "framer-motion";
+import { useModal } from "@/components/context/ModalContext";
+import { usePathname } from "next/navigation";
 
-interface Props {
-  count: number;
-}
+const WaveMesh = () => {
+  const meshRef = useRef<THREE.Points>(null);
+  const rows = 55, cols = 55;
+  const count = rows * cols;
 
-const NeuralNetwork: React.FC<Props> = ({ count }) => {
-  const groupRef = useRef<THREE.Group>(null);
-  const [mouse, setMouse] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMove = (e: MouseEvent) => {
-      setMouse({
-        x: (e.clientX / window.innerWidth) * 2 - 1,
-        y: -(e.clientY / window.innerHeight) * 2 + 1
-      });
-    };
-    window.addEventListener("mousemove", handleMove);
-    return () => window.removeEventListener("mousemove", handleMove);
-  }, []);
-
-  const { positions, linePositions } = useMemo(() => {
+  const [positions, colors] = useMemo(() => {
     const pos = new Float32Array(count * 3);
-    // RADIUS CHOTA KIYA: Taaki globe screen ke center mein fit rahe
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    const baseRadius = isMobile ? 3.0 : 4.0; 
-    
-    for (let i = 0; i < count; i++) {
-      const phi = Math.acos(2 * Math.random() - 1);
-      const theta = 2 * Math.PI * Math.random();
-      pos.set([
-        baseRadius * Math.sin(phi) * Math.cos(theta),
-        baseRadius * Math.sin(phi) * Math.sin(theta),
-        baseRadius * Math.cos(phi)
-      ], i * 3);
-    }
+    const colsArr = new Float32Array(count * 3);
 
-    const lines: number[] = [];
-    const maxDistance = 2.5; 
+    const colorOptions = [
+      new THREE.Color("#007bff"),
+      new THREE.Color("#FF1493"),
+      new THREE.Color("#000000"),
+    ];
+
     for (let i = 0; i < count; i++) {
-      for (let j = i + 1; j < count; j++) {
-        const dx = pos[i * 3] - pos[j * 3];
-        const dy = pos[i * 3 + 1] - pos[j * 3 + 1];
-        const dz = pos[i * 3 + 2] - pos[j * 3 + 2];
-        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        if (dist < maxDistance) {
-          lines.push(pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2], pos[j * 3], pos[j * 3 + 1], pos[j * 3 + 2]);
-        }
-      }
+      const x = (i % cols) - cols / 2;
+      const z = Math.floor(i / cols) - rows / 2;
+      pos.set([x * 0.45, 0, z * 0.45], i * 3);
+
+      const chosenColor = colorOptions[Math.floor(Math.random() * colorOptions.length)];
+      colsArr.set([chosenColor.r, chosenColor.g, chosenColor.b], i * 3);
     }
-    return { positions: pos, linePositions: new Float32Array(lines) };
+    return [pos, colsArr];
   }, [count]);
 
   useFrame(({ clock }) => {
-    const time = clock.elapsedTime;
-    if (groupRef.current) {
-      groupRef.current.rotation.y = time * 0.08;
-      groupRef.current.rotation.x = Math.sin(time * 0.05) * 0.1;
-      // Mouse movement limited taaki movement se globe screen ke bahar na jaye
-      groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, mouse.x * 0.5, 0.05);
-      groupRef.current.position.y = THREE.MathUtils.lerp(groupRef.current.position.y, mouse.y * 0.5, 0.05);
+    const time = clock.getElapsedTime();
+    if (meshRef.current) {
+      const pos = meshRef.current.geometry.attributes.position.array as Float32Array;
+      for (let i = 0; i < count; i++) {
+        const x = pos[i * 3];
+        const z = pos[i * 3 + 2];
+        pos[i * 3 + 1] = Math.sin(x * 0.3 + time) * Math.cos(z * 0.3 + time) * 1.3;
+      }
+      meshRef.current.geometry.attributes.position.needsUpdate = true;
     }
   });
 
   return (
-    <group ref={groupRef}>
-      {/* PARTICLE SIZE CHOTA KIYA: 0.05 for clean look */}
-      <points>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-        </bufferGeometry>
-        <pointsMaterial 
-          size={0.05} 
-          color="#ff5500" 
-          transparent 
-          opacity={1} 
-          blending={THREE.AdditiveBlending} 
-          depthWrite={false} 
-          sizeAttenuation 
-        />
-      </points>
-
-      <lineSegments>
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[linePositions, 3]} />
-        </bufferGeometry>
-        <lineBasicMaterial color="#ff4d00" transparent opacity={0.15} blending={THREE.AdditiveBlending} />
-      </lineSegments>
-    </group>
+    <points ref={meshRef} rotation={[-Math.PI / 3.2, 0, 0]}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute attach="attributes-color" args={[colors, 3]} />
+      </bufferGeometry>
+      <pointsMaterial
+        vertexColors
+        size={0.15}
+        transparent
+        opacity={0.6}
+        sizeAttenuation
+        depthWrite={false}
+        blending={THREE.NormalBlending}
+      />
+    </points>
   );
 };
 
-const ParticleSection: React.FC = () => {
-  return (
-    <div className="absolute inset-0 w-full h-full bg-[#050505] overflow-hidden flex items-center justify-center">
-      
-      <div className="absolute inset-0 z-0">
-        {/* CAMERA DISTANCE BADHAYA: [0, 0, 20] ensures full visibility */}
-        <Canvas 
-          camera={{ position: [0, 0, 20], fov: 35 }}
-          style={{ width: '100%', height: '100%' }}
-          dpr={[1, 2]}
-        >
-          <NeuralNetwork count={240} />
-        </Canvas>
-      </div>
+export default function ParticleSection() {
+  const { openModal } = useModal();
+  const pathname = usePathname();
+  // 🚀 New State to track if Canvas is fully loaded
+  const [isReady, setIsReady] = useState(false);
 
-      <div className="relative z-10 text-center px-4 pointer-events-none w-full">
-        <motion.div
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
+  return (
+    <section className="relative w-full h-screen bg-white overflow-hidden flex items-center justify-center">
+
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,20,147,0.02)_0%,rgba(0,123,255,0.02)_30%,white_80%)]" />
+
+      {/* 🚀 Wrapper div that fades in ONLY when Canvas is ready */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isReady ? 1 : 0 }}
+        transition={{ duration: 1.5, ease: "easeInOut" }} // Smooth 1.5s fade-in
+        className="absolute inset-0 z-10 pointer-events-none"
+      >
+        <Canvas
+          frameloop="always"
+          camera={{ position: [0, 10, 18], fov: 40 }}
+          onCreated={() => setIsReady(true)} // 🚀 Tells React "WebGL is ready, show it now!"
         >
-          <h1 className="text-4xl md:text-7xl lg:text-[90px] font-black text-white leading-none mb-4 uppercase tracking-tighter">
-            NIGHWAN<span className="text-[#ff4d00]">TECH</span>
+          <WaveMesh />
+        </Canvas>
+      </motion.div>
+
+      <div className="container-custom relative z-20 pointer-events-none flex flex-col items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="text-center w-full"
+        >
+          <h1 className="heading-xl">
+            Nighwan<span className="text-textmain">Tech</span>
           </h1>
-          
-          <div className="flex items-center justify-center gap-4">
-            <div className="h-[1px] w-10 md:w-24 bg-gradient-to-l from-[#ff4d00] to-transparent" />
-            <p className="text-white/40 text-[8px] md:text-xs font-bold tracking-[0.5em] md:tracking-[0.8em] uppercase whitespace-nowrap">
+
+          <div className="flex flex-col items-center gap-6 mt-4 w-full">
+            <p className="text-muted tracking-[0.4em] uppercase">
               Neural Intelligence Systems
             </p>
-            <div className="h-[1px] w-10 md:w-24 bg-gradient-to-r from-[#ff4d00] to-transparent" />
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8 }}
+              className="pointer-events-auto flex justify-center w-full"
+            >
+              <button onClick={() => openModal(`Hero Particle Section - ${pathname}`)} className="btn-primary mx-auto">
+                Discover More
+              </button>
+            </motion.div>
           </div>
         </motion.div>
       </div>
 
-      {/* Edge Fading: Bottom se cutting hide karne ke liye gradient */}
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black via-black/60 to-transparent z-20" />
-    </div>
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white via-white/80 to-transparent z-30 pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white to-transparent z-30 pointer-events-none" />
+    </section>
   );
-};
-
-export default ParticleSection;
+}

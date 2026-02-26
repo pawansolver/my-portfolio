@@ -1,118 +1,61 @@
 "use client";
-
 import React, { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useModal } from "@/components/context/ModalContext"; // Popup Context
+import { usePathname } from "next/navigation"; // Path tracking
 
-interface VideoSectionProps {
-  onPrevious?: () => void;
-  onNext?: () => void;
-}
-
-const VideoSection: React.FC<VideoSectionProps> = ({ onPrevious }) => {
+export default function VideoSection() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [showContent, setShowContent] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const { openModal } = useModal();
+  const pathname = usePathname();
 
   useEffect(() => {
-    setIsMounted(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => { });
+    }
   }, []);
 
-  useEffect(() => {
-    if (!isMounted) return;
-    
-    const video = videoRef.current;
-    if (!video) return;
-
-    const handleVideoLoad = () => {
-      setIsLoaded(true);
-      video.play().catch(err => console.log("Autoplay failed:", err));
-    };
-
-    video.addEventListener("loadeddata", handleVideoLoad);
-    return () => video.removeEventListener("loadeddata", handleVideoLoad);
-  }, [isMounted]);
-
-  useEffect(() => {
-    if (isLoaded) {
-      const timer = setTimeout(() => setShowContent(true), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [isLoaded]);
-
   return (
-    // h-screen ensures it takes full viewport height without overflow
-    <section className="relative w-full h-screen overflow-hidden bg-black">
-      
-      {/* Video Background Container */}
-      <div className="absolute inset-0 z-0">
-        {isMounted ? (
-          <video
-            ref={videoRef}
-            autoPlay
-            loop
-            muted
-            playsInline
-            // object-cover ensures the video fills the area without stretching
-            className="w-full h-full object-cover"
-            style={{ 
-              filter: "brightness(0.7) contrast(1.1)",
-              // Removed scale(1.05) to prevent edges from being cut off
-              transition: "opacity 1s ease-in-out",
-              opacity: isLoaded ? 1 : 0
-            }}
-          >
-            <source src="https://res.cloudinary.com/dvths4ecl/video/upload/v1770939068/14294714_3840_2160_24fps_vyyytu.mp4" type="video/mp4" />
-          </video>
-        ) : (
-          <div className="w-full h-full bg-black" />
-        )}
-        
-        {/* Overlays - Adjusted for better contrast */}
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80" />
-      </div>
+    <div className="relative w-full h-full bg-white overflow-hidden flex items-center justify-center">
+      <video
+        ref={videoRef}
+        autoPlay
+        loop
+        muted
+        playsInline
+        onLoadedData={() => setIsLoaded(true)}
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}
+        style={{
+          filter: "none",
+          background: "transparent"
+        }}
+      >
+        <source src="https://res.cloudinary.com/dvths4ecl/video/upload/v1770939068/14294714_3840_2160_24fps_vyyytu.mp4" type="video/mp4" />
+      </video>
 
-      {/* Content Overlay - Centered properly */}
-      <div className="relative z-20 flex flex-col items-center justify-center h-full text-center px-4">
-        <div 
-          className={`transition-all duration-1000 transform ${
-            showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
+      <div className="absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6 w-full">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center w-full"
         >
-          {/* Headline - Added responsive text sizes */}
-          <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter mb-4">
-            OUR <span className="text-blue-500">IDENTITY</span>
+          <h1 className="heading-xl !text-white drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
+            OUR <span className="text-brandOrange">IDENTITY</span>
           </h1>
-          
-          <p className="text-lg md:text-2xl text-white/80 font-light tracking-widest uppercase">
+          <p className="text-muted !text-white/90 uppercase tracking-[0.4em] mb-8 font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.4)]">
             Architects of the Digital Future
           </p>
 
-          {/* Trust Indicators - Simplified for better fit */}
-          <div className="mt-10 flex flex-wrap justify-center gap-6">
-            {[
-              { label: "Enterprise Security", color: "text-green-400" },
-              { label: "99.9% Uptime", color: "text-blue-400" },
-              { label: "24/7 AI Support", color: "text-purple-400" }
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-2 bg-white/5 backdrop-blur-sm px-4 py-2 rounded-full border border-white/10">
-                <div className={`w-2 h-2 rounded-full ${item.color} animate-pulse`} />
-                <span className="text-white/70 text-xs md:text-sm font-medium">{item.label}</span>
-              </div>
-            ))}
+          {/* 🚀 Popup Attach + Center Fix */}
+          <div className="mt-6 flex justify-center w-full">
+            <button onClick={() => openModal(`Hero Video Section - ${pathname}`)} className="btn-primary mx-auto">
+              View Showcase
+            </button>
           </div>
-        </div>
+        </motion.div>
       </div>
-
-      {/* Decorative Border Lines - Fixed to edges */}
-      <div className="absolute inset-0 z-30 pointer-events-none border-[1px] border-white/5" />
-      
-      {/* Navigation Hint (Optional) */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 animate-bounce">
-        <div className="w-px h-12 bg-gradient-to-b from-blue-500 to-transparent" />
-      </div>
-    </section>
+    </div>
   );
-};
-
-export default VideoSection;
+}

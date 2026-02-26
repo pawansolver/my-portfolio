@@ -5,9 +5,11 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-import Navbar from "@/components/navbar/Navbar";
-import Footer from "@/components/layout/footer/Footer";
 import AnimatedCursor from "@/components/layout/AnimatedCursor";
+import ConditionalLayout from "@/components/layout/ConditionalLayout";
+
+// 🚀 ModalProvider import kiya
+import { ModalProvider } from "@/components/context/ModalContext";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -32,6 +34,10 @@ export const metadata: Metadata = {
     images: [{ url: "/og-image.png" }],
   },
 };
+
+import { Inter } from "next/font/google";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -63,17 +69,16 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning={true}
-        className="antialiased flex flex-col min-h-screen"
+        className={`${inter.className} antialiased flex flex-col min-h-screen`}
       >
         <AnimatedCursor />
-        <Navbar />
 
-        <main className="flex-grow relative z-10 w-full">
-          {children}
-        </main>
+        <ModalProvider>
+          <ConditionalLayout>
+            {children}
+          </ConditionalLayout>
+        </ModalProvider>
 
-        <Footer />
-        
         {/* Industry standard monitoring */}
         <Analytics />
         <SpeedInsights />

@@ -1,11 +1,13 @@
-// src/app/contact/page.tsx
-import ContactSection from '@/components/home/ContactSection';
+import ContactPage from '@/components/home/ContactSection';
 
-export default function ContactPage() {
+export default function Contact() {
   return (
-    // pt-32 (Desktop) aur pt-24 (Mobile) Navbar ke liye space bana dega
-    <main className="pt-24 md:pt-32 bg-brandOrange"> 
-      <ContactSection isFullPage={true} />
+    <main>
+      {/* Navbar ke piche content na chupe isliye padding top (pt-20) add kar sakte hain */}
+      <section id="contact" className="pt-20">
+        {/* YAHAN CHANGE HAI: true pass karein */}
+        <ContactPage isFullPage={true} />
+      </section>
     </main>
   );
 }

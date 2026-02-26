@@ -1,208 +1,279 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Send, Mail, Phone, ShieldCheck, Clock, ChevronDown, UserCheck, Zap, Cog, Globe, Calendar } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import {
+  Send, MapPin, Mail, ArrowRight,
+  Plus, CheckCircle2, Building2, MessageSquare,
+  Clock, Video, ShieldCheck
+} from 'lucide-react';
+import ProjectInquiryModal from '../modals/ProjectInquiryModal';
 
-interface ContactProps {
-  isFullPage?: boolean;
-}
+const faqs = [
+  { q: "How fast can we start?", a: "Typically within 7-10 business days after strategy finalization." },
+  { q: "Do you offer post-launch support?", a: "Yes, we provide full maintenance and feature scaling packages." },
+  { q: "How do you handle pricing?", a: "Flexible fixed-price or time & material models based on project scope." },
+];
 
-const ContactSection: React.FC<ContactProps> = ({ isFullPage = false }) => {
-  const [activeFAQ, setActiveFAQ] = useState<number | null>(null);
-  const [selectedDept, setSelectedDept] = useState('Sales');
-  
-  // --- Global Clocks Logic ---
-  const [times, setTimes] = useState({ india: '', dubai: '', london: '' });
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const options: Intl.DateTimeFormatOptions = { hour: '2-digit', minute: '2-digit', hour12: true };
-      setTimes({
-        india: new Date().toLocaleTimeString('en-US', { ...options, timeZone: 'Asia/Kolkata' }),
-        dubai: new Date().toLocaleTimeString('en-US', { ...options, timeZone: 'Asia/Dubai' }),
-        london: new Date().toLocaleTimeString('en-US', { ...options, timeZone: 'Europe/London' }),
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // --- WhatsApp Integration with Sandeep's Number ---
-  const handleWhatsAppRedirect = () => {
-    const phoneNumber = "919523922090"; // Sandeep's direct number
-    const message = encodeURIComponent("Hi Sandeep, I want to discuss a new project for my brand.");
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
-  };
-
-  const faqs = [
-    { q: "How fast can we start?", a: "Typically, we can kick off a project within 1 week after the initial strategy call." },
-    { q: "Do you sign NDAs?", a: "Yes, 100%. We prioritize client confidentiality." },
-    { q: "What is your pricing model?", a: "We offer both fixed-price and monthly retainer models." }
-  ];
-
-  const departments = [
-    { id: 'sales', name: 'Sales', icon: <Zap size={14} /> },
-    { id: 'founder', name: 'Founder', icon: <UserCheck size={14} /> },
-    { id: 'tech', name: 'Support', icon: <Cog size={14} /> },
-  ];
+const ContactSection = ({ isFullPage = false }) => {
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
-    <section className={`relative w-full bg-white flex flex-col items-center overflow-hidden pb-20 ${isFullPage ? 'min-h-screen pt-32' : 'pt-10'}`}>
-      
-      {/* --- Header Background --- */}
-      <div className={`absolute top-0 left-0 w-full bg-brandOrange z-0 flex items-center justify-center overflow-hidden transition-all duration-700 ${isFullPage ? 'h-[60vh]' : 'h-[22vh]'}`}>
-        <motion.h1 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          className="text-white/10 text-[20vw] font-black select-none leading-none uppercase tracking-tighter"
-        >
-          Contact
-        </motion.h1>
-      </div>
+    <main className="bg-slate-50 overflow-hidden w-full">
 
-      {/* --- Main Content --- */}
-      <div className={`relative z-10 w-full transition-all duration-700 ${isFullPage ? 'container-custom grid grid-cols-1 lg:grid-cols-12 gap-16' : 'max-w-[850px] mt-[10vh] px-6'}`}>
-        
-        {/* --- LEFT SIDE: Sandeep's Founder Card (Contact Page Only) --- */}
-        {isFullPage && (
-          <div className="lg:col-span-5 space-y-12">
-            
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }} 
-              animate={{ opacity: 1, x: 0 }}
-              className="p-10 bg-textmain rounded-[3rem] text-white relative overflow-hidden group shadow-2xl border border-white/5"
-            >
-              <div className="relative z-10">
-                <div className="flex items-center gap-6 mb-8">
-                  {/* Branding Avatar */}
-                  <div className="w-20 h-20 rounded-full bg-brandOrange flex items-center justify-center font-black text-3xl border-4 border-white/20 shadow-xl">
-                    SN
+      <ProjectInquiryModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        sourcePage={pathname}
+      />
+
+      {/* ─────────────────────────────────────────────────────────
+          SECTION 1: HERO (🚀 PUSHED BEHIND NAVBAR) 
+          ───────────────────────────────────────────────────────── */}
+      {isFullPage && (
+        /* 🚀 -mt-[150px] lagaya hai taaki ye dark section navbar ke piche chala jaye aur white gap khatam ho */
+        <section className="relative w-full bg-textmain -mt-[150px] pt-[200px] pb-32 overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-brandOrange/20 blur-[120px] rounded-full pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-brandGreen/20 blur-[120px] rounded-full pointer-events-none" />
+
+          <div className="container-custom relative z-10 text-center flex flex-col items-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+              <span className="inline-flex items-center gap-2 bg-white/10 text-brandOrange text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-5 border border-white/10 backdrop-blur-md">
+                <MessageSquare className="w-3.5 h-3.5" /> Let's Connect
+              </span>
+
+              <h1 className="heading-xl !text-white">
+                Ready to Build <br /> The Next Big Thing?
+              </h1>
+              <p className="text-muted !text-slate-300">
+                Whether you have a fully formed RFP or just a visionary idea, our engineers are ready to architect your success.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────
+          SECTION 2: 3D FORM & CONTACT INFO 
+          ───────────────────────────────────────────────────────── */}
+      <section className={`relative z-20 w-full ${!isFullPage ? 'py-20 bg-slate-50/50' : 'pb-20 bg-slate-50'}`}>
+        <div className="container-custom max-w-6xl">
+
+          <div className={`grid grid-cols-1 ${isFullPage ? 'lg:grid-cols-12 gap-12 -mt-24' : 'max-w-3xl mx-auto'} items-start`}>
+
+            {/* --- LEFT SIDE: INFO CARDS --- */}
+            {isFullPage && (
+              <div className="lg:col-span-5 space-y-6 relative z-30">
+                <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 group hover:border-brandOrange/30 transition-colors">
+                  <div className="w-12 h-12 bg-slate-50 text-brandOrange rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brandOrange group-hover:text-white transition-colors">
+                    <Building2 size={24} />
                   </div>
-                  <div>
-                    <h4 className="font-black text-2xl uppercase italic leading-none tracking-tight">Sandeep Nighwan</h4>
-                    <p className="text-brandOrange text-[12px] font-black uppercase tracking-[0.3em] mt-2 text-left">Founder & CEO</p>
+                  <h3 className="text-xl font-bold text-textmain mb-2">Global HQ</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed mb-4">
+                    Nighwan Tech Pvt. Ltd.<br />
+                    Sector 62, Gurugram,<br />
+                    Haryana, India
+                  </p>
+                  <a href="#" className="text-brandOrange text-sm font-bold flex items-center gap-1 hover:underline">
+                    View on Maps <ArrowRight size={14} />
+                  </a>
+                </motion.div>
+
+                <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="bg-white p-8 rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 group hover:border-brandGreen/30 transition-colors">
+                  <div className="w-12 h-12 bg-slate-50 text-brandGreen rounded-2xl flex items-center justify-center mb-6 group-hover:bg-brandGreen group-hover:text-white transition-colors">
+                    <Mail size={24} />
                   </div>
-                </div>
-
-                <p className="text-lg text-white/80 font-medium leading-relaxed mb-10 italic text-left max-w-sm">
-                  "Stop waiting for the perfect time. Let's build your digital legacy today with precision and scale."
-                </p>
-
-                {/* WhatsApp Redirect Button - Direct to Sandeep */}
-                <button 
-                  onClick={handleWhatsAppRedirect}
-                  className="w-full md:w-auto flex items-center justify-center gap-4 bg-brandOrange text-white px-10 py-5 rounded-2xl transition-all font-black text-[13px] uppercase tracking-[0.2em] shadow-[0_10px_30px_rgba(255,103,0,0.3)] hover:scale-105 active:scale-95 group"
-                >
-                  <div className="bg-white/20 p-2 rounded-lg group-hover:bg-white/30 transition-colors">
-                    <Calendar size={18} className="text-white" /> 
+                  <h3 className="text-xl font-bold text-textmain mb-2">Direct Contact</h3>
+                  <div className="space-y-3">
+                    <p className="flex flex-col">
+                      <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">New Business</span>
+                      <span className="text-slate-700 font-medium mt-0.5">hello@nighwantech.com</span>
+                    </p>
+                    <p className="flex flex-col">
+                      <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Careers</span>
+                      <span className="text-slate-700 font-medium mt-0.5">careers@nighwantech.com</span>
+                    </p>
                   </div>
-                  Book Strategy Call
-                </button>
-
-                <p className="mt-4 text-[10px] font-bold text-white/40 uppercase tracking-widest text-center md:text-left">
-                  ⚡ Direct Line to Sandeep • Response in ~15m
-                </p>
+                </motion.div>
               </div>
-              <Globe className="absolute -right-16 -bottom-16 text-white/5 w-60 h-60 group-hover:rotate-45 transition-transform duration-[2000ms]" />
+            )}
+
+            {/* --- RIGHT/CENTER: THE 3D PREMIUM FORM --- */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4 }}
+              className={isFullPage ? "lg:col-span-7 relative z-30" : "w-full relative"}
+            >
+              <div className="absolute -inset-1 bg-gradient-to-tr from-brandOrange via-transparent to-brandGreen rounded-[2.5rem] blur-xl opacity-30"></div>
+
+              <div className="relative bg-white/80 backdrop-blur-xl p-8 md:p-12 rounded-[2rem] border border-white shadow-2xl overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-brandOrange/5 rounded-bl-[100px] pointer-events-none border-b border-l border-brandOrange/10" />
+
+                {!isFullPage && (
+                  <div className="text-center mb-8 flex flex-col items-center">
+                    <h2 className="heading-xl">Start a Conversation</h2>
+                    <p className="text-muted">Tell us about your next project.</p>
+                  </div>
+                )}
+                {isFullPage && (
+                  <div className="mb-8">
+                    <h3 className="text-2xl font-bold text-textmain">Send us a message</h3>
+                    <p className="text-slate-500 text-sm mt-1">We usually reply within 24 hours.</p>
+                  </div>
+                )}
+
+                <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                  <input type="hidden" name="source_page" value={`static_form_${pathname}`} />
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <PremiumInput label="First Name" placeholder="Jane" />
+                    <PremiumInput label="Last Name" placeholder="Doe" />
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-6">
+                    <PremiumInput label="Work Email" placeholder="jane@company.com" type="email" />
+                  </div>
+
+                  <div className="space-y-2 group">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-focus-within:text-brandOrange transition-colors block ml-2">
+                      How can we help?
+                    </label>
+                    <textarea
+                      rows={4}
+                      className="w-full p-4 rounded-2xl bg-slate-50/50 border border-slate-200 focus:border-brandOrange/50 focus:bg-white outline-none transition-all text-sm text-textmain placeholder:text-slate-400 resize-none shadow-inner"
+                      placeholder="Tell us about your project timeline and goals..."
+                    />
+                  </div>
+
+                  <div className="pt-2 flex justify-center">
+                    <button className="btn-primary gap-2 w-full md:w-auto">
+                      Send Message <Send size={16} />
+                    </button>
+                  </div>
+                </form>
+
+                <div className="mt-6 flex items-center justify-center gap-2 text-xs text-slate-400 font-medium">
+                  <ShieldCheck size={14} className="text-brandGreen" /> Strict NDA & Privacy Maintained
+                </div>
+              </div>
             </motion.div>
 
-            {/* Global Clocks */}
-            <div className="grid grid-cols-3 gap-4">
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────
+          SECTION: WHAT HAPPENS NEXT?
+          ───────────────────────────────────────────────────────── */}
+      {isFullPage && (
+        <section className="section bg-textmain text-white py-24">
+          <div className="container-custom">
+            <div className="text-center mb-16 flex flex-col items-center">
+              <h2 className="heading-xl text-white">What Happens Next?</h2>
+              <p className="text-muted text-slate-400">Our streamlined onboarding process ensures we hit the ground running.</p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
               {[
-                { city: 'India', time: times.india },
-                { city: 'Dubai', time: times.dubai },
-                { city: 'London', time: times.london }
-              ].map((loc, i) => (
-                <div key={i} className="bg-slate-50 p-4 rounded-2xl border border-slate-100 text-center group hover:border-brandOrange transition-all">
-                  <p className="text-[12px] font-bold uppercase text-slate-400 tracking-tighter mb-1">{loc.city}</p>
-                  <p className="text-[12px] font-bold text-textmain group-hover:text-brandOrange transition-colors">{loc.time}</p>
+                { step: "01", title: "Discovery Call", desc: "Within 24 hours, our tech lead will connect to understand your core requirements.", icon: <Video size={24} /> },
+                { step: "02", title: "Strategy & Proposal", desc: "We draft a comprehensive roadmap, architecture plan, and transparent pricing.", icon: <MapPin size={24} /> },
+                { step: "03", title: "Kickoff Project", desc: "We assign a dedicated engineering pod and sprint cycles begin immediately.", icon: <CheckCircle2 size={24} /> }
+              ].map((item, i) => (
+                <div key={i} className="relative p-6 bg-white/5 border border-white/10 rounded-3xl hover:bg-white/10 transition-colors text-center md:text-left">
+                  {i !== 2 && <div className="hidden md:block absolute top-12 left-[85%] w-1/2 h-0.5 bg-gradient-to-r from-brandOrange to-transparent opacity-50 z-0" />}
+                  <div className="relative z-10 w-14 h-14 bg-brandOrange text-white rounded-full flex items-center justify-center font-black text-xl mb-6 mx-auto md:mx-0 shadow-lg shadow-brandOrange/20">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                  <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+      )}
 
-            {/* FAQs */}
-            <div className="space-y-3 pt-6 border-t border-slate-100">
-              <p className="text-[11px] font-bold uppercase tracking-widest text-textmain mb-4 italic text-left">Direct FAQ's</p>
+      {/* ─────────────────────────────────────────────────────────
+          SECTION: BOOK A DIRECT CALL
+          ───────────────────────────────────────────────────────── */}
+      {isFullPage && (
+        <section className="section bg-orange-50 border-y border-orange-100/50 py-20">
+          <div className="container-custom flex flex-col md:flex-row items-center justify-between gap-10 bg-white p-10 md:p-16 rounded-[3rem] shadow-xl">
+            <div className="max-w-xl text-center md:text-left flex flex-col md:items-start items-center">
+              <h2 className="heading-xl !text-left mb-4">Hate filling out forms? <br /> <span className="text-brandOrange">Let's talk directly.</span></h2>
+              <p className="text-muted !text-left">Book a 15-minute discovery call directly with our technical founders. No sales pitches, just pure architecture and scaling strategies.</p>
+            </div>
+            <div className="flex-shrink-0">
+              <button onClick={() => setIsModalOpen(true)} className="btn-primary gap-2">
+                <Clock size={18} /> Schedule on Calendly
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─────────────────────────────────────────────────────────
+          SECTION: FAQ 
+          ───────────────────────────────────────────────────────── */}
+      {isFullPage && (
+        <section className="section bg-white border-t border-slate-100 py-24">
+          <div className="container-custom max-w-3xl">
+            <div className="text-center mb-12 flex flex-col items-center">
+              <h2 className="heading-xl">Frequently Asked Questions</h2>
+              <p className="text-muted">Clear answers to help you make informed decisions.</p>
+            </div>
+
+            <div className="space-y-4">
               {faqs.map((faq, i) => (
-                <div key={i} className="bg-white rounded-xl border border-slate-100 overflow-hidden shadow-sm">
-                  <button onClick={() => setActiveFAQ(activeFAQ === i ? null : i)} className="w-full p-4 flex justify-between items-center text-left text-textmain font-bold text-[10px] uppercase">
-                    {faq.q} <ChevronDown size={14} className={`transition-transform ${activeFAQ === i ? 'rotate-180 text-brandOrange' : ''}`} />
+                <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-brandOrange/30 transition-colors bg-slate-50/30">
+                  <button onClick={() => setActiveFaq(activeFaq === i ? null : i)} className="w-full p-6 flex justify-between items-center text-left font-bold text-sm text-textmain hover:text-brandOrange transition-colors">
+                    {faq.q}
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${activeFaq === i ? 'bg-brandOrange text-white rotate-45' : 'bg-white border border-slate-200 text-slate-400'}`}>
+                      <Plus size={16} />
+                    </div>
                   </button>
                   <AnimatePresence>
-                    {activeFAQ === i && (
-                      <motion.div initial={{ height: 0 }} animate={{ height: 'auto' }} exit={{ height: 0 }} className="px-4 pb-4 text-slate-500 text-[11px] leading-relaxed">
-                        {faq.a}
+                    {activeFaq === i && (
+                      <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                        <div className="px-6 pb-6 pt-0 text-slate-600 text-sm leading-relaxed border-t border-slate-100 mt-2 pt-4">
+                          {faq.a}
+                        </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
               ))}
             </div>
-          </div>
-        )}
 
-        {/* --- RIGHT SIDE: Form --- */}
-        <div className={isFullPage ? "lg:col-span-7" : "w-full"}>
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }} 
-            whileInView={{ opacity: 1, y: 0 }} 
-            className="w-full bg-white rounded-[3rem] shadow-[0_40px_120px_rgba(0,0,0,0.08)] p-8 md:p-14 border border-slate-50"
-          >
-            {isFullPage && (
-              <div className="mb-12">
-                <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brandOrange/70 mb-4 text-left">Route To:</p>
-                <div className="grid grid-cols-3 gap-3">
-                  {departments.map((dept) => (
-                    <button
-                      key={dept.id}
-                      type="button"
-                      onClick={() => setSelectedDept(dept.name)}
-                      className={`p-3 rounded-2xl border-2 transition-all duration-300 flex flex-col items-center gap-1 ${
-                        selectedDept === dept.name ? 'border-brandOrange bg-brandOrange/5' : 'border-slate-50 hover:border-slate-100'
-                      }`}
-                    >
-                      <span className={selectedDept === dept.name ? 'text-brandOrange' : 'text-slate-300'}>{dept.icon}</span>
-                      <span className="font-bold text-[9px] uppercase text-textmain">{dept.name}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            <div className="mb-10 text-left">
-              <span className="font-bold text-[11px] tracking-[0.4em] uppercase mb-2 block text-brandOrange">Message Us</span>
-              <h3 className="text-3xl font-bold text-textmain uppercase italic tracking-tighter leading-none">
-                {isFullPage ? `Contacting ${selectedDept}` : 'Get in Touch'}
-              </h3>
+            <div className="mt-12 text-center flex flex-col items-center">
+              <p className="text-muted mb-6">Still have questions? We're here to help.</p>
+              <button onClick={() => setIsModalOpen(true)} className="btn-secondary">
+                Schedule a Call
+              </button>
             </div>
+          </div>
+        </section>
+      )}
 
-            <form className="space-y-10" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
-                {[{ label: 'First Name', type: 'text' }, { label: 'Last Name', type: 'text' }, { label: 'Email Address', type: 'email' }, { label: 'Phone Number', type: 'tel' }].map((field, idx) => (
-                  <div key={idx} className="text-left border-b-2 border-slate-100 focus-within:border-brandOrange transition-all duration-500">
-                    <label className="font-bold text-[10px] tracking-[0.2em] uppercase text-brandOrange/70 mb-1 block">{field.label}</label>
-                    <input type={field.type} required className="w-full bg-transparent py-3 outline-none font-bold text-textmain text-[14px] uppercase" placeholder={`${field.label.toUpperCase()}...`} />
-                  </div>
-                ))}
-              </div>
-              <div className="text-left border-b-2 border-slate-100 focus-within:border-brandOrange transition-all duration-500">
-                <label className="font-bold text-[10px] tracking-[0.2em] uppercase text-brandOrange/70 mb-1 block">Project Brief</label>
-                <textarea rows={1} required className="w-full bg-transparent py-3 outline-none font-bold text-textmain text-[14px] uppercase resize-none" placeholder="DESCRIBE YOUR VISION..." />
-              </div>
-              
-              <motion.button 
-                whileHover={{ scale: 1.05 }} 
-                whileTap={{ scale: 0.95 }} 
-                className="w-full bg-textmain text-white py-6 rounded-full font-bold text-[11px] uppercase tracking-[0.4em] transition-all hover:bg-brandOrange flex items-center justify-center gap-4 group shadow-xl"
-              >
-                Send Message <Send size={14} className="text-brandOrange group-hover:translate-x-1 transition-transform" />
-              </motion.button>
-            </form>
-          </motion.div>
-        </div>
-      </div>
-    </section>
+    </main>
   );
 };
+
+const PremiumInput = ({ label, placeholder, type = "text" }: any) => (
+  <div className="space-y-2 group">
+    <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-focus-within:text-brandOrange transition-colors block ml-2">
+      {label}
+    </label>
+    <input
+      type={type}
+      className="w-full p-4 h-14 rounded-2xl bg-slate-50/50 border border-slate-200 focus:border-brandOrange/50 focus:bg-white outline-none transition-all text-sm text-textmain placeholder:text-slate-400 shadow-inner"
+      placeholder={placeholder}
+    />
+  </div>
+);
 
 export default ContactSection;
