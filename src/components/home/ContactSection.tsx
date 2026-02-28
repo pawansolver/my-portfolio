@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useActionState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import {
@@ -9,6 +9,8 @@ import {
   Clock, Video, ShieldCheck
 } from 'lucide-react';
 import ProjectInquiryModal from '../modals/ProjectInquiryModal';
+// 🔥 ACTION IMPORT (Path apne project ke hisaab se check kar lena)
+import { contactAction } from '@/actions/contact';
 
 const faqs = [
   { q: "How fast can we start?", a: "Typically within 7-10 business days after strategy finalization." },
@@ -20,6 +22,9 @@ const ContactSection = ({ isFullPage = false }) => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const pathname = usePathname();
+
+  // 🔥 SERVER ACTION HOOK (UI state handle karne ke liye)
+  const [state, formAction, isPending] = useActionState(contactAction, null);
 
   return (
     <main className="bg-slate-50 overflow-hidden w-full">
@@ -34,7 +39,6 @@ const ContactSection = ({ isFullPage = false }) => {
           SECTION 1: HERO (🚀 PUSHED BEHIND NAVBAR) 
           ───────────────────────────────────────────────────────── */}
       {isFullPage && (
-        /* 🚀 -mt-[150px] lagaya hai taaki ye dark section navbar ke piche chala jaye aur white gap khatam ho */
         <section className="relative w-full bg-textmain -mt-[150px] pt-[200px] pb-32 overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 w-96 h-96 bg-brandOrange/20 blur-[120px] rounded-full pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-96 h-96 bg-brandGreen/20 blur-[120px] rounded-full pointer-events-none" />
@@ -126,16 +130,30 @@ const ContactSection = ({ isFullPage = false }) => {
                   </div>
                 )}
 
-                <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                {/* 🔥 FORM ACTION YAHAN ADD KIYA HAI */}
+                <form className="space-y-6" action={formAction}>
                   <input type="hidden" name="source_page" value={`static_form_${pathname}`} />
 
+                  {/* 🔥 SUCCESS / ERROR MESSAGE BLOCK */}
+                  {state?.success && (
+                    <div className="p-4 bg-green-50/80 border border-green-200 text-green-700 rounded-2xl text-sm font-bold flex items-center gap-2">
+                      <CheckCircle2 size={18} /> Message Sent Successfully! We'll get back to you.
+                    </div>
+                  )}
+                  {state?.error && (
+                    <div className="p-4 bg-red-50/80 border border-red-200 text-red-600 rounded-2xl text-sm font-bold">
+                      ❌ {state.error}
+                    </div>
+                  )}
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <PremiumInput label="First Name" placeholder="Jane" />
-                    <PremiumInput label="Last Name" placeholder="Doe" />
+                    {/* 🔥 NAME ATTRIBUTES ADDED */}
+                    <PremiumInput name="firstName" label="First Name" placeholder="Jane" required={true} disabled={isPending} />
+                    <PremiumInput name="lastName" label="Last Name" placeholder="Doe" required={true} disabled={isPending} />
                   </div>
 
                   <div className="grid grid-cols-1 gap-6">
-                    <PremiumInput label="Work Email" placeholder="jane@company.com" type="email" />
+                    <PremiumInput name="email" label="Work Email" placeholder="jane@company.com" type="email" required={true} disabled={isPending} />
                   </div>
 
                   <div className="space-y-2 group">
@@ -143,15 +161,23 @@ const ContactSection = ({ isFullPage = false }) => {
                       How can we help?
                     </label>
                     <textarea
+                      name="message" // 🔥 NAME ATTRIBUTE ADDED
+                      required
+                      disabled={isPending}
                       rows={4}
-                      className="w-full p-4 rounded-2xl bg-slate-50/50 border border-slate-200 focus:border-brandOrange/50 focus:bg-white outline-none transition-all text-sm text-textmain placeholder:text-slate-400 resize-none shadow-inner"
+                      className="w-full p-4 rounded-2xl bg-slate-50/50 border border-slate-200 focus:border-brandOrange/50 focus:bg-white outline-none transition-all text-sm text-textmain placeholder:text-slate-400 resize-none shadow-inner disabled:opacity-50"
                       placeholder="Tell us about your project timeline and goals..."
                     />
                   </div>
 
                   <div className="pt-2 flex justify-center">
-                    <button className="btn-primary gap-2 w-full md:w-auto">
-                      Send Message <Send size={16} />
+                    {/* 🔥 TYPE SUBMIT & PENDING STATE ADDED */}
+                    <button
+                      type="submit"
+                      disabled={isPending}
+                      className="btn-primary gap-2 w-full md:w-auto disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center"
+                    >
+                      {isPending ? "Sending..." : "Send Message"} <Send size={16} />
                     </button>
                   </div>
                 </form>
@@ -263,14 +289,18 @@ const ContactSection = ({ isFullPage = false }) => {
   );
 };
 
-const PremiumInput = ({ label, placeholder, type = "text" }: any) => (
+// 🔥 PREMIUM INPUT UPDATED (Ab ye 'name' aur 'required' accept karega backend ke liye)
+const PremiumInput = ({ label, placeholder, name, type = "text", required = false, disabled = false }: any) => (
   <div className="space-y-2 group">
     <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-focus-within:text-brandOrange transition-colors block ml-2">
       {label}
     </label>
     <input
+      name={name}
       type={type}
-      className="w-full p-4 h-14 rounded-2xl bg-slate-50/50 border border-slate-200 focus:border-brandOrange/50 focus:bg-white outline-none transition-all text-sm text-textmain placeholder:text-slate-400 shadow-inner"
+      required={required}
+      disabled={disabled}
+      className="w-full p-4 h-14 rounded-2xl bg-slate-50/50 border border-slate-200 focus:border-brandOrange/50 focus:bg-white outline-none transition-all text-sm text-textmain placeholder:text-slate-400 shadow-inner disabled:opacity-50"
       placeholder={placeholder}
     />
   </div>

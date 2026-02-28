@@ -19,7 +19,7 @@ import {
     LogIn,
     AlertCircle,
 } from "lucide-react";
-import { loginAction, signupAction, type AuthActionResult } from "@/app/actions/auth";
+import { loginAction, signupAction, type AuthActionResult } from "@/actions/auth";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Types
@@ -147,7 +147,7 @@ function LoginForm({ onSwitchToSignup }: { onSwitchToSignup: () => void }) {
                 e instanceof Error &&
                 (e.message === "NEXT_REDIRECT" || e.message.startsWith("NEXT_REDIRECT"))
             ) {
-                router.push("/dashboard");
+                window.location.href = "/crm-dashboard";
                 return { success: true };
             }
             return { success: false, error: "Something went wrong. Please try again." };

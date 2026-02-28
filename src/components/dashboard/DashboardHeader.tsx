@@ -18,7 +18,7 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from '@/hooks/useSession';
-import { logoutAction } from '@/app/actions/auth';
+import { logoutAction } from '@/actions/auth';
 
 interface DashboardHeaderProps {
     isCollapsed: boolean;

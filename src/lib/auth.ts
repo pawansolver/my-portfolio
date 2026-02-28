@@ -54,9 +54,9 @@ export async function getSession(): Promise<SessionPayload | null> {
 
 // ── Cookie Options ────────────────────────────────────────────────────────────
 export const SESSION_COOKIE_OPTIONS = {
-    httpOnly: true,
+    httpOnly: true, // Critical for security and accessibility
     secure: process.env.NODE_ENV === "production",
     sameSite: "lax" as const,
-    path: "/",
+    path: "/", // Critical for across-domain accessibility
     maxAge: 60 * 60 * 24 * 7, // 7 days in seconds
 };
