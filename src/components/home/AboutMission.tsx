@@ -111,12 +111,11 @@ export default function AboutMission() {
           </div>
         </div>
 
-        {/* DNA Decoration */}
         <div
           style={{ transform: "translateZ(30px)" }}
           className="absolute bottom-10 left-10 opacity-[0.02] font-black text-[20vw] select-none text-white pointer-events-none leading-none"
         >
-          DNA
+          <span>DNA</span>
         </div>
       </motion.div>
     </section>

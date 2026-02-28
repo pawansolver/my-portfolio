@@ -2,27 +2,21 @@
 
 import React from 'react';
 
-// ─── YOUR 10 CLIENT LOGOS ───────────────────────────────────────────────
-const clientLogos = [
-  "1-pCtuG3JW.png",
-  "3-CEOILZa0.png",
-  "4-C2bcu4Wf.png",
-  "5-Drf9mfAk.png",
-  "6-BO8wdywJ.png",
-  "7-D2aD-s1S (1).png",
-  "8-8MKLDVvj.png",
-  "9-Bj4alFPc.png",
-  "10-DbttryPl.png",
-  "12-B2yOZKxk.png"
-];
+// ─── YOUR CLIENT LOGOS (Temporarily Empty to fix 404 Errors) ───────────────
+// 🚀 FIX: Jab aapke paas asli images folder mein aa jayein, 
+// tab aap yahan wapas unke naam daal sakte hain.
+const clientLogos: string[] = [];
 
 export default function CompanySlider() {
-  // Duplicating the array multiple times to create a flawless, never-ending loop
+  // Logic: Agar logos nahi hain, toh section render nahi hoga taaki layout kharab na ho.
+  if (clientLogos.length === 0) return null;
+
+  // Duplicating the array multiple times for a flawless, never-ending loop
   const scrollingLogos = [...clientLogos, ...clientLogos, ...clientLogos, ...clientLogos];
 
   return (
     <>
-      {/* 🚀 CSS Animation for Ultra-Smooth Infinite Scroll */}
+      {/* 🚀 CSS Animation for Ultra-Smooth Infinite Scroll - UNTOUCHED */}
       <style dangerouslySetInnerHTML={{
         __html: `
         @keyframes marquee-scroll {
@@ -30,13 +24,12 @@ export default function CompanySlider() {
           100% { transform: translateX(-50%); }
         }
         .animate-marquee-scroll {
-          /* 50s speed for a premium, calm pace. Change 50s to make it faster/slower */
           animation: marquee-scroll 50s linear infinite;
           will-change: transform;
         }
       `}} />
 
-      {/* 🚀 THE PREMIUM LOGO SECTION */}
+      {/* 🚀 THE PREMIUM LOGO SECTION - UNTOUCHED */}
       <section className="bg-slate-50 py-20 overflow-hidden border-y border-slate-100">
 
         {/* Section Header */}
@@ -61,7 +54,7 @@ export default function CompanySlider() {
             {scrollingLogos.map((logo, idx) => (
               <div key={idx} className="flex-none w-[180px] md:w-[250px] px-8 flex items-center justify-center">
 
-                {/* 🚀 The "World Class" Hover Effect: Grayscale -> Full Color + Scale */}
+                {/* 🚀 Hover Effects - UNTOUCHED */}
                 <img
                   src={`/images/${logo}`}
                   alt={`Client Logo ${idx}`}

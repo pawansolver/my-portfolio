@@ -214,8 +214,8 @@ const ContactSection = ({ isFullPage = false }) => {
                   <div className="relative z-10 w-14 h-14 bg-brandOrange text-white rounded-full flex items-center justify-center font-black text-xl mb-6 mx-auto md:mx-0 shadow-lg shadow-brandOrange/20">
                     {item.icon}
                   </div>
-                  <h3 className="text-xl font-bold mb-3">{item.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{item.desc}</p>
+                  <h3 className="text-xl font-bold mb-3"><span>{item.title}</span></h3>
+                  <p className="text-slate-400 text-sm leading-relaxed"><span>{item.desc}</span></p>
                 </div>
               ))}
             </div>
@@ -257,7 +257,7 @@ const ContactSection = ({ isFullPage = false }) => {
               {faqs.map((faq, i) => (
                 <div key={i} className="border border-slate-200 rounded-2xl overflow-hidden hover:border-brandOrange/30 transition-colors bg-slate-50/30">
                   <button onClick={() => setActiveFaq(activeFaq === i ? null : i)} className="w-full p-6 flex justify-between items-center text-left font-bold text-sm text-textmain hover:text-brandOrange transition-colors">
-                    {faq.q}
+                    <span>{faq.q}</span>
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center transition-all duration-300 ${activeFaq === i ? 'bg-brandOrange text-white rotate-45' : 'bg-white border border-slate-200 text-slate-400'}`}>
                       <Plus size={16} />
                     </div>
@@ -266,7 +266,7 @@ const ContactSection = ({ isFullPage = false }) => {
                     {activeFaq === i && (
                       <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                         <div className="px-6 pb-6 pt-0 text-slate-600 text-sm leading-relaxed border-t border-slate-100 mt-2 pt-4">
-                          {faq.a}
+                          <span>{faq.a}</span>
                         </div>
                       </motion.div>
                     )}
@@ -293,7 +293,7 @@ const ContactSection = ({ isFullPage = false }) => {
 const PremiumInput = ({ label, placeholder, name, type = "text", required = false, disabled = false }: any) => (
   <div className="space-y-2 group">
     <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-focus-within:text-brandOrange transition-colors block ml-2">
-      {label}
+      <span>{label}</span>
     </label>
     <input
       name={name}
