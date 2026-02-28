@@ -16,14 +16,15 @@ interface DashboardSidebarProps {
     isCollapsed: boolean;
 }
 
+// 🚀 FIX: icon type ko 'any' rakha hai taaki Lucide icons 'never' error na dein
 type MenuItem = {
-    icon: React.ElementType;
+    icon: any;
     label: string;
     href?: string;
     children?: string[];
 };
 
-// 🚀 Simplified 5 Core Menu Items
+// 🚀 YOUR LOGIC - UNTOUCHED
 const menuItems: MenuItem[] = [
     { icon: BarChart3, label: 'Dashboard', href: '/crm-dashboard' },
     { icon: Users, label: 'Customers', children: ['Clients', 'Client Users'] },
@@ -36,13 +37,13 @@ export const DashboardSidebar = ({ isCollapsed }: DashboardSidebarProps) => {
     const pathname = usePathname();
     const [openMenu, setOpenMenu] = useState<string | null>(null);
 
-    // Force-close all accordions when sidebar collapses
+    // YOUR LOGIC - UNTOUCHED
     useEffect(() => {
         if (isCollapsed) setOpenMenu(null);
     }, [isCollapsed]);
 
     const toggleMenu = (label: string) => {
-        if (isCollapsed) return; // no accordion in mini mode
+        if (isCollapsed) return;
         setOpenMenu((prev) => (prev === label ? null : label));
     };
 
@@ -54,7 +55,6 @@ export const DashboardSidebar = ({ isCollapsed }: DashboardSidebarProps) => {
             {/* ── Brand ── */}
             <div className="h-16 flex items-center border-b border-slate-100 shrink-0 overflow-hidden px-3">
                 {isCollapsed ? (
-                    /* Mini mode: just the icon portion of the logo */
                     <div className="mx-auto">
                         <img
                             src="/images/nighlogo-Bxm7gxow.svg"
@@ -63,7 +63,6 @@ export const DashboardSidebar = ({ isCollapsed }: DashboardSidebarProps) => {
                         />
                     </div>
                 ) : (
-                    /* Full mode: complete logo with wordmark */
                     <Link href="/crm-dashboard" className="flex items-center select-none">
                         <img
                             src="/images/nighlogo-Bxm7gxow.svg"
@@ -85,7 +84,6 @@ export const DashboardSidebar = ({ isCollapsed }: DashboardSidebarProps) => {
                         item.href !== '#' &&
                         (pathname === item.href || pathname.startsWith(item.href + '/'));
 
-                    /* ── Items with sub-menus ── */
                     if (hasChildren) {
                         return (
                             <div key={item.label}>
@@ -111,7 +109,6 @@ export const DashboardSidebar = ({ isCollapsed }: DashboardSidebarProps) => {
                                     )}
                                 </button>
 
-                                {/* CSS Grid slide animation */}
                                 {!isCollapsed && (
                                     <div
                                         className={`grid transition-all duration-300 ease-in-out ${isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
@@ -136,7 +133,6 @@ export const DashboardSidebar = ({ isCollapsed }: DashboardSidebarProps) => {
                         );
                     }
 
-                    /* ── Leaf items (no sub-menu) ── */
                     return (
                         <Link
                             key={item.label}
