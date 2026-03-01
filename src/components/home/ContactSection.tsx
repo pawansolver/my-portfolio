@@ -39,9 +39,10 @@ const ContactSection = ({ isFullPage = false }) => {
           SECTION 1: HERO (🚀 PUSHED BEHIND NAVBAR) 
           ───────────────────────────────────────────────────────── */}
       {isFullPage && (
-        <section className="relative w-full bg-textmain -mt-[150px] pt-[200px] pb-32 overflow-hidden shadow-2xl">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-brandOrange/20 blur-[120px] rounded-full pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-brandGreen/20 blur-[120px] rounded-full pointer-events-none" />
+        <section className="section relative w-full bg-textmain lg:-mt-[150px] lg:pt-[200px] mt-0 pt-32 pb-32 overflow-hidden shadow-2xl">
+          {/* ✅ FIX 1: Blobs ko mobile par chota (w-72) kiya taaki screen ke bahar na kटे */}
+          <div className="absolute top-0 right-0 w-72 h-72 md:w-96 md:h-96 bg-brandOrange/20 blur-[120px] rounded-full pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-72 h-72 md:w-96 md:h-96 bg-brandGreen/20 blur-[120px] rounded-full pointer-events-none" />
 
           <div className="container-custom relative z-10 text-center flex flex-col items-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
@@ -63,10 +64,11 @@ const ContactSection = ({ isFullPage = false }) => {
       {/* ─────────────────────────────────────────────────────────
           SECTION 2: 3D FORM & CONTACT INFO 
           ───────────────────────────────────────────────────────── */}
-      <section className={`relative z-20 w-full ${!isFullPage ? 'py-20 bg-slate-50/50' : 'pb-20 bg-slate-50'}`}>
+      <section className={`section relative z-20 w-full ${!isFullPage ? 'bg-slate-50/50' : 'bg-slate-50'}`}>
         <div className="container-custom max-w-6xl">
 
-          <div className={`grid grid-cols-1 ${isFullPage ? 'lg:grid-cols-12 gap-12 -mt-24' : 'max-w-3xl mx-auto'} items-start`}>
+          {/* ✅ FIX 2: lg:-mt-24 mt-0 laga diya. Ab form mobile par Hero text ke upar overlap nahi karega */}
+          <div className={`grid grid-cols-1 ${isFullPage ? 'lg:grid-cols-12 gap-12 lg:-mt-24 mt-0' : 'max-w-3xl mx-auto'} items-start`}>
 
             {/* --- LEFT SIDE: INFO CARDS --- */}
             {isFullPage && (
@@ -130,7 +132,6 @@ const ContactSection = ({ isFullPage = false }) => {
                   </div>
                 )}
 
-                {/* 🔥 FORM ACTION YAHAN ADD KIYA HAI */}
                 <form className="space-y-6" action={formAction}>
                   <input type="hidden" name="source_page" value={`static_form_${pathname}`} />
 
@@ -147,13 +148,13 @@ const ContactSection = ({ isFullPage = false }) => {
                   )}
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* 🔥 NAME ATTRIBUTES ADDED */}
-                    <PremiumInput name="firstName" label="First Name" placeholder="Jane" required={true} disabled={isPending} />
-                    <PremiumInput name="lastName" label="Last Name" placeholder="Doe" required={true} disabled={isPending} />
+                    <PremiumInput name="firstName" label="First Name" placeholder="" required={true} disabled={isPending} />
+                    <PremiumInput name="lastName" label="Last Name" placeholder="" required={true} disabled={isPending} />
                   </div>
 
-                  <div className="grid grid-cols-1 gap-6">
-                    <PremiumInput name="email" label="Work Email" placeholder="jane@company.com" type="email" required={true} disabled={isPending} />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <PremiumInput name="email" label="Work Email" placeholder="" type="email" required={true} disabled={isPending} />
+                    <PremiumInput name="phone" label="Phone Number" placeholder="" type="tel" required={true} disabled={isPending} />
                   </div>
 
                   <div className="space-y-2 group">
@@ -161,17 +162,16 @@ const ContactSection = ({ isFullPage = false }) => {
                       How can we help?
                     </label>
                     <textarea
-                      name="message" // 🔥 NAME ATTRIBUTE ADDED
+                      name="message"
                       required
                       disabled={isPending}
                       rows={4}
                       className="w-full p-4 rounded-2xl bg-slate-50/50 border border-slate-200 focus:border-brandOrange/50 focus:bg-white outline-none transition-all text-sm text-textmain placeholder:text-slate-400 resize-none shadow-inner disabled:opacity-50"
-                      placeholder="Tell us about your project timeline and goals..."
+                      placeholder="Briefly describe your project goals, timeline, or any specific requirements..."
                     />
                   </div>
 
                   <div className="pt-2 flex justify-center">
-                    {/* 🔥 TYPE SUBMIT & PENDING STATE ADDED */}
                     <button
                       type="submit"
                       disabled={isPending}
@@ -192,9 +192,7 @@ const ContactSection = ({ isFullPage = false }) => {
         </div>
       </section>
 
-      {/* ─────────────────────────────────────────────────────────
-          SECTION: WHAT HAPPENS NEXT?
-          ───────────────────────────────────────────────────────── */}
+      {/* ... BAAKI SECTIONS (What Happens Next, Book Call, FAQ) UNTOUCHED ... */}
       {isFullPage && (
         <section className="section bg-textmain text-white py-24">
           <div className="container-custom">
@@ -203,7 +201,7 @@ const ContactSection = ({ isFullPage = false }) => {
               <p className="text-muted text-slate-400">Our streamlined onboarding process ensures we hit the ground running.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-w-5xl mx-auto">
               {[
                 { step: "01", title: "Discovery Call", desc: "Within 24 hours, our tech lead will connect to understand your core requirements.", icon: <Video size={24} /> },
                 { step: "02", title: "Strategy & Proposal", desc: "We draft a comprehensive roadmap, architecture plan, and transparent pricing.", icon: <MapPin size={24} /> },
@@ -223,12 +221,10 @@ const ContactSection = ({ isFullPage = false }) => {
         </section>
       )}
 
-      {/* ─────────────────────────────────────────────────────────
-          SECTION: BOOK A DIRECT CALL
-          ───────────────────────────────────────────────────────── */}
       {isFullPage && (
         <section className="section bg-orange-50 border-y border-orange-100/50 py-20">
-          <div className="container-custom flex flex-col md:flex-row items-center justify-between gap-10 bg-white p-10 md:p-16 rounded-[3rem] shadow-xl">
+          {/* ✅ FIX 3: p-10 ko p-6 kiya taaki mobile par text dabe nahi */}
+          <div className="container-custom flex flex-col md:flex-row items-center justify-between gap-10 bg-white p-6 md:p-16 rounded-[3rem] shadow-xl">
             <div className="max-w-xl text-center md:text-left flex flex-col md:items-start items-center">
               <h2 className="heading-xl !text-left mb-4">Hate filling out forms? <br /> <span className="text-brandOrange">Let's talk directly.</span></h2>
               <p className="text-muted !text-left">Book a 15-minute discovery call directly with our technical founders. No sales pitches, just pure architecture and scaling strategies.</p>
@@ -242,9 +238,6 @@ const ContactSection = ({ isFullPage = false }) => {
         </section>
       )}
 
-      {/* ─────────────────────────────────────────────────────────
-          SECTION: FAQ 
-          ───────────────────────────────────────────────────────── */}
       {isFullPage && (
         <section className="section bg-white border-t border-slate-100 py-24">
           <div className="container-custom max-w-3xl">
@@ -289,7 +282,7 @@ const ContactSection = ({ isFullPage = false }) => {
   );
 };
 
-// 🔥 PREMIUM INPUT UPDATED (Ab ye 'name' aur 'required' accept karega backend ke liye)
+// 🔥 PREMIUM INPUT UPDATED (UI aur Placeholders ko aur behtar banaya)
 const PremiumInput = ({ label, placeholder, name, type = "text", required = false, disabled = false }: any) => (
   <div className="space-y-2 group">
     <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400 group-focus-within:text-brandOrange transition-colors block ml-2">

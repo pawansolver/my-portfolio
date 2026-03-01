@@ -20,7 +20,7 @@ function SubmitButton() {
             disabled={pending}
             whileHover={!pending ? { scale: 1.01 } : {}}
             whileTap={!pending ? { scale: 0.99 } : {}}
-            className="relative w-full h-12 flex items-center justify-center gap-2 rounded-xl font-bold text-sm tracking-wide text-white bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 shadow-md shadow-orange-500/20 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed mt-2"
+            className="relative w-full h-12 md:h-14 flex items-center justify-center gap-2 rounded-xl font-bold text-sm md:text-base tracking-wide text-white bg-gradient-to-r from-orange-500 to-amber-600 hover:from-orange-600 hover:to-amber-700 shadow-lg shadow-orange-500/20 transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed mt-4"
         >
             {pending ? (
                 <>
@@ -49,13 +49,13 @@ function SuccessOverlay({ userName }: { userName: string }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-white/80 backdrop-blur-sm p-4"
         >
             <motion.div
                 initial={{ scale: 0.85, opacity: 0, y: 20 }}
                 animate={{ scale: 1, opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.4, ease: "easeOut" }}
-                className="relative mx-4 w-full max-w-sm rounded-2xl bg-white border border-slate-100 shadow-[0_20px_50px_rgb(0,0,0,0.1)] overflow-hidden text-center px-8 py-8"
+                className="relative w-full max-w-sm rounded-2xl md:rounded-[2rem] bg-white border border-slate-100 shadow-[0_20px_50px_rgb(0,0,0,0.1)] overflow-hidden text-center px-6 py-8 md:px-8 md:py-10"
             >
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-orange-500 to-amber-500" />
 
@@ -66,10 +66,10 @@ function SuccessOverlay({ userName }: { userName: string }) {
                     </span>
                 </div>
 
-                <h2 className="text-xl font-bold text-slate-800 tracking-tight mb-1">
+                <h2 className="text-xl md:text-2xl font-bold text-slate-800 tracking-tight mb-1">
                     Account Created!
                 </h2>
-                <p className="text-slate-500 font-medium text-sm mb-5">
+                <p className="text-slate-500 font-medium text-sm md:text-base mb-6">
                     Welcome, {userName} 👋
                 </p>
                 <div className="w-full h-1.5 rounded-full bg-slate-100 overflow-hidden">
@@ -103,7 +103,7 @@ export default function SignupPage() {
     }, [state.success, router]);
 
     return (
-        <div className="min-h-screen w-full flex bg-[#f8fafc] font-sans relative overflow-hidden">
+        <div className="min-h-[100dvh] w-full flex bg-[#f8fafc] font-sans relative overflow-hidden">
             <AnimatePresence>
                 {state.success && state.userName && (
                     <SuccessOverlay userName={state.userName} />
@@ -134,19 +134,19 @@ export default function SignupPage() {
             </div>
 
             {/* ── Right Auth Form Area ── */}
-            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-6 sm:p-12 z-20">
+            <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-4 sm:p-8 lg:p-12 z-20">
 
                 {/* Logo Top */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="mb-8"
+                    className="mb-6 md:mb-8"
                 >
                     <img
                         src="/images/nighlogo-Bxm7gxow.svg"
                         alt="Nighwan Technology"
-                        className="h-10 sm:h-12 w-auto object-contain"
+                        className="h-8 sm:h-10 md:h-12 w-auto object-contain"
                     />
                 </motion.div>
 
@@ -156,11 +156,11 @@ export default function SignupPage() {
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     className="w-full max-w-[420px]"
                 >
-                    <div className="rounded-2xl bg-white border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden relative">
+                    <div className="rounded-2xl md:rounded-[2rem] bg-white border border-slate-100 shadow-2xl shadow-slate-200/50 overflow-hidden relative">
 
-                        <div className="px-8 py-8">
-                            <div className="mb-6 text-center">
-                                <h2 className="text-2xl font-bold text-slate-800 tracking-tight leading-tight">Create an account</h2>
+                        <div className="px-6 py-8 md:px-8 md:py-10">
+                            <div className="mb-8 text-center">
+                                <h2 className="text-2xl md:text-3xl font-bold text-slate-800 tracking-tight leading-tight">Create an account</h2>
                             </div>
 
                             <AnimatePresence mode="wait">
@@ -170,7 +170,7 @@ export default function SignupPage() {
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: "auto" }}
                                         exit={{ opacity: 0, height: 0 }}
-                                        className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-600 text-xs px-4 py-3 rounded-xl mb-5"
+                                        className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-600 text-xs md:text-sm px-4 py-3 rounded-xl mb-6"
                                         role="alert"
                                     >
                                         <AlertCircle size={16} className="shrink-0 mt-0.5 text-red-500" />
@@ -179,11 +179,11 @@ export default function SignupPage() {
                                 )}
                             </AnimatePresence>
 
-                            <form action={formAction} className="space-y-4">
+                            <form action={formAction} className="space-y-4 md:space-y-5">
                                 {/* Full Name */}
                                 <div className="flex flex-col gap-1.5">
                                     <div className="relative group">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500 transition-colors duration-300">
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brandOrange transition-colors duration-300">
                                             <User size={18} />
                                         </span>
                                         <input
@@ -192,7 +192,7 @@ export default function SignupPage() {
                                             type="text"
                                             required
                                             placeholder="Full Name"
-                                            className="w-full pl-11 pr-4 py-3.5 rounded-xl text-sm bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 transition-all duration-300"
+                                            className="w-full pl-11 pr-4 py-3.5 md:py-4 rounded-xl text-base sm:text-sm bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brandOrange focus:ring-4 focus:ring-brandOrange/10 transition-all duration-300"
                                         />
                                     </div>
                                 </div>
@@ -200,7 +200,7 @@ export default function SignupPage() {
                                 {/* Email */}
                                 <div className="flex flex-col gap-1.5">
                                     <div className="relative group">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500 transition-colors duration-300">
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brandOrange transition-colors duration-300">
                                             <Mail size={18} />
                                         </span>
                                         <input
@@ -209,7 +209,7 @@ export default function SignupPage() {
                                             type="email"
                                             required
                                             placeholder="Email Address"
-                                            className="w-full pl-11 pr-4 py-3.5 rounded-xl text-sm bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 transition-all duration-300"
+                                            className="w-full pl-11 pr-4 py-3.5 md:py-4 rounded-xl text-base sm:text-sm bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brandOrange focus:ring-4 focus:ring-brandOrange/10 transition-all duration-300"
                                         />
                                     </div>
                                 </div>
@@ -217,7 +217,7 @@ export default function SignupPage() {
                                 {/* Password */}
                                 <div className="flex flex-col gap-1.5">
                                     <div className="relative group">
-                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-orange-500 transition-colors duration-300">
+                                        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brandOrange transition-colors duration-300">
                                             <Lock size={18} />
                                         </span>
                                         <input
@@ -226,31 +226,31 @@ export default function SignupPage() {
                                             type={showPass ? "text" : "password"}
                                             required
                                             placeholder="••••••••"
-                                            className="w-full pl-11 pr-11 py-3.5 rounded-xl text-sm bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 transition-all duration-300"
+                                            className="w-full pl-11 pr-11 py-3.5 md:py-4 rounded-xl text-base sm:text-sm bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brandOrange focus:ring-4 focus:ring-brandOrange/10 transition-all duration-300"
                                         />
                                         <button
                                             type="button"
                                             onClick={() => setShowPass((v) => !v)}
-                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-orange-500 transition-colors"
+                                            className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-brandOrange transition-colors p-1"
                                         >
                                             {showPass ? <EyeOff size={18} /> : <Eye size={18} />}
                                         </button>
                                     </div>
                                 </div>
 
-                                <p className="text-[11px] text-slate-400 leading-relaxed pt-1">
+                                <p className="text-[11px] md:text-xs text-slate-400/80 leading-relaxed pt-1 text-center md:text-left">
                                     By signing up you agree to our{" "}
-                                    <Link href="/terms" className="text-orange-500 hover:text-orange-600 font-medium transition-colors">Terms</Link> & <Link href="/privacy-policy" className="text-orange-500 hover:text-orange-600 font-medium transition-colors">Privacy Policy</Link>.
+                                    <Link href="/terms" className="text-brandOrange hover:text-orange-600 font-medium transition-colors">Terms</Link> & <Link href="/privacy-policy" className="text-brandOrange hover:text-orange-600 font-medium transition-colors">Privacy Policy</Link>.
                                 </p>
 
                                 <SubmitButton />
                             </form>
                         </div>
 
-                        <div className="px-8 py-5 bg-slate-50 border-t border-slate-100 text-center">
+                        <div className="px-6 py-5 md:px-8 bg-slate-50 border-t border-slate-100 text-center">
                             <p className="text-sm text-slate-500 font-medium">
                                 Already have an account?{" "}
-                                <Link href="/login" className="font-semibold text-orange-500 hover:text-orange-600 transition-colors">
+                                <Link href="/login" className="font-bold text-brandOrange hover:text-orange-600 transition-colors ml-1">
                                     Sign in
                                 </Link>
                             </p>

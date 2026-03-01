@@ -5,22 +5,25 @@ export type ActionState = {
     error?: string;
 };
 
-// 1. Action for Main Contact Page Form
+// 1. Action for Main Contact Page Form (FIXED ✅)
 export async function contactAction(
     _prev: any,
     formData: FormData
 ): Promise<ActionState> {
     try {
         const data = {
-            fullName: `${formData.get("firstName")} ${formData.get("lastName")}`,
+            // Hum abhi backend ko direct firstName/lastName bhej rahe hain 
+            // kyunki backend controller wahi expect kar raha hai
+            firstName: formData.get("firstName"),
+            lastName: formData.get("lastName"),
             email: formData.get("email"),
+            phone: formData.get("phone"), // 🔥 YE MISSING THA, AB ADD HO GAYA
             message: formData.get("message"),
-            // Tracking source
             sourcePage: formData.get("source_page") || "Contact Page",
-            type: "GENERAL"
+            type: "CONTACT_FORM"
         };
 
-        // FIX: Using localhost instead of 127.0.0.1 for better compatibility
+        // Backend API call
         const response = await fetch("http://localhost:5000/api/contact/submit", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -39,11 +42,12 @@ export async function contactAction(
     }
 }
 
-// 2. Action for Project Inquiry Modal (Popup)
+// 2. Action for Project Inquiry Modal (No Change Needed here)
 export async function projectInquiryAction(
     _prev: any,
     formData: FormData
 ): Promise<ActionState> {
+    // ... (ye pehle se sahi tha)
     try {
         const data = {
             fullName: formData.get("fullName"),
@@ -55,7 +59,6 @@ export async function projectInquiryAction(
             type: "PROJECT_INQUIRY"
         };
 
-        // FIX: Endpoint points to the inquiry route on port 5000
         const response = await fetch("http://localhost:5000/api/contact/inquiry", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

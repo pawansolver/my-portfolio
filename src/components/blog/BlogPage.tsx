@@ -205,45 +205,46 @@ export default function BlogPage() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 100 }}
                         transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                        className="fixed inset-0 z-[99998] bg-slate-900/60 backdrop-blur-md overflow-y-auto w-full h-screen pt-10 md:pt-20 pb-20 px-4"
+                        className="fixed inset-0 z-[99998] bg-slate-900/80 backdrop-blur-md overflow-y-auto w-full h-screen pt-16 md:pt-24 pb-20 px-4"
                     >
-                        <div className="container-custom max-w-4xl relative">
-                            <div className="bg-white rounded-[2.5rem] shadow-2xl border border-slate-100/50 overflow-hidden relative">
+                        <div className="container-custom max-w-4xl relative mt-4 md:mt-0">
+                            <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-2xl border border-slate-100/50 overflow-hidden relative">
 
-                                {/* 🚀 CLOSE BUTTON INSIDE CARD (Top Right) */}
+                                {/* ✨ WORLD-CLASS SAFE CLOSE BUTTON (Inside Card) */}
                                 <button
                                     onClick={() => setSelectedPost(null)}
-                                    className="absolute top-6 right-6 md:top-8 md:right-8 w-12 h-12 bg-slate-100 hover:bg-brandOrange hover:text-white text-slate-500 rounded-full flex items-center justify-center transition-all duration-300 z-[100] group shadow-sm"
+                                    className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 bg-white/80 backdrop-blur-md hover:bg-brandOrange text-black hover:text-white rounded-full flex items-center justify-center transition-all duration-300 z-[100] group shadow-lg"
+                                    aria-label="Close Article"
                                 >
-                                    <X size={24} className="group-hover:rotate-90 transition-transform duration-300" />
+                                    <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
                                 </button>
 
                                 <article>
-                                    <div className="relative w-full h-[45vh] min-h-[350px]">
+                                    <div className="relative w-full h-[35vh] md:h-[45vh] min-h-[250px] md:min-h-[350px]">
                                         <img src={selectedPost.image} alt={selectedPost.title} className="w-full h-full object-cover" />
                                         <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
                                     </div>
 
-                                    <div className="p-8 md:p-14 -mt-24 relative z-10">
-                                        <div className="flex items-center gap-4 mb-6">
+                                    <div className="p-6 md:p-14 -mt-16 md:-mt-24 relative z-10">
+                                        <div className="flex items-center flex-wrap gap-3 md:gap-4 mb-6">
                                             <span className={`px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest border ${categoryColor[selectedPost.category] ?? "bg-slate-100 text-slate-600 border-slate-200"}`}>
                                                 {selectedPost.category}
                                             </span>
-                                            <span className="flex items-center gap-1 text-slate-400 text-sm font-medium"><Clock className="w-4 h-4" /> {selectedPost.readTime}</span>
+                                            <span className="flex items-center gap-1 text-slate-500 text-sm font-medium"><Clock className="w-4 h-4" /> {selectedPost.readTime}</span>
                                         </div>
 
-                                        <h1 className="heading-xl !text-left !text-3xl md:!text-5xl !mb-8">
+                                        <h1 className="heading-xl !text-left !text-2xl md:!text-5xl !mb-8">
                                             {selectedPost.title}
                                         </h1>
 
                                         <div className="flex flex-wrap items-center justify-between gap-6 py-6 border-y border-slate-100 mb-10">
                                             <div className="flex items-center gap-4">
-                                                <div className="w-14 h-14 rounded-full bg-slate-100 text-textmain flex items-center justify-center font-bold text-2xl border border-slate-200">
+                                                <div className="w-12 h-12 md:w-14 md:h-14 rounded-full bg-slate-100 text-textmain flex items-center justify-center font-bold text-xl md:text-2xl border border-slate-200">
                                                     {selectedPost.author[0]}
                                                 </div>
                                                 <div className="text-left">
-                                                    <p className="font-bold text-textmain text-lg">{selectedPost.author}</p>
-                                                    <p className="text-sm text-slate-500">{selectedPost.authorRole}</p>
+                                                    <p className="font-bold text-textmain text-base md:text-lg">{selectedPost.author}</p>
+                                                    <p className="text-xs md:text-sm text-slate-500">{selectedPost.authorRole}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -269,7 +270,7 @@ export default function BlogPage() {
             <div className="min-h-screen bg-[#F8FAFC] text-textmain">
 
                 {/* ── Hero Slider ── */}
-                <section className="relative w-full h-[85vh] min-h-[600px] overflow-hidden bg-black">
+                <section className="relative w-full min-h-[85vh] md:min-h-[600px] overflow-hidden bg-black flex items-center">
                     <AnimatePresence mode="wait">
                         <motion.div key={activeSlide} initial={{ opacity: 0, scale: 1.05 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }} transition={{ duration: 0.8 }} className="absolute inset-0">
                             <img src={featuredPosts[activeSlide].image} alt={featuredPosts[activeSlide].title} className="w-full h-full object-cover opacity-80" />
@@ -277,16 +278,16 @@ export default function BlogPage() {
                         </motion.div>
                     </AnimatePresence>
 
-                    <div className="absolute bottom-0 left-0 right-0 px-6 md:px-16 pb-20 flex flex-col items-center justify-center text-center z-20">
+                    <div className="relative z-20 w-full px-6 md:px-16 pt-20 pb-20 flex flex-col items-center justify-center text-center">
                         <AnimatePresence mode="wait">
                             <motion.div key={activeSlide} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="w-full max-w-4xl">
-                                <div className="backdrop-blur-xl bg-white/10 border border-white/20 rounded-3xl p-8 md:p-12 shadow-2xl flex flex-col items-center">
+                                <div className="backdrop-blur-xl bg-black/40 border border-white/20 rounded-3xl p-6 md:p-12 shadow-2xl flex flex-col items-center">
                                     <span className={`text-xs font-bold px-4 py-1.5 rounded-full mb-6 inline-block uppercase tracking-widest ${categoryColor[featuredPosts[activeSlide].category] ?? "bg-white/20 text-white"}`}>
                                         {featuredPosts[activeSlide].category}
                                     </span>
-                                    <h1 className="heading-xl text-white">{featuredPosts[activeSlide].title}</h1>
-                                    <p className="text-muted text-slate-200/90 !max-w-3xl">{featuredPosts[activeSlide].excerpt}</p>
-                                    <div className="mt-10 flex justify-center w-full">
+                                    <h1 className="heading-xl !text-white !mb-6">{featuredPosts[activeSlide].title}</h1>
+                                    <p className="text-muted !text-slate-200/90 !max-w-3xl">{featuredPosts[activeSlide].excerpt}</p>
+                                    <div className="mt-8 md:mt-10 flex justify-center w-full">
                                         <button onClick={() => setSelectedPost(featuredPosts[activeSlide])} className="btn-primary">Read Article</button>
                                     </div>
                                 </div>
@@ -294,19 +295,19 @@ export default function BlogPage() {
                         </AnimatePresence>
                     </div>
 
-                    <div className="absolute top-1/2 -translate-y-1/2 left-4 md:left-8 flex flex-col gap-4 z-30">
-                        <motion.button whileHover={{ scale: 1.1 }} onClick={() => goToSlide((activeSlide - 1 + featuredPosts.length) % featuredPosts.length)} className="w-12 h-12 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors"><ChevronLeft className="w-6 h-6" /></motion.button>
-                        <motion.button whileHover={{ scale: 1.1 }} onClick={() => goToSlide((activeSlide + 1) % featuredPosts.length)} className="w-12 h-12 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors"><ChevronRight className="w-6 h-6" /></motion.button>
+                    <div className="absolute top-1/2 -translate-y-1/2 left-2 md:left-8 flex flex-col gap-4 z-30">
+                        <motion.button whileHover={{ scale: 1.1 }} onClick={() => goToSlide((activeSlide - 1 + featuredPosts.length) % featuredPosts.length)} className="w-10 h-10 md:w-12 md:h-12 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors"><ChevronLeft className="w-5 h-5 md:w-6 md:h-6" /></motion.button>
+                        <motion.button whileHover={{ scale: 1.1 }} onClick={() => goToSlide((activeSlide + 1) % featuredPosts.length)} className="w-10 h-10 md:w-12 md:h-12 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors"><ChevronRight className="w-5 h-5 md:w-6 md:h-6" /></motion.button>
                     </div>
                 </section>
 
                 {/* ── Sticky Navbar ── */}
                 <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm">
-                    <div className="container-custom">
-                        <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-4">
+                    <div className="container-custom px-0 md:px-6">
+                        <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-4 px-4 md:px-0">
                             {CATEGORIES.map(({ id, label, icon: Icon }) => (
-                                <button key={id} onClick={() => setActiveCategory(id)} className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all ${activeCategory === id ? "text-brandOrange bg-brandOrange/5" : "text-slate-500 hover:text-textmain"}`}>
-                                    <Icon className="w-4 h-4" /> <span className="relative z-10">{label}</span>
+                                <button key={id} onClick={() => setActiveCategory(id)} className={`relative flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-bold transition-all whitespace-nowrap ${activeCategory === id ? "text-brandOrange bg-brandOrange/5" : "text-slate-500 hover:text-textmain"}`}>
+                                    <Icon className="w-4 h-4 flex-shrink-0" /> <span className="relative z-10">{label}</span>
                                     {activeCategory === id && <motion.span layoutId="category-underline" className="absolute bottom-0 left-6 right-6 h-0.5 bg-brandOrange rounded-full" />}
                                 </button>
                             ))}
@@ -324,7 +325,7 @@ export default function BlogPage() {
                                         <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                                     </div>
                                     <div className="p-6 lg:p-8 flex flex-col flex-1 gap-4">
-                                        <span className={`text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest self-start ${categoryColor[post.category] ?? "bg-slate-100"}`}>{post.category}</span>
+                                        <span className={`text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest self-start ${categoryColor[post.category] ?? "bg-slate-100 text-slate-600"}`}>{post.category}</span>
                                         <h3 className="text-textmain font-bold text-xl group-hover:text-brandOrange transition-colors line-clamp-2">{post.title}</h3>
                                         <p className="text-slate-500 text-sm line-clamp-3 flex-1">{post.excerpt}</p>
                                         <div className="flex items-center justify-between pt-5 border-t border-slate-100">
@@ -339,27 +340,27 @@ export default function BlogPage() {
                 </section>
 
                 {/* ── Newsletter ── */}
-                <section className="py-20 bg-textmain relative overflow-hidden">
-                    <div className="container-custom relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
-                        <div className="lg:w-1/2 text-center lg:text-left">
-                            <h2 className="text-3xl font-black text-white mb-4">Stay Ahead of the Curve</h2>
-                            <p className="text-slate-300">Join tech leaders getting our weekly digest on Enterprise AI and Engineering.</p>
+                <section className="section-padding bg-textmain relative overflow-hidden">
+                    <div className="container-custom relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left">
+                        <div className="lg:w-1/2 w-full">
+                            <h2 className="heading-xl !text-white !mb-4 !text-left md:!text-center lg:!text-left">Stay Ahead of the Curve</h2>
+                            <p className="text-muted !text-slate-300 !mx-0">Join tech leaders getting our weekly digest on Enterprise AI and Engineering.</p>
                         </div>
                         <div className="lg:w-1/2 w-full max-w-xl">
-                            <form className="flex flex-col sm:flex-row gap-3 bg-white/5 p-2 rounded-3xl border border-white/10">
-                                <input type="email" placeholder="Work email" className="w-full bg-transparent text-white px-6 py-4 outline-none font-medium" required />
-                                <button className="btn-primary !px-8 !py-4 shrink-0">Subscribe</button>
+                            <form className="flex flex-col sm:flex-row gap-3 bg-white/5 p-2 rounded-[2rem] sm:rounded-full border border-white/10">
+                                <input type="email" placeholder="Work email" className="w-full bg-transparent text-white px-6 py-4 outline-none font-medium placeholder-gray-400 text-center sm:text-left" required />
+                                <button className="btn-primary !px-8 !py-4 shrink-0 w-full sm:w-auto">Subscribe</button>
                             </form>
                         </div>
                     </div>
                 </section>
 
                 {/* ── CTA ── */}
-                <section className="section bg-slate-900 border-t-8 border-brandOrange">
+                <section className="section-padding bg-slate-900 border-t-8 border-brandOrange">
                     <div className="container-custom flex flex-col items-center text-center">
                         <Rocket className="w-12 h-12 text-brandOrange mb-6" />
-                        <h2 className="heading-xl text-white">Transform Ideas into Reality.</h2>
-                        <p className="text-muted text-slate-300 mb-10">Let's discuss how NighwanTech can accelerate your growth.</p>
+                        <h2 className="heading-xl !text-white !mb-4">Transform Ideas into Reality.</h2>
+                        <p className="text-muted !text-slate-300 mb-10">Let's discuss how NighwanTech can accelerate your growth.</p>
                         <button onClick={() => openModal("Blog Page Footer CTA")} className="btn-primary">Start a Project</button>
                     </div>
                 </section>

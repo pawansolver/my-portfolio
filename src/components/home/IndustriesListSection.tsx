@@ -41,28 +41,28 @@ export default function IndustriesSection() {
     });
   }, []);
 
-  // 🔹 Optimized for Premium Look: Increased Opacity and Adjusted Colors
+  // 🔹 PERFECTED PREMIUM DARK PARTICLES FOR WHITE BG
   const particlesOptions = useMemo(() => ({
     fullScreen: { enable: false },
     fpsLimit: 120,
     particles: {
-      color: { value: "#FF6B00" }, // Brand Orange
+      color: { value: "#334155" }, // Slate-700
       links: {
-        color: "#FF6B00",
+        color: "#64748b", // Slate-500
         distance: 150,
         enable: true,
-        opacity: 3, // 🔹 Darker links for a more defined web look
-        width: 1.2
+        opacity: 0.3,
+        width: 1
       },
       move: {
         enable: true,
-        speed: 0.5, // Slower move for elegant feel
+        speed: 0.5,
         outModes: { default: "bounce" }
       },
       number: { value: 35, density: { enable: true, area: 900 } },
       opacity: {
-        value: 3, // 🔹 Darker particles for better visibility
-        random: false
+        value: { min: 0.3, max: 0.5 },
+        random: true
       },
       shape: { type: "circle" },
       size: { value: { min: 1.5, max: 3 } },
@@ -74,7 +74,7 @@ export default function IndustriesSection() {
       modes: {
         grab: {
           distance: 220,
-          links: { opacity: 0.7 } // 🔹 Interaction highlights are now sharper
+          links: { opacity: 0.7 }
         }
       },
     },
@@ -84,46 +84,47 @@ export default function IndustriesSection() {
   if (!isMounted) return null;
 
   return (
-    <section className="section relative bg-white overflow-hidden z-10">
+    // 🔥 FIX: py-10 for mobile to reduce extra white space gap
+    <section className="py-10 md:py-16 relative bg-white overflow-hidden z-10">
 
       {/* Background Particles Layer */}
       {init && (
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+        <div className="absolute inset-0 z-0 pointer-events-none">
           <Particles id="industryParticles" className="h-full w-full" options={particlesOptions as any} />
         </div>
       )}
 
-      <div className="container-custom relative z-10 section-padding">
+      <div className="container-custom relative z-10">
 
         {/* Header - Global Sync */}
-        <div className="flex flex-col items-center mb-12 md:mb-20 text-center">
-          <span className="font-black text-[10px] md:text-[11px] tracking-[0.4em] uppercase mb-4 block text-brandOrange">
+        {/* 🔥 FIX: mb-8 to tighten the vertical flow */}
+        <div className="flex flex-col items-center mb-8 md:mb-14 text-center">
+          <span className="font-black text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 block text-brandOrange">
             Our Reach
           </span>
           <h2 className="heading-xl">
             Empowering The Digital Era
           </h2>
-          <p className="text-muted !mx-auto">
+          <p className="text-muted !mx-auto !text-sm md:!text-base">
             Custom technology frameworks designed for ambitious teams across global markets.
-            High-performance architecture built for future-scale impact.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 md:gap-20 lg:gap-24 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 md:gap-16 lg:gap-24 items-center">
 
           {/* Industries Grid */}
           <div className="order-2 lg:order-1">
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6">
               {industries.map((item) => (
-                <Link key={item.id} href={`/industries/${item.slug}`}>
+                <Link key={item.id} href={`/industries/${item.slug}`} className="block h-full">
                   <motion.div
                     whileHover={{ y: -8 }}
-                    className="p-6 md:p-8 h-full rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 flex flex-col items-center text-center bg-white shadow-sm transition-all duration-300 hover:border-brandOrange hover:shadow-md cursor-pointer"
+                    className="group p-5 md:p-8 h-full rounded-[1.5rem] md:rounded-[2rem] border border-slate-100 flex flex-col items-center text-center bg-white shadow-sm transition-all duration-300 hover:border-brandOrange hover:shadow-xl cursor-pointer"
                   >
-                    <div className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6 bg-slate-50 text-brandOrange rounded-xl flex items-center justify-center border border-slate-100 transition-colors duration-300 group-hover:bg-brandOrange group-hover:text-white">
+                    <div className="w-12 h-12 md:w-14 md:h-14 mb-4 md:mb-6 bg-slate-50 text-brandOrange rounded-[1rem] md:rounded-2xl flex items-center justify-center border border-slate-100 transition-colors duration-300 group-hover:bg-brandOrange group-hover:text-white shrink-0">
                       {item.icon}
                     </div>
-                    <h3 className="font-bold text-[10px] md:text-[12px] uppercase tracking-widest text-textmain leading-tight">
+                    <h3 className="font-bold text-[10px] md:text-[12px] uppercase tracking-widest text-textmain leading-tight group-hover:text-brandOrange transition-colors">
                       {item.name}
                     </h3>
                   </motion.div>
@@ -134,13 +135,13 @@ export default function IndustriesSection() {
 
           {/* Right Content & CTA */}
           <div className="order-1 lg:order-2 flex flex-col">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 md:gap-y-6 mb-10 md:mb-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-3 md:gap-y-5 mb-8 md:mb-10">
               {detailedList.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-3 group">
-                  <div className="w-5 h-5 rounded-full bg-brandOrange/10 flex items-center justify-center shrink-0">
-                    <FiCheckCircle className="text-brandOrange w-3 h-3" />
+                <div key={idx} className="flex items-center gap-3 md:gap-4 group">
+                  <div className="w-6 h-6 md:w-7 md:h-7 rounded-full bg-brandOrange/10 flex items-center justify-center shrink-0 transition-colors group-hover:bg-brandOrange">
+                    <FiCheckCircle className="text-brandOrange w-3 h-3 md:w-4 md:h-4 group-hover:text-white transition-colors" />
                   </div>
-                  <span className="font-bold text-[11px] md:text-[13px] uppercase tracking-tight text-textmain">
+                  <span className="font-bold text-[11px] md:text-[13px] uppercase tracking-tight text-textmain group-hover:text-brandOrange transition-colors">
                     {item}
                   </span>
                 </div>
@@ -153,7 +154,7 @@ export default function IndustriesSection() {
                 className="btn-primary w-full sm:w-auto flex items-center justify-center gap-4 group"
               >
                 GET IN TOUCH
-                <FiArrowRight className="group-hover:translate-x-2 transition-transform" />
+                <FiArrowRight className="group-hover:translate-x-2 transition-transform shrink-0" />
               </button>
             </div>
           </div>

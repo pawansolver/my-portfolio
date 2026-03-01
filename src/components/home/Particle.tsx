@@ -71,7 +71,8 @@ export default function ParticleSection() {
   const [isReady, setIsReady] = useState(false);
 
   return (
-    <section className="relative w-full h-screen bg-white overflow-hidden flex items-center justify-center">
+    // 🔥 FIX: h-screen ki jagah h-[100dvh] taaki mobile browser UI ke saath layout na fate
+    <section className="relative w-full h-[100dvh] bg-white overflow-hidden flex items-center justify-center">
 
       <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,20,147,0.02)_0%,rgba(0,123,255,0.02)_30%,white_80%)]" />
 
@@ -91,19 +92,20 @@ export default function ParticleSection() {
         </Canvas>
       </motion.div>
 
-      <div className="container-custom relative z-20 pointer-events-none flex flex-col items-center justify-center">
+      <div className="container-custom relative z-20 pointer-events-none flex flex-col items-center justify-center px-4 md:px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="text-center w-full"
+          className="text-center w-full mt-[-5dvh] md:mt-0" // Slight visual lift on mobile
         >
-          <h1 className="heading-xl">
+          <h1 className="heading-xl !mb-2">
             Nighwan<span className="text-textmain">Tech</span>
           </h1>
 
-          <div className="flex flex-col items-center gap-6 mt-4 w-full">
-            <p className="text-muted tracking-[0.4em] uppercase">
+          {/* 🔥 FIX: Gap tight kiya aur text-muted ko mobile scale diya */}
+          <div className="flex flex-col items-center gap-4 md:gap-6 mt-2 md:mt-4 w-full">
+            <p className="text-muted !text-[10px] sm:!text-[12px] md:!text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase !mb-0">
               Neural Intelligence Systems
             </p>
 
@@ -111,7 +113,7 @@ export default function ParticleSection() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="pointer-events-auto flex justify-center w-full"
+              className="pointer-events-auto flex justify-center w-full mt-2"
             >
               <button onClick={() => openModal(`Hero Particle Section - ${pathname}`)} className="btn-primary mx-auto">
                 Discover More
@@ -121,8 +123,8 @@ export default function ParticleSection() {
         </motion.div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white via-white/80 to-transparent z-30 pointer-events-none" />
-      <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white to-transparent z-30 pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-32 md:h-40 bg-gradient-to-t from-white via-white/80 to-transparent z-30 pointer-events-none" />
+      <div className="absolute inset-x-0 top-0 h-24 md:h-32 bg-gradient-to-b from-white to-transparent z-30 pointer-events-none" />
     </section>
   );
 }

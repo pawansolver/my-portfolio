@@ -10,84 +10,59 @@ html {
 body {
   @apply bg-white text-textmain antialiased;
   font-family: 'Inter', sans-serif;
+  /* Aap yahan Calibri bhi replace kar sakte hain */
 }
 
 /* --- 🚀 Optimized Section Fix --- */
 .section {
-  /* Mobile: Padding kam aur height auto taaki content ke hisaab se space le */
-  @apply py-12 px-6 flex flex-col items-center justify-center;
-  min-height: auto; 
+  /* Mobile padding kam ki hai */
+  @apply py-16 px-6 flex flex-col items-center justify-center;
+
+  /* FIXED: Mobile par gaps rokne ke liye auto kiya */
+  min-height: auto;
 }
 
 @media (min-width: 768px) {
   .section {
-    /* Desktop: Balanced padding */
-    @apply py-20 px-12;
-    min-height: auto; 
+    @apply py-24 px-12;
+    /* Desktop par content ke hisaab se height */
+    min-height: auto;
   }
-}
-
-/* --- 📏 Section Padding Utility --- */
-/* Agar aapne ye class har jagah lagayi hai, toh isse thora kam karein */
-.section-padding {
-  @apply py-12 md:py-24; 
 }
 
 /* Container */
 .container-custom {
-  @apply max-w-7xl mx-auto px-6 md:px-12 w-full;
+  @apply max-w-7xl mx-auto w-full;
 }
 
 /* --- Headings (Orange) --- */
 .heading-xl {
   @apply text-brandOrange font-bold tracking-tight uppercase text-center;
-  font-size: clamp(2.5rem, 8vw, 2rem); /* Clamp ko thora improve kiya hai */
+
+  /* FIXED: Mobile par text katna rokne ke liye 1.5rem se 2.5rem ki range di */
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+
   line-height: 1.1;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 /* --- Subtitle/Paragraph (Green) --- */
 .text-muted {
   @apply text-brandGreen font-medium text-center mx-auto max-w-2xl;
-  font-size: clamp(0.9rem, 2vw, 1.1rem);
-  line-height: 1.5;
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  line-height: 1.6;
 }
 
-/* --- Optimized Button Global Sync --- */
+/* Button Sync */
 .btn-primary {
-  @apply bg-textmain text-white rounded-full font-bold transition-all duration-300 
-         hover:bg-brandOrange hover:scale-105 flex items-center justify-center text-center;
-  
-  /* Fixed Sizing Logic */
-  height: 52px;           /* Consistent height */
-  min-width: 220px;       /* Desktop par standard width */
-  padding: 0 32px;        /* Side padding */
-  font-size: 14px;        /* Uniform font size */
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  @apply bg-textmain text-white px-8 py-3 rounded-full font-bold transition duration-300 hover:bg-brandOrange hover:scale-105;
 }
 
-@media (max-width: 640px) {
-  .btn-primary {
-    @apply w-full;         /* Mobile par full width for better UX */
-    min-width: unset;
-  }
+/* Global.css mein add karein */
+.section-padding {
+  @apply py-20 md:py-32;
 }
 
-/* Secondary Button (Outline) */
-.btn-secondary {
-  @apply border-2 border-textmain text-textmain rounded-full font-bold transition-all duration-300
-         hover:bg-textmain hover:text-white flex items-center justify-center text-center;
-  
-  height: 52px;
-  min-width: 220px;
-  padding: 0 32px;
-  font-size: 14px;
-}
-
-@media (max-width: 640px) {
-  .btn-secondary {
-    @apply w-full;
-    min-width: unset;
-  }
+.container-custom {
+  @apply max-w-7xl mx-auto px-6 md:px-12;
 }
