@@ -42,12 +42,11 @@ export async function contactAction(
     }
 }
 
-// 2. Action for Project Inquiry Modal (No Change Needed here)
+// 2. Action for Project Inquiry Modal
 export async function projectInquiryAction(
     _prev: any,
     formData: FormData
 ): Promise<ActionState> {
-    // ... (ye pehle se sahi tha)
     try {
         const data = {
             fullName: formData.get("fullName"),
@@ -55,7 +54,10 @@ export async function projectInquiryAction(
             phone: formData.get("phone"),
             budget: formData.get("budget"),
             message: formData.get("details"),
-            sourcePage: formData.get("sourcePage"),
+
+            // 🔥 BAS YAHAN CHANGE HUA HAI: Ek default value add ki hai
+            sourcePage: formData.get("sourcePage") || "Website Lead",
+
             type: "PROJECT_INQUIRY"
         };
 

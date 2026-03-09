@@ -110,9 +110,8 @@ export default function SignupPage() {
                 )}
             </AnimatePresence>
 
-            {/* ── Left Illustration Area (Hidden on Mobile) ── */}
+            {/* ── Left Illustration Area ── */}
             <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center p-12 bg-gradient-to-br from-[#f8fafc] via-[#eff6ff] to-[#fff7ed] overflow-hidden">
-                {/* Atmospheric Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[70%] h-[70%] bg-orange-200/30 blur-[120px] rounded-full z-0" />
 
                 <motion.div
@@ -136,7 +135,6 @@ export default function SignupPage() {
             {/* ── Right Auth Form Area ── */}
             <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-4 sm:p-8 lg:p-12 z-20">
 
-                {/* Logo Top */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -180,7 +178,6 @@ export default function SignupPage() {
                             </AnimatePresence>
 
                             <form action={formAction} className="space-y-4 md:space-y-5">
-                                {/* Full Name */}
                                 <div className="flex flex-col gap-1.5">
                                     <div className="relative group">
                                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brandOrange transition-colors duration-300">
@@ -197,7 +194,6 @@ export default function SignupPage() {
                                     </div>
                                 </div>
 
-                                {/* Email */}
                                 <div className="flex flex-col gap-1.5">
                                     <div className="relative group">
                                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brandOrange transition-colors duration-300">
@@ -214,7 +210,6 @@ export default function SignupPage() {
                                     </div>
                                 </div>
 
-                                {/* Password */}
                                 <div className="flex flex-col gap-1.5">
                                     <div className="relative group">
                                         <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brandOrange transition-colors duration-300">
@@ -247,11 +242,16 @@ export default function SignupPage() {
                             </form>
                         </div>
 
+                        {/* 🔥 FIX: Added 'or learn more' using <Link href="/"> exactly like the login page */}
                         <div className="px-6 py-5 md:px-8 bg-slate-50 border-t border-slate-100 text-center">
                             <p className="text-sm text-slate-500 font-medium">
                                 Already have an account?{" "}
                                 <Link href="/login" className="font-bold text-brandOrange hover:text-orange-600 transition-colors ml-1">
                                     Sign in
+                                </Link>
+                                {" or "}
+                                <Link href="/" className="font-bold text-slate-500 hover:text-textmain hover:underline transition-colors">
+                                    learn more
                                 </Link>
                             </p>
                         </div>

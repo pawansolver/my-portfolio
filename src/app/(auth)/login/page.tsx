@@ -8,7 +8,7 @@ import { useFormStatus } from "react-dom";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Mail, Lock, Eye, EyeOff, LogIn, AlertCircle, CheckCircle2, Send, ArrowLeft } from "lucide-react";
-import { loginAction, forgotPasswordAction, type AuthActionResult } from "@/actions/auth"; // forgotPasswordAction imported
+import { loginAction, forgotPasswordAction, type AuthActionResult } from "@/actions/auth";
 
 // ── Login Submit Button ─────────────────────────────────────────────────────────────
 function SubmitButton() {
@@ -72,9 +72,9 @@ function ForgotSubmitButton() {
 const initialState: AuthActionResult = { success: false };
 
 export default function LoginPage() {
-    const [mode, setMode] = useState<'login' | 'forgot'>('login'); // Toggle State
+    const [mode, setMode] = useState<'login' | 'forgot'>('login');
     const [state, formAction] = useActionState(loginAction, initialState);
-    const [forgotState, forgotFormAction] = useActionState(forgotPasswordAction, initialState); // Forgot Action State
+    const [forgotState, forgotFormAction] = useActionState(forgotPasswordAction, initialState);
 
     const [showPass, setShowPass] = useState(false);
     const [redirecting, setRedirecting] = useState(false);
@@ -161,7 +161,6 @@ export default function LoginPage() {
                                             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brandOrange transition-colors duration-300">
                                                 <Mail size={18} />
                                             </span>
-                                            {/* Using text-base on mobile to prevent iOS zoom, sm:text-sm for desktop */}
                                             <input id="email" name="email" type="email" autoComplete="email" required placeholder="admin@example.com" className="w-full pl-11 pr-4 py-3.5 md:py-4 rounded-xl text-base sm:text-sm bg-slate-50 border border-slate-200 text-slate-800 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-brandOrange focus:ring-4 focus:ring-brandOrange/10 transition-all duration-300" />
                                         </div>
                                     </div>
@@ -214,13 +213,17 @@ export default function LoginPage() {
                             )}
                         </div>
 
-                        {/* Bottom Footer (Only shows in Login mode) */}
+                        {/* 🔥 FIX: Added 'or learn more' using <Link href="/"> exactly like Linear */}
                         {mode === 'login' && (
                             <div className="px-6 py-5 md:px-8 bg-slate-50 border-t border-slate-100 text-center">
                                 <p className="text-sm text-slate-500">
                                     Don't have an account?{" "}
                                     <Link href="/signup" className="font-bold text-brandOrange hover:text-orange-600 transition-colors ml-1">
                                         Sign Up
+                                    </Link>
+                                    {" or "}
+                                    <Link href="/" className="font-bold text-slate-500 hover:text-textmain hover:underline transition-colors">
+                                        learn more
                                     </Link>
                                 </p>
                             </div>

@@ -339,18 +339,27 @@ export default function BlogPage() {
                     </motion.div>
                 </section>
 
-                {/* ── Newsletter ── */}
+                {/* ── Industry Impact (Replaced Newsletter) ── */}
                 <section className="section-padding bg-textmain relative overflow-hidden">
-                    <div className="container-custom relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left">
-                        <div className="lg:w-1/2 w-full">
-                            <h2 className="heading-xl !text-white !mb-4 !text-left md:!text-center lg:!text-left">Stay Ahead of the Curve</h2>
-                            <p className="text-muted !text-slate-300 !mx-0">Join tech leaders getting our weekly digest on Enterprise AI and Engineering.</p>
-                        </div>
-                        <div className="lg:w-1/2 w-full max-w-xl">
-                            <form className="flex flex-col sm:flex-row gap-3 bg-white/5 p-2 rounded-[2rem] sm:rounded-full border border-white/10">
-                                <input type="email" placeholder="Work email" className="w-full bg-transparent text-white px-6 py-4 outline-none font-medium placeholder-gray-400 text-center sm:text-left" required />
-                                <button className="btn-primary !px-8 !py-4 shrink-0 w-full sm:w-auto">Subscribe</button>
-                            </form>
+                    <div className="container-custom relative z-10 text-center">
+                        <h2 className="heading-xl !text-white !mb-12">Empowering Global Enterprises</h2>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                            <div className="flex flex-col items-center justify-center space-y-3">
+                                <span className="text-4xl md:text-5xl font-black text-brandOrange">50+</span>
+                                <span className="text-slate-300 font-medium tracking-wide uppercase text-sm">Enterprise Clients</span>
+                            </div>
+                            <div className="flex flex-col items-center justify-center space-y-3">
+                                <span className="text-4xl md:text-5xl font-black text-brandOrange">10M+</span>
+                                <span className="text-slate-300 font-medium tracking-wide uppercase text-sm">Lines of Code</span>
+                            </div>
+                            <div className="flex flex-col items-center justify-center space-y-3">
+                                <span className="text-4xl md:text-5xl font-black text-brandOrange">99.9%</span>
+                                <span className="text-slate-300 font-medium tracking-wide uppercase text-sm">Uptime Delivered</span>
+                            </div>
+                            <div className="flex flex-col items-center justify-center space-y-3">
+                                <span className="text-4xl md:text-5xl font-black text-brandOrange">24/7</span>
+                                <span className="text-slate-300 font-medium tracking-wide uppercase text-sm">Global Support</span>
+                            </div>
                         </div>
                     </div>
                 </section>

@@ -133,7 +133,8 @@ function ErrorBanner({ message }: { message: string }) {
 // ─────────────────────────────────────────────────────────────────────────────
 const loginInitial: AuthActionResult = { success: false };
 
-function LoginForm({ onSwitchToSignup }: { onSwitchToSignup: () => void }) {
+// 🔥 FIX: Added onClose prop to LoginForm
+function LoginForm({ onSwitchToSignup, onClose }: { onSwitchToSignup: () => void; onClose: () => void }) {
     const router = useRouter();
     const [showPass, setShowPass] = useState(false);
 
@@ -238,6 +239,7 @@ function LoginForm({ onSwitchToSignup }: { onSwitchToSignup: () => void }) {
                 <div className="flex-1 h-px bg-slate-200" />
             </div>
 
+            {/* 🔥 FIX: Added 'or learn more' exactly like Linear */}
             <p className="text-center text-sm text-slate-500">
                 Don&apos;t have an account?{" "}
                 <button
@@ -245,7 +247,15 @@ function LoginForm({ onSwitchToSignup }: { onSwitchToSignup: () => void }) {
                     onClick={onSwitchToSignup}
                     className="font-black text-brandOrange hover:text-orange-600 hover:underline transition-colors"
                 >
-                    Sign Up
+                    Sign up
+                </button>
+                {" or "}
+                <button
+                    type="button"
+                    onClick={onClose}
+                    className="font-bold text-slate-500 hover:text-textmain hover:underline transition-colors"
+                >
+                    learn more
                 </button>
             </p>
         </form>
@@ -257,7 +267,8 @@ function LoginForm({ onSwitchToSignup }: { onSwitchToSignup: () => void }) {
 // ─────────────────────────────────────────────────────────────────────────────
 const signupInitial: AuthActionResult = { success: false };
 
-function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: () => void }) {
+// 🔥 FIX: Added onClose prop to SignupForm
+function SignupForm({ onSwitchToLogin, onClose }: { onSwitchToLogin: () => void; onClose: () => void }) {
     const router = useRouter();
     const [showPass, setShowPass] = useState(false);
 
@@ -371,6 +382,7 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: () => void }) {
                 <div className="flex-1 h-px bg-slate-200" />
             </div>
 
+            {/* 🔥 FIX: Added 'or learn more' exactly like Linear */}
             <p className="text-center text-sm text-slate-500">
                 Already have an account?{" "}
                 <button
@@ -378,7 +390,15 @@ function SignupForm({ onSwitchToLogin }: { onSwitchToLogin: () => void }) {
                     onClick={onSwitchToLogin}
                     className="font-black text-brandOrange hover:text-orange-600 hover:underline transition-colors"
                 >
-                    Log In
+                    Log in
+                </button>
+                {" or "}
+                <button
+                    type="button"
+                    onClick={onClose}
+                    className="font-bold text-slate-500 hover:text-textmain hover:underline transition-colors"
+                >
+                    learn more
                 </button>
             </p>
         </form>
@@ -474,7 +494,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                                             animate="center"
                                             exit="exit"
                                         >
-                                            <LoginForm onSwitchToSignup={() => switchTo("signup")} />
+                                            {/* 🔥 FIX: Passed onClose to LoginForm */}
+                                            <LoginForm onSwitchToSignup={() => switchTo("signup")} onClose={onClose} />
                                         </motion.div>
                                     ) : (
                                         <motion.div
@@ -485,7 +506,8 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                                             animate="center"
                                             exit="exit"
                                         >
-                                            <SignupForm onSwitchToLogin={() => switchTo("login")} />
+                                            {/* 🔥 FIX: Passed onClose to SignupForm */}
+                                            <SignupForm onSwitchToLogin={() => switchTo("login")} onClose={onClose} />
                                         </motion.div>
                                     )}
                                 </AnimatePresence>

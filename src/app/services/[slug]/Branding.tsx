@@ -30,7 +30,7 @@ export default function BrandingAgencyPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-brandOrange font-bold tracking-[0.3em] uppercase text-sm mb-4 block"
           >
-            Strategic Creative Agency
+
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -306,7 +306,7 @@ export default function BrandingAgencyPage() {
       </section>
 
       {/* --- 8. FINAL CTA --- */}
-      <section className="section-padding bg-textmain text-white relative">
+      <section className="section-padding bg-brandOrange text-white relative">
         <div className="container-custom text-center relative z-10">
           <h2 className="heading-xl !text-white !mb-8">Stop Being Invisible. <br />Start Building a Legacy.</h2>
           <p className="text-muted !text-gray-400 mb-12">Partner with experts who understand the nuances of brand scaling and market psychology.</p>

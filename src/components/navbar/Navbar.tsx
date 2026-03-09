@@ -185,9 +185,6 @@ const Navbar = () => {
                   <p className="text-brandGreen text-base leading-relaxed mb-10 font-medium max-w-sm">
                     {navItems.find(i => i.title === activeDropdown)?.desc}
                   </p>
-                  <Link href={navItems.find(i => i.title === activeDropdown)?.href || "#"} className="inline-flex items-center gap-3 text-brandOrange font-black text-[12px] tracking-widest uppercase group transition-all">
-                    Explore All <ArrowRight size={18} className="group-hover:translate-x-3 transition-transform" />
-                  </Link>
                 </div>
 
                 <div className="col-span-8 pl-12 py-12">

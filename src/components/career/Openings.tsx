@@ -1,6 +1,7 @@
 "use client";
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useActionState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { applyNowAction } from '@/actions/career';
 
 // --- 1. DETAILED DATA (Strictly Intact) ---
 const JOBS = [
@@ -19,12 +20,13 @@ export default function CurrentOpenings() {
   const [isApplying, setIsApplying] = useState(false);
   const jobSectionRef = useRef<HTMLDivElement>(null);
 
+  const [state, formAction, isPending] = useActionState(applyNowAction, null);
+
   const closeModal = () => {
     setSelectedJob(null);
     setIsApplying(false);
   };
 
-  // UX Improvement: Handle Escape key
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') closeModal();
@@ -132,11 +134,10 @@ export default function CurrentOpenings() {
         {selectedJob && (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[999] bg-black/95 backdrop-blur-sm overflow-y-auto pt-20 pb-10" // Added pt-20 to clear standard navbar space
+            className="fixed inset-0 z-[999] bg-black/95 backdrop-blur-sm overflow-y-auto pt-20 pb-10"
           >
             <div className="relative container-custom px-4 min-h-[80vh] flex flex-col bg-zinc-900 rounded-3xl border border-zinc-800 p-6 md:p-12">
 
-              {/* Internal Relative Close Button Fix */}
               <div className="absolute top-4 right-4 md:top-6 md:right-6">
                 <button
                   onClick={(e) => { e.stopPropagation(); closeModal(); }}
@@ -188,18 +189,33 @@ export default function CurrentOpenings() {
                       </div>
                     ) : (
                       <motion.form
+                        action={formAction}
                         initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                         className="space-y-6 text-black"
-                        onSubmit={(e) => { e.preventDefault(); alert('Application Received!'); closeModal(); }}
                       >
                         <h4 className="text-lg md:text-xl font-bold mb-6 uppercase">Drop your profile</h4>
-                        <input placeholder="Full Name" className="w-full bg-transparent border-b-2 border-gray-300 py-3 outline-none focus:border-brandOrange text-sm transition-all text-black placeholder-gray-400" required />
-                        <input type="email" placeholder="Work Email" className="w-full bg-transparent border-b-2 border-gray-300 py-3 outline-none focus:border-brandOrange text-sm transition-all text-black placeholder-gray-400" required />
+
+                        {/* 🔥 FIX APPLIED HERE: Added fallbacks to prevent null values */}
+                        <input type="hidden" name="appliedFor" value={selectedJob?.title || "Not Specified"} />
+                        <input type="hidden" name="department" value={selectedJob?.department || "General"} />
+
+                        <input name="fullName" placeholder="Full Name" className="w-full bg-transparent border-b-2 border-gray-300 py-3 outline-none focus:border-brandOrange text-sm transition-all text-black placeholder-gray-400" required />
+                        <input name="email" type="email" placeholder="Work Email" className="w-full bg-transparent border-b-2 border-gray-300 py-3 outline-none focus:border-brandOrange text-sm transition-all text-black placeholder-gray-400" required />
+                        <input name="phone" type="tel" placeholder="Phone Number" className="w-full bg-transparent border-b-2 border-gray-300 py-3 outline-none focus:border-brandOrange text-sm transition-all text-black placeholder-gray-400" required />
+
                         <div className="py-4">
                           <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-4">Attach Resume (PDF)</label>
-                          <input type="file" accept=".pdf" className="text-[10px] text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-orange-50 file:text-brandOrange hover:file:bg-orange-100 cursor-pointer" required />
+                          <input name="resume" type="file" accept=".pdf" className="text-[10px] text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-bold file:bg-orange-50 file:text-brandOrange hover:file:bg-orange-100 cursor-pointer" required />
                         </div>
-                        <button type="submit" className="bg-brandOrange text-white w-full py-4 md:py-5 rounded-xl md:rounded-none font-black uppercase tracking-widest shadow-xl shadow-brandOrange/20 hover:bg-black transition-all">Submit Application</button>
+
+                        <button disabled={isPending} type="submit" className="bg-brandOrange text-white w-full py-4 md:py-5 rounded-xl md:rounded-none font-black uppercase tracking-widest shadow-xl shadow-brandOrange/20 hover:bg-black transition-all disabled:opacity-50">
+                          {isPending ? 'Sending...' : 'Submit Application'}
+                        </button>
+
+                        {/* Status Messages */}
+                        {state?.success && <p className="text-green-600 text-xs font-bold text-center mt-2">Success! Application Sent.</p>}
+                        {state?.error && <p className="text-red-600 text-xs font-bold text-center mt-2">{state.error}</p>}
+
                         <button type="button" onClick={() => setIsApplying(false)} className="w-full text-[10px] font-bold text-gray-500 uppercase tracking-widest mt-4 underline underline-offset-4 hover:text-black transition-colors">Go Back</button>
                       </motion.form>
                     )}

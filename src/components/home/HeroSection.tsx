@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
+import { MessageCircle, X } from "lucide-react";
 import VideoSection from "./Video";
 import { useModal } from "@/components/context/ModalContext";
 
@@ -11,59 +12,96 @@ import { useModal } from "@/components/context/ModalContext";
 const ParticleSection = dynamic(() => import("./Particle"), { ssr: false });
 
 const partners = [
-  { name: "Licious", logo: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg" },
-  { name: "Flipkart", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
-  { name: "PhonePe", logo: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" },
-  { name: "Gupshup", logo: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
-  { name: "Cultfit", logo: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Stripe_Logo%2C_revised_2016.svg" },
+  { name: "Partner 1", logo: "/images/services/1.png" },
+  { name: "Partner 2", logo: "/images/services/2.png" },
+  { name: "Partner 3", logo: "/images/services/3.png" },
+  { name: "Partner 4", logo: "/images/services/4.png" },
+  { name: "Partner 5", logo: "/images/services/5.png" },
+  { name: "Partner 6", logo: "/images/services/6.png" },
+  { name: "Partner 7", logo: "/images/services/7.png" },
+  { name: "Partner 8", logo: "/images/services/8.png" },
+  { name: "Partner 9", logo: "/images/services/9.png" },
+  { name: "Partner 10", logo: "/images/services/10.png" },
+  { name: "Partner 11", logo: "/images/services/11.png" },
+  { name: "Partner 12", logo: "/images/services/12.png" },
 ];
 
-// --- 🚀 Growth Section ---
-const GrowthSection = ({ onContactClick }: { onContactClick: () => void }) => (
+// --- 🏗️ Home Contact Hub (WhatsApp + Greet Message) ---
+const HomeContactHub = () => {
+  const [showGreeting, setShowGreeting] = useState(false);
+
+  // 🔥 Logic: 3 seconds baad greeting dikhegi
+  useEffect(() => {
+    const timer = setTimeout(() => setShowGreeting(true), 3000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const whatsappUrl = `https://wa.me/919523922090?text=${encodeURIComponent("Hi Nighwan Tech, I'm interested in your services!")}`;
+
+  return (
+    <div className="fixed bottom-28 md:bottom-32 right-4 md:right-6 z-[100] flex flex-col items-end">
+      <AnimatePresence>
+        {showGreeting && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8, y: 10 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            className="bg-white p-4 rounded-2xl shadow-2xl border border-slate-100 mb-3 relative max-w-[200px]"
+          >
+            <button onClick={() => setShowGreeting(false)} className="absolute -top-2 -right-2 bg-slate-100 rounded-full p-1 text-slate-400 hover:text-brandOrange">
+              <X size={10} />
+            </button>
+            <p className="text-[11px] font-bold text-textmain leading-tight">
+              Hey! 👋 Looking for <span className="text-brandOrange">Tech Architects</span>? We're online!
+            </p>
+            <div className="absolute -bottom-2 right-6 w-4 h-4 bg-white rotate-45 border-r border-b border-slate-100" />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        className="bg-[#25D366] text-white p-4 rounded-full shadow-lg flex items-center justify-center relative group"
+      >
+        <MessageCircle size={28} fill="currentColor" />
+        <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-20" />
+        <span className="absolute right-16 bg-white text-textmain text-[10px] font-bold py-1.5 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md whitespace-nowrap border border-slate-100 pointer-events-none">
+          Chat on WhatsApp
+        </span>
+      </motion.a>
+    </div>
+  );
+};
+
+// --- 🚀 Growth Section (Added API Data Prop with Fallbacks) ---
+const GrowthSection = ({ onContactClick, slideData }: { onContactClick: () => void, slideData?: any }) => (
   <div className="w-full h-full bg-[#fcfcfc] flex items-center justify-center relative overflow-hidden">
     <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brandOrange/5 rounded-full blur-[100px] md:blur-[120px] -z-10" />
-
-    {/* 🔥 FIX: Responsive padding & h-full to center perfectly inside 100dvh */}
     <div className="container-custom h-full grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10 pt-24 pb-28 md:pt-32 md:pb-40">
-
       <div className="text-center md:text-left flex flex-col items-center md:items-start justify-center mt-8 md:mt-0">
-        <motion.div
-          initial={{ x: -30, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="flex flex-col items-center md:items-start"
-        >
+        <motion.div initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5 }} className="flex flex-col items-center md:items-start">
           <span className="text-brandOrange font-black text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 block border-l-0 md:border-l-4 border-brandOrange md:pl-3">
             Engineering Excellence
           </span>
           <h1 className="heading-xl !text-center md:!text-left !mb-4 md:!mb-6 !text-textmain">
-            NIGHWAN TECH <br />
-            <span className="text-brandOrange italic"></span>
+            {slideData?.title ? slideData.title : "NIGHWAN TECH"} <br />
           </h1>
           <p className="text-muted !text-center md:!text-left !mx-0 mb-6 md:mb-8 opacity-80 max-w-md !text-sm md:!text-base">
-            Engineering your path to growth where your business goals meet our engineering expertise.
+            {slideData?.description ? slideData.description : "Engineering your path to growth where your business goals meet our engineering expertise."}
           </p>
         </motion.div>
-
         <div className="flex justify-center md:justify-start w-full">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onContactClick}
-            className="btn-primary"
-          >
+          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={onContactClick} className="btn-primary">
             Get in Touch
           </motion.button>
         </div>
       </div>
-
       <div className="relative flex justify-center items-center px-4 md:px-0">
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.7 }}
-          className="relative w-full max-w-[280px] sm:max-w-md md:max-w-lg"
-        >
+        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.7 }} className="relative w-full max-w-[280px] sm:max-w-md md:max-w-lg">
           <div className="absolute -left-2 md:-left-8 top-10 space-y-4 z-20 hidden sm:block">
             {['Quality >', 'Time <', 'Quantity >'].map((text, i) => (
               <div key={i} className={`bg-white shadow-xl px-4 md:px-5 py-2 md:py-2.5 rounded-xl border-l-4 ${i === 1 ? 'border-brandGreen' : 'border-brandOrange'} font-bold text-[11px] md:text-sm text-textmain whitespace-nowrap`}>
@@ -71,14 +109,8 @@ const GrowthSection = ({ onContactClick }: { onContactClick: () => void }) => (
               </div>
             ))}
           </div>
-
           <div className="bg-white rounded-[30px] md:rounded-[50px] p-4 border border-gray-100 shadow-xl md:shadow-2xl overflow-hidden flex justify-center items-center relative z-10">
-            {/* 🔥 FIX: Image scaling safe limits for mobile */}
-            <img
-              src="https://illustrations.popsy.co/amber/success.svg"
-              alt="Nighwan Tech Growth"
-              className="w-full h-auto max-h-[220px] sm:max-h-[300px] md:max-h-[380px] object-contain drop-shadow-lg md:drop-shadow-xl"
-            />
+            <img src="https://illustrations.popsy.co/amber/success.svg" alt="Nighwan Tech Growth" className="w-full h-auto max-h-[220px] sm:max-h-[300px] md:max-h-[380px] object-contain drop-shadow-lg md:drop-shadow-xl" />
           </div>
         </motion.div>
       </div>
@@ -86,24 +118,16 @@ const GrowthSection = ({ onContactClick }: { onContactClick: () => void }) => (
   </div>
 );
 
-// --- 🏗️ Logo Slider ---
 const LogoCloudPremium = () => (
   <div className="absolute bottom-0 left-0 w-full z-40">
-    {/* 🔥 FIX: Thinner padding on mobile (py-4) so it doesn't eat vertical space */}
     <div className="bg-white/95 backdrop-blur-md border-t border-gray-100 py-4 md:py-6 shadow-[0_-15px_40px_rgba(0,0,0,0.04)]">
       <div className="container-custom">
         <div className="relative flex overflow-hidden group select-none items-center">
           <div className="absolute left-0 top-0 w-12 md:w-40 h-full bg-gradient-to-r from-white via-white/40 to-transparent z-10" />
           <div className="absolute right-0 top-0 w-12 md:w-40 h-full bg-gradient-to-l from-white via-white/40 to-transparent z-10" />
-
           <div className="flex animate-marquee whitespace-nowrap gap-12 md:gap-32 items-center">
             {[...partners, ...partners, ...partners].map((item, idx) => (
-              <img
-                key={idx}
-                src={item.logo}
-                alt={item.name}
-                className="h-5 md:h-8 w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
-              />
+              <img key={idx} src={item.logo} alt={item.name} className="h-8 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105" />
             ))}
           </div>
         </div>
@@ -114,64 +138,63 @@ const LogoCloudPremium = () => (
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [apiSlides, setApiSlides] = useState<any[]>([]); // 🔥 Database Data Store karne ke liye
   const { openModal } = useModal();
   const pathname = usePathname();
+
+  // 🔥 API Fetch Logic (Backend se data le raha hai)
+  useEffect(() => {
+    const fetchSlides = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/slider");
+        const json = await res.json();
+        if (json.success) setApiSlides(json.data);
+      } catch (err) {
+        console.error("Slider fetch error:", err);
+      }
+    };
+    fetchSlides();
+  }, []);
+
+  // Growth Section ka data dhund rahe hain (Fallback safety ke sath)
+  const growthData = apiSlides.find(slide => slide.componentType === 'growth');
 
   return (
     <section className="relative w-full h-[100dvh] bg-white overflow-hidden m-0 p-0 block">
 
-      {/* Slide 0: Growth */}
-      <motion.div
-        animate={{ opacity: currentSlide === 0 ? 1 : 0 }}
-        transition={{ duration: 0.8 }}
-        className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 0 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}
-      >
-        <GrowthSection onContactClick={() => openModal(`Hero Section Slider - ${pathname}`)} />
+      {/* WhatsApp Hub Component Added Here */}
+      <HomeContactHub />
+
+      <motion.div animate={{ opacity: currentSlide === 0 ? 1 : 0 }} transition={{ duration: 0.8 }} className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 0 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}>
+        {/* 🔥 GrowthSection mein API Data bheja gaya hai */}
+        <GrowthSection
+          slideData={growthData}
+          onContactClick={() => openModal(`Hero Section Slider - ${pathname}`)}
+        />
       </motion.div>
 
-      {/* Slide 1: Particle */}
-      <motion.div
-        animate={{ opacity: currentSlide === 1 ? 1 : 0 }}
-        transition={{ duration: 0.8 }}
-        className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 1 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}
-      >
+      <motion.div animate={{ opacity: currentSlide === 1 ? 1 : 0 }} transition={{ duration: 0.8 }} className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 1 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}>
         <ParticleSection />
       </motion.div>
 
-      {/* Slide 2: Video */}
-      <motion.div
-        animate={{ opacity: currentSlide === 2 ? 1 : 0 }}
-        transition={{ duration: 0.8 }}
-        className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 2 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}
-      >
+      <motion.div animate={{ opacity: currentSlide === 2 ? 1 : 0 }} transition={{ duration: 0.8 }} className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 2 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}>
         <VideoSection />
       </motion.div>
 
-      {/* -------------------------------------------------------- */}
-
       <LogoCloudPremium />
 
-      {/* Slider Controls */}
-      {/* 🔥 FIX: Adjusted right placement for mobile (right-4) */}
       <div className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-6 md:gap-8">
         {[0, 1, 2].map((i) => (
           <button key={i} onClick={() => setCurrentSlide(i)} className="group flex items-center justify-end gap-3 md:gap-4 outline-none">
-            {/* Hidden text on very small screens, visible on md+ */}
-            <span className={`hidden md:block text-[10px] font-black tracking-widest uppercase transition-all duration-300 px-2 py-1 rounded bg-black/5 backdrop-blur-sm
-              ${currentSlide === i ? "text-brandOrange" : "text-textmain opacity-0 group-hover:opacity-100"}`}>
-              {i === 0 ? "Growth" : i === 1 ? "Neural" : "Identity"}
+            <span className={`hidden md:block text-[10px] font-black tracking-widest uppercase transition-all duration-300 px-2 py-1 rounded bg-black/5 backdrop-blur-sm ${currentSlide === i ? "text-brandOrange" : "text-textmain opacity-0 group-hover:opacity-100"}`}>
+              {/* 🔥 Dynamic Label with Fallback */}
+              {i === 0 ? (growthData?.label ? growthData.label : "Growth") : i === 1 ? "Neural" : "Identity"}
             </span>
-            <div className={`transition-all duration-500 rounded-full border border-black/10 shadow-sm
-              ${currentSlide === i
-                ? "h-10 md:h-12 w-[4px] md:w-[5px] bg-brandOrange"
-                : "h-4 md:h-5 w-[3px] bg-gray-300 group-hover:bg-brandOrange"}`}
-            />
+            <div className={`transition-all duration-500 rounded-full border border-black/10 shadow-sm ${currentSlide === i ? "h-10 md:h-12 w-[4px] md:w-[5px] bg-brandOrange" : "h-4 md:h-5 w-[3px] bg-gray-300 group-hover:bg-brandOrange"}`} />
           </button>
         ))}
       </div>
 
-      {/* Slide Index Display */}
-      {/* 🔥 FIX: Safely positioned above the mobile logo cloud */}
       <div className="absolute bottom-20 md:bottom-28 left-6 md:left-12 z-50 flex flex-col items-start pointer-events-none">
         <span className="text-[14px] md:text-[16px] font-black text-brandOrange tracking-tighter drop-shadow-sm">0{currentSlide + 1}</span>
         <div className="w-8 md:w-10 h-[2px] bg-brandOrange/30 my-1" />

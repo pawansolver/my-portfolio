@@ -28,7 +28,7 @@ export default function CompanyOverviewPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-brandOrange font-bold tracking-[0.3em] uppercase text-sm mb-4 block"
           >
-            Engineering Excellence Since Day One
+
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
