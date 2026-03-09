@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { MessageCircle, X } from "lucide-react";
+import { MessageCircle, X, ChevronUp, ChevronDown } from "lucide-react";
 import VideoSection from "./Video";
 import { useModal } from "@/components/context/ModalContext";
 
@@ -26,11 +26,10 @@ const partners = [
   { name: "Partner 12", logo: "/images/services/12.png" },
 ];
 
-// --- 🏗️ Home Contact Hub (WhatsApp + Greet Message) ---
+// --- 🏗️ Home Contact Hub (WhatsApp) ---
 const HomeContactHub = () => {
   const [showGreeting, setShowGreeting] = useState(false);
 
-  // 🔥 Logic: 3 seconds baad greeting dikhegi
   useEffect(() => {
     const timer = setTimeout(() => setShowGreeting(true), 3000);
     return () => clearTimeout(timer);
@@ -39,7 +38,7 @@ const HomeContactHub = () => {
   const whatsappUrl = `https://wa.me/919523922090?text=${encodeURIComponent("Hi Nighwan Tech, I'm interested in your services!")}`;
 
   return (
-    <div className="fixed bottom-28 md:bottom-32 right-4 md:right-6 z-[100] flex flex-col items-end">
+    <div className="fixed bottom-6 md:bottom-8 right-4 md:right-6 z-[100] flex flex-col items-end">
       <AnimatePresence>
         {showGreeting && (
           <motion.div
@@ -77,7 +76,7 @@ const HomeContactHub = () => {
   );
 };
 
-// --- 🚀 Growth Section (Added API Data Prop with Fallbacks) ---
+// --- 🚀 Growth Section ---
 const GrowthSection = ({ onContactClick, slideData }: { onContactClick: () => void, slideData?: any }) => (
   <div className="w-full h-full bg-[#fcfcfc] flex items-center justify-center relative overflow-hidden">
     <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brandOrange/5 rounded-full blur-[100px] md:blur-[120px] -z-10" />
@@ -138,11 +137,10 @@ const LogoCloudPremium = () => (
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [apiSlides, setApiSlides] = useState<any[]>([]); // 🔥 Database Data Store karne ke liye
+  const [apiSlides, setApiSlides] = useState<any[]>([]);
   const { openModal } = useModal();
   const pathname = usePathname();
 
-  // 🔥 API Fetch Logic (Backend se data le raha hai)
   useEffect(() => {
     const fetchSlides = async () => {
       try {
@@ -156,17 +154,14 @@ export default function HeroSection() {
     fetchSlides();
   }, []);
 
-  // Growth Section ka data dhund rahe hain (Fallback safety ke sath)
   const growthData = apiSlides.find(slide => slide.componentType === 'growth');
 
   return (
     <section className="relative w-full h-[100dvh] bg-white overflow-hidden m-0 p-0 block">
 
-      {/* WhatsApp Hub Component Added Here */}
       <HomeContactHub />
 
       <motion.div animate={{ opacity: currentSlide === 0 ? 1 : 0 }} transition={{ duration: 0.8 }} className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 0 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}>
-        {/* 🔥 GrowthSection mein API Data bheja gaya hai */}
         <GrowthSection
           slideData={growthData}
           onContactClick={() => openModal(`Hero Section Slider - ${pathname}`)}
@@ -183,22 +178,53 @@ export default function HeroSection() {
 
       <LogoCloudPremium />
 
-      <div className="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-6 md:gap-8">
-        {[0, 1, 2].map((i) => (
-          <button key={i} onClick={() => setCurrentSlide(i)} className="group flex items-center justify-end gap-3 md:gap-4 outline-none">
-            <span className={`hidden md:block text-[10px] font-black tracking-widest uppercase transition-all duration-300 px-2 py-1 rounded bg-black/5 backdrop-blur-sm ${currentSlide === i ? "text-brandOrange" : "text-textmain opacity-0 group-hover:opacity-100"}`}>
-              {/* 🔥 Dynamic Label with Fallback */}
-              {i === 0 ? (growthData?.label ? growthData.label : "Growth") : i === 1 ? "Neural" : "Identity"}
-            </span>
-            <div className={`transition-all duration-500 rounded-full border border-black/10 shadow-sm ${currentSlide === i ? "h-10 md:h-12 w-[4px] md:w-[5px] bg-brandOrange" : "h-4 md:h-5 w-[3px] bg-gray-300 group-hover:bg-brandOrange"}`} />
-          </button>
-        ))}
+      {/* 🌟 🛠️ FIX: Mobile Horizontal, Desktop Vertical Glass Slider */}
+      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:right-8 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 z-50 flex flex-row md:flex-col items-center gap-3 md:gap-2 bg-white/90 backdrop-blur-2xl px-5 py-2 md:p-3 rounded-full border border-white/60 shadow-2xl drop-shadow-md">
+
+        {/* Previous Slide Button */}
+        <button
+          onClick={() => setCurrentSlide((prev) => (prev === 0 ? 2 : prev - 1))}
+          className="p-1 md:p-3 rounded-full text-slate-600 hover:text-brandOrange hover:bg-slate-100/50 transition-all duration-300"
+          aria-label="Previous Slide"
+        >
+          {/* Mobile par left arrow ban jayega (-rotate-90), Desktop par Up rahega */}
+          <ChevronUp className="w-4 h-4 md:w-5 md:h-5 -rotate-90 md:rotate-0" strokeWidth={2.5} />
+        </button>
+
+        {/* Animated Dynamic Label */}
+        <div className="w-20 h-6 md:h-28 md:w-auto flex items-center justify-center relative overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={currentSlide}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.3 }}
+              // Mobile par horizontal text, Desktop (md:) par vertical text
+              className="text-[10px] md:text-[10px] font-black tracking-[0.2em] md:tracking-[0.35em] uppercase text-textmain md:[writing-mode:vertical-rl] md:rotate-180 absolute whitespace-nowrap"
+            >
+              {currentSlide === 0 ? (growthData?.label ? growthData.label : "Growth") : currentSlide === 1 ? "Neural" : "Identity"}
+            </motion.span>
+          </AnimatePresence>
+        </div>
+
+        {/* Next Slide Button */}
+        <button
+          onClick={() => setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1))}
+          className="p-1 md:p-3 rounded-full text-slate-600 hover:text-brandOrange hover:bg-slate-100/50 transition-all duration-300"
+          aria-label="Next Slide"
+        >
+          {/* Mobile par right arrow ban jayega (-rotate-90), Desktop par Down rahega */}
+          <ChevronDown className="w-4 h-4 md:w-5 md:h-5 -rotate-90 md:rotate-0" strokeWidth={2.5} />
+        </button>
+
       </div>
 
-      <div className="absolute bottom-20 md:bottom-28 left-6 md:left-12 z-50 flex flex-col items-start pointer-events-none">
-        <span className="text-[14px] md:text-[16px] font-black text-brandOrange tracking-tighter drop-shadow-sm">0{currentSlide + 1}</span>
-        <div className="w-8 md:w-10 h-[2px] bg-brandOrange/30 my-1" />
-        <span className="text-[10px] md:text-[11px] font-bold text-gray-400">03</span>
+      {/* Bottom Counter Logic Untouched */}
+      <div className="absolute bottom-20 md:bottom-28 left-6 md:left-12 z-50 flex flex-col items-start pointer-events-none drop-shadow-lg">
+        <span className="text-[14px] md:text-[16px] font-black text-brandOrange tracking-tighter drop-shadow-[0_0_8px_rgba(255,165,0,0.4)]">0{currentSlide + 1}</span>
+        <div className="w-8 md:w-10 h-[2px] bg-brandOrange/60 my-1 shadow-[0_0_5px_rgba(255,165,0,0.3)]" />
+        <span className="text-[10px] md:text-[11px] font-bold text-slate-400 drop-shadow-md">03</span>
       </div>
 
       <style jsx global>{`

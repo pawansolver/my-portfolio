@@ -84,7 +84,6 @@ export default function IndustriesSection() {
   if (!isMounted) return null;
 
   return (
-    // 🔥 FIX: py-10 for mobile to reduce extra white space gap
     <section className="py-10 md:py-16 relative bg-white overflow-hidden z-10">
 
       {/* Background Particles Layer */}
@@ -97,7 +96,6 @@ export default function IndustriesSection() {
       <div className="container-custom relative z-10">
 
         {/* Header - Global Sync */}
-        {/* 🔥 FIX: mb-8 to tighten the vertical flow */}
         <div className="flex flex-col items-center mb-8 md:mb-14 text-center">
           <span className="font-black text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 block text-brandOrange">
             Our Reach
@@ -149,12 +147,13 @@ export default function IndustriesSection() {
             </div>
 
             <div className="flex justify-start">
+              {/* 🛠️ BULLETPROOF FIX: flex-row, flex-nowrap, aur whitespace-nowrap */}
               <button
                 onClick={() => openModal()}
-                className="btn-primary w-full sm:w-auto flex items-center justify-center gap-4 group"
+                className="btn-primary w-full sm:w-max flex flex-row flex-nowrap items-center justify-center gap-3 group whitespace-nowrap"
               >
-                GET IN TOUCH
-                <FiArrowRight className="group-hover:translate-x-2 transition-transform shrink-0" />
+                <span className="font-bold leading-none mt-[2px]">GET IN TOUCH</span>
+                <FiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform shrink-0" />
               </button>
             </div>
           </div>

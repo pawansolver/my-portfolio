@@ -5,9 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CheckCircle2, X } from 'lucide-react';
 
-// Yahan paths ka dhyan rakhna bhai:
-// Agar aapne HeroSection ko 'home' folder mein rakha hai toh @/components/home/HeroSection rehne dena.
-// Agar 'hero' folder banaya hai toh @/components/hero/HeroSection kar dena.
+// Existing Imports
 import HeroSection from "@/components/home/HeroSection";
 import StatsCounter from "@/components/home/StatsCounter";
 import AboutMission from "@/components/home/AboutMission";
@@ -20,6 +18,10 @@ import AISolutionsBentoGrid from '@/components/home/AISolutionsBentoGrid';
 import WhyChooseUs from '@/components/home/components/WhyChooseUs';
 import ContactSection from '@/components/home/ContactSection';
 
+// 🚀 Naye World-Class Components Import (Ensure path is correct)
+import Testimonials from '@/components/home/Testimonials';
+import BlogSection from '@/components/home/BlogSection';
+
 function LogoutToast() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -28,10 +30,8 @@ function LogoutToast() {
   useEffect(() => {
     if (searchParams.get('logout') === 'success') {
       setShow(true);
-      // Remove the param after 3 seconds but keep the toast for a bit
       const timer = setTimeout(() => {
         setShow(false);
-        // Clean up URL
         router.replace('/', { scroll: false });
       }, 5000);
       return () => clearTimeout(timer);
@@ -77,23 +77,31 @@ export default function HomeContent() {
         {/* 1. Hero Page - Cinematic Entry */}
         <HeroSection />
 
-        {/* 2. Trust Building - Logo Slider (Hero ke turant baad achha lagta hai) */}
-
-
-        {/* 3. Numbers & Mission - Slot Machine + About */}
+        {/* 2. Numbers & Mission */}
         <StatsCounter />
         <AboutMission />
 
-        {/* 4. Core Offerings - Premium Services & Bento Grid */}
+        {/* 3. Core Offerings */}
         <PremiumServicesSection />
         <AISolutionsBentoGrid />
+
+        {/* Trust Building - Slider */}
         <CompanySlider />
-        {/* 5. Proof of Work - Industries & Portfolio */}
+
+        {/* 4. Proof of Work - Industries & Portfolio */}
         <IndustriesListSection />
         <ProjectPortfolio />
 
-        {/* 6. Closer - Why Choose Us & Contact */}
+        {/* 5. 🌟 Social Proof (Testimonials) - Naya Section */}
+        <Testimonials />
+
+        {/* 6. Closer - Why Choose Us */}
         <WhyChooseUs />
+
+        {/* 7. ✍️ Knowledge Hub (Blog) - Naya Section */}
+        <BlogSection />
+
+        {/* 8. Contact Section */}
         <ContactSection />
 
       </StaggerContainer>

@@ -51,11 +51,13 @@ const FooterLinks = () => {
               </Link>
             ) : (
               <div className="flex flex-col">
+                {/* 🛠️ FIX HERE: gap-[10px] lagaya aur span ko fixed w-[85px] diya */}
                 <button
                   onClick={() => toggleDropdown(item.title)}
-                  className="flex items-center justify-between text-gray-600 hover:text-orange-500 transition-all duration-300 text-sm font-medium w-full text-left group"
+                  className="flex items-center justify-start gap-[10px] text-gray-600 hover:text-orange-500 transition-all duration-300 text-sm font-medium text-left group outline-none"
                 >
-                  <span>{item.title}</span>
+                  {/* Fixed width taaki saare arrows ek exact straight line mein aayen */}
+                  <span className="w-[85px] whitespace-nowrap block">{item.title}</span>
                   <ChevronDown
                     size={16}
                     className={`transition-transform duration-300 ${openDropdown === item.title ? 'rotate-180 text-orange-500' : 'text-gray-400 group-hover:text-orange-500'}`}
