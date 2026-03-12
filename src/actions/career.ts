@@ -2,8 +2,8 @@
 
 export async function applyNowAction(prevState: any, formData: FormData) {
     try {
-        // 🔥 Ye aapka backend server URL hai (port check kar lena)
-        const response = await fetch("http://localhost:5000/api/career/apply", {
+        // 🔥 Ab ye live backend URL use karega environment variable se
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/career/apply`, {
             method: "POST",
             body: formData, // FormData mein file aur fields dono automatically chale jayenge
         });

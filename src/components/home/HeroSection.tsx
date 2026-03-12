@@ -144,7 +144,8 @@ export default function HeroSection() {
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/slider");
+        // 🔥 SIRF YAHAN CHANGE KIYA HAI - Backticks aur Variable lagaya hai
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/slider`);
         const json = await res.json();
         if (json.success) setApiSlides(json.data);
       } catch (err) {

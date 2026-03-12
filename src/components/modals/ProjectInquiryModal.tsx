@@ -117,10 +117,17 @@ const ProjectInquiryModal = ({ isOpen, onClose, sourcePage }: ModalProps) => {
 
               <form className="space-y-2.5 md:space-y-4 mt-0" action={formAction}>
 
+                {/* 🔥 STRICT FIX: pathname wapas lagaya taaki /services/lean-consultancy jaisa data aaye */}
                 <input
                   type="hidden"
                   name="sourcePage"
                   value={typeof window !== 'undefined' ? window.location.pathname : sourcePage}
+                />
+
+                <input
+                  type="hidden"
+                  name="countryCode"
+                  value={selectedCountry.code}
                 />
 
                 {/* Feedback Messages */}

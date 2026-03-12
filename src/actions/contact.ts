@@ -5,26 +5,33 @@ export type ActionState = {
     error?: string;
 };
 
-// 1. Action for Main Contact Page Form (FIXED ✅)
+// 1. Action for Main Contact Page Form
 export async function contactAction(
     _prev: any,
     formData: FormData
 ): Promise<ActionState> {
     try {
+        const firstName = formData.get("firstName") || "";
+        const lastName = formData.get("lastName") || "";
+        const fullName = `${firstName} ${lastName}`.trim();
+
         const data = {
-            // Hum abhi backend ko direct firstName/lastName bhej rahe hain 
-            // kyunki backend controller wahi expect kar raha hai
-            firstName: formData.get("firstName"),
-            lastName: formData.get("lastName"),
+            // 🔥 BULLETPROOF FIX: Humne sab bhej diya! 
+            // Ab backend controller ko jo chahiye khud utha lega, "undefined" nahi aayega.
+            firstName: firstName,
+            lastName: lastName,
+            fullName: fullName,
+            name: fullName,
+
             email: formData.get("email"),
-            phone: formData.get("phone"), // 🔥 YE MISSING THA, AB ADD HO GAYA
+            phone: formData.get("phone"),
             message: formData.get("message"),
             sourcePage: formData.get("source_page") || "Contact Page",
             type: "CONTACT_FORM"
         };
 
-        // Backend API call
-        const response = await fetch("http://localhost:5000/api/contact/submit", {
+        // Backend API call (🔥 URL updated with Backticks)
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact/submit`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -48,20 +55,28 @@ export async function projectInquiryAction(
     formData: FormData
 ): Promise<ActionState> {
     try {
+        const countryCode = formData.get("countryCode") || "+91";
+        const phoneNumber = formData.get("phone") || "";
+        const completePhone = `${countryCode} ${phoneNumber}`.trim();
+
         const data = {
+            // 🔥 BULLETPROOF FIX: Yahan bhi safety ke liye dono bhej diye
             fullName: formData.get("fullName"),
+            name: formData.get("fullName"),
+
             email: formData.get("email"),
-            phone: formData.get("phone"),
+            phone: completePhone,
             budget: formData.get("budget"),
-            message: formData.get("details"),
+            message: formData.get("details") || "No message provided.",
 
-            // 🔥 BAS YAHAN CHANGE HUA HAI: Ek default value add ki hai
+            // Source Page yahan direct frontend se catch ho raha hai
             sourcePage: formData.get("sourcePage") || "Website Lead",
-
-            type: "PROJECT_INQUIRY"
+            type: "PROJECT_INQUIRY",
+            projectType: "General Web Project"
         };
 
-        const response = await fetch("http://localhost:5000/api/contact/inquiry", {
+        // 🔥 URL updated with Backticks
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact/inquiry`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
