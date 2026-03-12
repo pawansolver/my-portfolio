@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { MessageCircle, X, ChevronUp, ChevronDown } from "lucide-react";
+import { MessageCircle, X, ChevronUp, ChevronDown, ArrowRight } from "lucide-react"; // 🔥 ArrowRight import kiya
 import VideoSection from "./Video";
 import { useModal } from "@/components/context/ModalContext";
 
@@ -93,10 +93,12 @@ const GrowthSection = ({ onContactClick, slideData }: { onContactClick: () => vo
             {slideData?.description ? slideData.description : "Engineering your path to growth where your business goals meet our engineering expertise."}
           </p>
         </motion.div>
+
         <div className="flex justify-center md:justify-start w-full">
-          <motion.button whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} onClick={onContactClick} className="btn-primary">
-            Get in Touch
-          </motion.button>
+          {/* 🔥 FIX: Yahan motion.button ki jagah normal button rakha hai aur animation Tailwind/CSS par chhod diya hai taaki global.css 100% force apply ho. Arrow bhi add kar diya hai alignment check karne ke liye. */}
+          <button onClick={onContactClick} className="btn-primary">
+            Get in Touch <ArrowRight size={18} />
+          </button>
         </div>
       </div>
       <div className="relative flex justify-center items-center px-4 md:px-0">
@@ -144,7 +146,6 @@ export default function HeroSection() {
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        // 🔥 SIRF YAHAN CHANGE KIYA HAI - Backticks aur Variable lagaya hai
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/slider`);
         const json = await res.json();
         if (json.success) setApiSlides(json.data);

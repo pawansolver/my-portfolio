@@ -56,7 +56,7 @@ export default function CompanyOverviewPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Company Deck")} className="btn-primary">
+            <button onClick={() => openModal("Company Deck")} className="btn-inverse">
               Download Profile
             </button>
             <button onClick={() => openModal("Office Tour")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -316,7 +316,7 @@ export default function CompanyOverviewPage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Let's discuss how our overview matches your specific business goals.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("Connect with Us")} className="btn-primary">
+            <button onClick={() => openModal("Connect with Us")} className="btn-inverse">
               Connect With Us
             </button>
           </div>

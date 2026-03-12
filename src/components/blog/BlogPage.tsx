@@ -288,7 +288,7 @@ export default function BlogPage() {
                                     <h1 className="heading-xl !text-white !mb-6">{featuredPosts[activeSlide].title}</h1>
                                     <p className="text-muted !text-slate-200/90 !max-w-3xl">{featuredPosts[activeSlide].excerpt}</p>
                                     <div className="mt-8 md:mt-10 flex justify-center w-full">
-                                        <button onClick={() => setSelectedPost(featuredPosts[activeSlide])} className="btn-primary">Read Article</button>
+                                        <button onClick={() => setSelectedPost(featuredPosts[activeSlide])} className="btn-inverse">Read Article</button>
                                     </div>
                                 </div>
                             </motion.div>
@@ -370,7 +370,7 @@ export default function BlogPage() {
                         <Rocket className="w-12 h-12 text-brandOrange mb-6" />
                         <h2 className="heading-xl !text-white !mb-4">Transform Ideas into Reality.</h2>
                         <p className="text-muted !text-slate-300 mb-10">Let's discuss how NighwanTech can accelerate your growth.</p>
-                        <button onClick={() => openModal("Blog Page Footer CTA")} className="btn-primary">Start a Project</button>
+                        <button onClick={() => openModal("Blog Page Footer CTA")} className="btn-inverse">Start a Project</button>
                     </div>
                 </section>
 

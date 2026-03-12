@@ -56,7 +56,7 @@ export default function ERPDevelopmentPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("ERP Development")} className="btn-primary">
+            <button onClick={() => openModal("ERP Development")} className="btn-inverse">
               Request a Demo
             </button>
             <button onClick={() => openModal("ERP Module Catalog")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -327,7 +327,7 @@ export default function ERPDevelopmentPage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Every day of delay is a day of lost margin. Partner with experts who understand enterprise scale.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("ERP Development")} className="btn-primary">
+            <button onClick={() => openModal("ERP Development")} className="btn-inverse">
               Get A Custom Quote
             </button>
           </div>

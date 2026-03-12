@@ -56,7 +56,7 @@ export default function DigitalMarketingPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Digital Marketing")} className="btn-primary">
+            <button onClick={() => openModal("Digital Marketing")} className="btn-inverse">
               Scale My Brand
             </button>
             <button onClick={() => openModal("Digital Marketing Audit")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -329,7 +329,7 @@ export default function DigitalMarketingPage() {
           <p className="text-muted !text-gray-400 mb-12">Every day of delay is a day of lost revenue. Partner with growth experts who understand ROI.</p>
 
           <div className="flex justify-center items-center">
-            <button onClick={() => openModal("Digital Marketing")} className="btn-primary">
+            <button onClick={() => openModal("Digital Marketing")} className="btn-inverse">
               Get A Free Proposal
             </button>
           </div>

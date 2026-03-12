@@ -81,7 +81,7 @@ export default function IoTSolutionsPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("IoT Consultation")} className="btn-primary">
+            <button onClick={() => openModal("IoT Consultation")} className="btn-inverse">
               Consult an Expert
             </button>
             <button className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -323,7 +323,7 @@ export default function IoTSolutionsPage() {
           <div className="flex justify-center w-full">
             <button
               onClick={() => openModal("IoT Strategy Session")}
-              className="btn-primary"
+              className="btn-inverse"
             >
               REQUEST STRATEGY SESSION
             </button>

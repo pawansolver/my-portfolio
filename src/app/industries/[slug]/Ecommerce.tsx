@@ -56,7 +56,7 @@ export default function EcommercePage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Retail Audit")} className="btn-primary">
+            <button onClick={() => openModal("Retail Audit")} className="btn-inverse">
               Audit My Storefront
             </button>
             <button onClick={() => openModal("Expert Consultation")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -319,7 +319,7 @@ export default function EcommercePage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Scale your brand with a tech partner who understands the high-stakes world of modern digital retail.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("Ecommerce Strategy Call")} className="btn-primary">
+            <button onClick={() => openModal("Ecommerce Strategy Call")} className="btn-inverse">
               Scale My Store
             </button>
           </div>

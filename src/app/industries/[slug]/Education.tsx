@@ -32,7 +32,7 @@ export default function EducationPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-brandOrange font-bold tracking-[0.3em] uppercase text-sm mb-4 block"
           >
-            
+
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -60,7 +60,7 @@ export default function EducationPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("EdTech Audit")} className="btn-primary">
+            <button onClick={() => openModal("EdTech Audit")} className="btn-inverse">
               Audit My LMS
             </button>
             <button
@@ -328,7 +328,7 @@ export default function EducationPage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Empower your learners with a platform that is fast, secure, and infinitely scalable.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("EdTech Strategy Call")} className="btn-primary">
+            <button onClick={() => openModal("EdTech Strategy Call")} className="btn-inverse">
               Build My Platform
             </button>
           </div>

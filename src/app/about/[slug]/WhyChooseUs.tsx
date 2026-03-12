@@ -56,7 +56,7 @@ export default function WhyChooseUsPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Nighwan Method")} className="btn-primary">
+            <button onClick={() => openModal("Nighwan Method")} className="btn-inverse">
               Our Methodology
             </button>
             <button onClick={() => openModal("Free Consultation")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -293,7 +293,7 @@ export default function WhyChooseUsPage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Stop settling for mediocre delivery. Partner with Nighwan Tech and build the future.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("Start Partnership")} className="btn-primary">
+            <button onClick={() => openModal("Start Partnership")} className="btn-inverse">
               Partner with Nighwan Tech
             </button>
           </div>

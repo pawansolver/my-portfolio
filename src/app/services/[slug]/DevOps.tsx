@@ -67,7 +67,7 @@ export default function DevOpsPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Cloud Audit")} className="btn-primary">
+            <button onClick={() => openModal("Cloud Audit")} className="btn-inverse">
               Book Infrastructure Audit
             </button>
             <button onClick={() => openModal("DevOps Expert")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -335,7 +335,7 @@ export default function DevOpsPage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Every manual task is a risk. Partner with architects who turn infrastructure into a competitive advantage.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("Architecture Call")} className="btn-primary">
+            <button onClick={() => openModal("Architecture Call")} className="btn-inverse">
               Request Architecture Session
             </button>
           </div>

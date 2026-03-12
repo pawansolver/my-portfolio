@@ -56,7 +56,7 @@ export default function MissionValuesPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Mission Video")} className="btn-primary">
+            <button onClick={() => openModal("Mission Video")} className="btn-inverse">
               Our Vision Story
             </button>
             <button onClick={() => openModal("Ethics Document")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -321,7 +321,7 @@ export default function MissionValuesPage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Partner with an engineering firm that aligns with your mission and values.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("Mission Consultation")} className="btn-primary">
+            <button onClick={() => openModal("Mission Consultation")} className="btn-inverse">
               Align Our Missions
             </button>
           </div>

@@ -28,7 +28,7 @@ export default function HealthcarePage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-brandOrange font-bold tracking-[0.3em] uppercase text-sm mb-4 block"
           >
-            
+
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -56,7 +56,7 @@ export default function HealthcarePage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Healthcare Audit")} className="btn-primary">
+            <button onClick={() => openModal("Healthcare Audit")} className="btn-inverse">
               Get Compliance Audit
             </button>
             <button onClick={() => openModal("Expert Consultation")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -324,7 +324,7 @@ export default function HealthcarePage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Don't let legacy tech hinder patient care. Partner with engineers who speak the language of healthcare compliance.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("Healthcare Strategy Call")} className="btn-primary">
+            <button onClick={() => openModal("Healthcare Strategy Call")} className="btn-inverse">
               Get Healthcare Tech Audit
             </button>
           </div>

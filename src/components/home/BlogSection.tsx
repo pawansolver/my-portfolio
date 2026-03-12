@@ -152,7 +152,7 @@ const BlogSection = () => {
                 <div className="flex justify-center">
                     <button
                         onClick={() => router.push('/blog')}
-                        className="btn-primary"
+                        className="btn-inverse"
                     >
                         View All Articles
                     </button>

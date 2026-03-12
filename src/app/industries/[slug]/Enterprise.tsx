@@ -56,7 +56,7 @@ export default function EnterprisePage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Enterprise Audit")} className="btn-primary">
+            <button onClick={() => openModal("Enterprise Audit")} className="btn-inverse">
               Audit Our Infrastructure
             </button>
             <button onClick={() => openModal("Consult Architect")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -324,7 +324,7 @@ export default function EnterprisePage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Partner with enterprise architects who understand the complexities of global corporate scaling.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("Enterprise Strategy Call")} className="btn-primary">
+            <button onClick={() => openModal("Enterprise Strategy Call")} className="btn-inverse">
               Modernize My Systems
             </button>
           </div>

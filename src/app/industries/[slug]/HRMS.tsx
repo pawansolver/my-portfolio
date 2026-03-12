@@ -56,7 +56,7 @@ export default function HRMSPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("HRMS Audit")} className="btn-primary">
+            <button onClick={() => openModal("HRMS Audit")} className="btn-inverse">
               Audit My HR Stack
             </button>
             <button onClick={() => openModal("HR Consultation")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -321,7 +321,7 @@ export default function HRMSPage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Stop struggling with manual spreadsheets. Scale your culture with a powerful HRMS platform.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("HRMS Strategy Call")} className="btn-primary">
+            <button onClick={() => openModal("HRMS Strategy Call")} className="btn-inverse">
               Build My HRMS
             </button>
           </div>

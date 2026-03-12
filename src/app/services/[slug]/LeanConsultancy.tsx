@@ -57,7 +57,7 @@ export default function LeanConsultancyPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Free Audit")} className="btn-primary">
+            <button onClick={() => openModal("Free Audit")} className="btn-inverse">
               Book Free Consultation
             </button>
             <button onClick={() => openModal("Expert Inquiry")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -328,7 +328,7 @@ export default function LeanConsultancyPage() {
           <p className="text-muted !text-gray-400 mb-12">Every day of delay is a day of lost margin. Partner with experts who understand the nuances of enterprise scaling.</p>
 
           <div className="flex justify-center items-center gap-4 flex-col sm:flex-row">
-            <button onClick={() => openModal("Strategy Call")} className="btn-primary">
+            <button onClick={() => openModal("Strategy Call")} className="btn-inverse">
               Request Strategy Session
             </button>
           </div>

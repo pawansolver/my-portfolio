@@ -67,7 +67,7 @@ export default function ITSupportPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Free IT Audit")} className="btn-primary">
+            <button onClick={() => openModal("Free IT Audit")} className="btn-inverse">
               Get Free IT Audit
             </button>
             <button onClick={() => openModal("Expert Consultation")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -333,7 +333,7 @@ export default function ITSupportPage() {
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Every tech headache is a distraction from your mission. Partner with a team that treats your uptime as our top priority.</p>
 
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("IT Strategy Call")} className="btn-primary">
+            <button onClick={() => openModal("IT Strategy Call")} className="btn-inverse">
               Request Free Site Audit
             </button>
           </div>

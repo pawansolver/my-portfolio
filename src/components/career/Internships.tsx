@@ -96,7 +96,7 @@ export default function InternshipProgramsPage() {
             We transform ambitious students into high-velocity software engineers. Our internship ecosystem eliminates theoretical fluff and synchronizes your learning with global production standards for maximum professional impact.
           </motion.p>
           <div className="flex justify-center gap-6 flex-wrap">
-            <button onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })} className="btn-primary">
+            <button onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })} className="btn-inverse">
               View Open Internships
             </button>
             <button onClick={() => openModal("Mentorship Talk")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -324,7 +324,7 @@ export default function InternshipProgramsPage() {
           <h2 className="heading-xl !text-white !mb-8">Stop Learning in Silos. <br />Start Building with Experts.</h2>
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Every day of delay is a missed opportunity for career acceleration. Partner with mentors who define enterprise standards.</p>
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("Apply for Internship")} className="btn-primary">
+            <button onClick={() => openModal("Apply for Internship")} className="btn-inverse">
               Request Admission Interview
             </button>
           </div>

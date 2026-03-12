@@ -58,7 +58,7 @@ export default function BrandingAgencyPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Start Project")} className="btn-primary">
+            <button onClick={() => openModal("Start Project")} className="btn-inverse">
               Start Your Project
             </button>
             <button className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -311,7 +311,7 @@ export default function BrandingAgencyPage() {
           <h2 className="heading-xl !text-white !mb-8">Stop Being Invisible. <br />Start Building a Legacy.</h2>
           <p className="text-muted !text-gray-400 mb-12">Partner with experts who understand the nuances of brand scaling and market psychology.</p>
           <div className="flex justify-center items-center">
-            <button onClick={() => openModal("Strategy Call")} className="btn-primary">
+            <button onClick={() => openModal("Strategy Call")} className="btn-inverse">
               Request Strategy Session
             </button>
           </div>

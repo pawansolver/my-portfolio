@@ -61,7 +61,7 @@ export default function LifeAtNighwanPage() {
             Culture at Nighwan Tech isn't a perk; it's a strategic imperative. We eliminate corporate friction and synchronize professional growth with human well-being to create a high-velocity value stream of innovation.
           </motion.p>
           <div className="flex justify-center gap-6 flex-wrap">
-            <button onClick={() => openModal("Culture Video")} className="btn-primary">
+            <button onClick={() => openModal("Culture Video")} className="btn-inverse">
               Experience the Culture
             </button>
             <button onClick={() => openModal("Team Inquiry")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
@@ -300,7 +300,7 @@ export default function LifeAtNighwanPage() {
           <h2 className="heading-xl !text-white !mb-8">Stop Working. <br />Start Flourishing.</h2>
           <p className="text-muted !text-gray-400 mb-12 max-w-3xl mx-auto">Every day spent in a toxic environment is a day of lost creativity. Join a tribe that values your pulse as much as your code.</p>
           <div className="flex justify-center items-center w-full">
-            <button onClick={() => openModal("Apply Now")} className="btn-primary">
+            <button onClick={() => openModal("Apply Now")} className="btn-inverse">
               Become a Nighwanian
             </button>
           </div>

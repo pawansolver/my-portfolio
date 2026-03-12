@@ -54,11 +54,6 @@ body {
   line-height: 1.6;
 }
 
-/* Button Sync */
-.btn-primary {
-  @apply bg-textmain text-white px-8 py-3 rounded-full font-bold transition duration-300 hover:bg-brandOrange hover:scale-105 inline-block;
-}
-
 /* Section Padding Helper */
 .section-padding {
   /* Mobile par py-12 aur Desktop par py-20, standard industry gap */
@@ -78,4 +73,36 @@ body {
   .heading-xl {
     margin-top: 20px;
   }
+}
+
+/* =========================================
+   🎯 BUTTON FIXES (Perfectly Aligned & Error Free) 
+========================================= */
+
+/* 1. Primary Button (Dark Background, Orange Hover) */
+.btn-primary {
+  @apply bg-textmain text-white px-8 py-3 rounded-full font-bold transition duration-300 hover:bg-brandOrange hover:scale-105 inline-flex items-center justify-center flex-row gap-2 whitespace-nowrap overflow-hidden;
+  line-height: 1;
+}
+
+/* 2. World-Class Inverse Button (White Background, Orange Hover) for Dark Sections */
+.btn-inverse {
+  @apply bg-white text-textmain px-8 py-3 rounded-full font-bold transition duration-300 hover:bg-brandOrange hover:text-white hover:scale-105 inline-flex items-center justify-center flex-row gap-2 whitespace-nowrap overflow-hidden;
+  line-height: 1;
+  /* 🔥 Turbopack Error Fix: Shadow ko @apply se bahar nikal kar yahan rakha hai */
+  box-shadow: 0 4px 14px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Shared Arrow/Icon Alignment logic for both buttons */
+.btn-primary svg,
+.btn-primary i,
+.btn-primary span.arrow,
+.btn-inverse svg,
+.btn-inverse i,
+.btn-inverse span.arrow {
+  @apply flex-shrink-0;
+  display: inline-flex;
+  align-items: center;
+  margin-top: 1px;
+  /* Visual center balance */
 }

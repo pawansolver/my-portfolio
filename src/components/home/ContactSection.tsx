@@ -234,7 +234,7 @@ const ContactSection = ({ isFullPage = false }) => {
               </div>
               <div className="flex-shrink-0">
                 {/* 🔥 FIX 2: Calendly Button Content Centered */}
-                <button onClick={() => openModal("Calendly Schedule")} className="btn-primary">
+                <button onClick={() => openModal("Calendly Schedule")} className="btn-inverse">
                   <span className="flex flex-row items-center justify-center gap-2.5">
                     <Clock size={18} />
                     <span>Schedule on Calendly</span>
@@ -279,7 +279,7 @@ const ContactSection = ({ isFullPage = false }) => {
               <div className="mt-12 text-center flex flex-col items-center">
                 <p className="text-muted mb-6">Still have questions? We're here to help.</p>
                 {/* 🔥 FIX 3: Schedule Call Button Content Centered */}
-                <button onClick={() => openModal("Schedule Call")} className="btn-primary">
+                <button onClick={() => openModal("Schedule Call")} className="btn-inverse">
                   <span className="flex flex-row items-center justify-center gap-2">
                     <Clock size={16} />
                     <span>Schedule a Call</span>

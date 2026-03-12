@@ -56,7 +56,7 @@ export default function AISolutionsPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("AI Solutions")} className="btn-primary">
+            <button onClick={() => openModal("AI Solutions")} className="btn-inverse">
               Deploy AI Now
             </button>
             <button onClick={() => openModal("AI Use Cases")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">

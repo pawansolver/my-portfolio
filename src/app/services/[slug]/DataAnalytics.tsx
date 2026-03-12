@@ -56,7 +56,7 @@ export default function DataAnalyticsPage() {
             transition={{ delay: 0.4 }}
             className="flex justify-center gap-6 flex-wrap"
           >
-            <button onClick={() => openModal("Data Analytics Audit")} className="btn-primary">
+            <button onClick={() => openModal("Data Analytics Audit")} className="btn-inverse">
               Get Data Audit
             </button>
             <button onClick={() => openModal("Data Demo Request")} className="btn-primary !bg-transparent !border-2 !border-white !text-white hover:!bg-white hover:!text-black">
