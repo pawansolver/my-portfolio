@@ -12,8 +12,17 @@ import {
     validateSignupInput,
 } from "@/lib/validations";
 
-// 🔥 DYNAMIC API URL (Local par 5000, Vercel par Render URL)
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5000";
+// 🔥 DYNAMIC API URL (Smart Environment Switcher)
+const getBaseUrl = () => {
+    // Agar local PC par npm run dev chal raha hai
+    if (process.env.NODE_ENV === "development") {
+        return "http://127.0.0.1:5000";
+    }
+    // Agar Vercel par live chal raha hai
+    return process.env.NEXT_PUBLIC_API_URL || "https://nighwan-tech-webbackend.onrender.com";
+};
+
+const API_URL = getBaseUrl();
 
 // ── Action Result Type ────────────────────────────────────────────────────────
 export type AuthActionResult = {

@@ -1,5 +1,17 @@
 "use server";
 
+// 🔥 DYNAMIC API URL (Smart Environment Switcher)
+const getBaseUrl = () => {
+    // Agar local PC par npm run dev chal raha hai
+    if (process.env.NODE_ENV === "development") {
+        return "http://127.0.0.1:5000";
+    }
+    // Agar Vercel par live chal raha hai
+    return process.env.NEXT_PUBLIC_API_URL || "https://nighwan-tech-webbackend.onrender.com";
+};
+
+const API_URL = getBaseUrl();
+
 export type ActionState = {
     success: boolean;
     error?: string;
@@ -30,8 +42,8 @@ export async function contactAction(
             type: "CONTACT_FORM"
         };
 
-        // Backend API call (🔥 URL updated with Backticks)
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact/submit`, {
+        // Backend API call (🔥 Ab smart API_URL use hoga)
+        const response = await fetch(`${API_URL}/api/contact/submit`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -75,8 +87,8 @@ export async function projectInquiryAction(
             projectType: "General Web Project"
         };
 
-        // 🔥 URL updated with Backticks
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/contact/inquiry`, {
+        // 🔥 Ab smart API_URL use hoga
+        const response = await fetch(`${API_URL}/api/contact/inquiry`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
