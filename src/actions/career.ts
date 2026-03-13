@@ -1,6 +1,6 @@
 "use server";
 
-// 🔥 DYNAMIC API URL (Smart Environment Switcher)
+// 🔥 INDUSTRY STANDARD: Helper function bahar, lekin execute hamesha andar hoga
 const getBaseUrl = () => {
     // Agar local PC par npm run dev chal raha hai
     if (process.env.NODE_ENV === "development") {
@@ -10,14 +10,16 @@ const getBaseUrl = () => {
     return process.env.NEXT_PUBLIC_API_URL || "https://nighwan-tech-webbackend.onrender.com";
 };
 
-const API_URL = getBaseUrl();
-
 export async function applyNowAction(prevState: any, formData: FormData) {
+    // ✅ PRO TIP: URL hamesha function ke andar get karein. 
+    // Isse Vercel purane URL ko cache nahi karega aur hamesha fresh URL uthayega.
+    const API_URL = getBaseUrl();
+
     try {
-        // 🔥 Ab ye smart API_URL use karega (Local par 5000, live par Render)
+        // 🔥 Aapka original logic 100% waise hi rakha gaya hai
         const response = await fetch(`${API_URL}/api/career/apply`, {
             method: "POST",
-            body: formData, // FormData mein file aur fields dono automatically chale jayenge
+            body: formData, // FormData automatically headers handle kar lega
         });
 
         const result = await response.json();
@@ -28,6 +30,10 @@ export async function applyNowAction(prevState: any, formData: FormData) {
             return { success: false, error: result.error || "Backend sync failed." };
         }
     } catch (error) {
+        // ✅ INDUSTRY STANDARD: Production mein error ko server logs mein print karna zaroori hai
+        // Taaki Vercel dashboard mein pata chal sake ki error actual mein kya thi
+        console.error(`[Apply Action Error] URL: ${API_URL}/api/career/apply`, error);
+
         return { success: false, error: "Could not connect to backend server." };
     }
 }
