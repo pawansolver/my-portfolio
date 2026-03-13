@@ -12,6 +12,9 @@ import {
     validateSignupInput,
 } from "@/lib/validations";
 
+// 🔥 DYNAMIC API URL (Local par 5000, Vercel par Render URL)
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:5000";
+
 // ── Action Result Type ────────────────────────────────────────────────────────
 export type AuthActionResult = {
     success: boolean;
@@ -21,7 +24,7 @@ export type AuthActionResult = {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// LOGIN ACTION (NO CHANGE)
+// LOGIN ACTION (100% UNTOUCHED LOGIC)
 // ─────────────────────────────────────────────────────────────────────────────
 export async function loginAction(
     _prev: AuthActionResult,
@@ -39,7 +42,7 @@ export async function loginAction(
         }
 
         console.log(`[loginAction] Calling Backend for: "${email}"`);
-        const response = await fetch("http://127.0.0.1:5000/api/auth/login", {
+        const response = await fetch(`${API_URL}/api/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
@@ -82,7 +85,8 @@ export async function forgotPasswordAction(
         if (!email) return { success: false, error: "Email is required." };
 
         console.log(`[forgotPasswordAction] Requesting reset for: "${email}"`);
-        const response = await fetch("http://127.0.0.1:5000/api/auth/forgot-password", {
+        // Ye request seedha aapke Node.js backend ko jayegi
+        const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email }),
@@ -104,7 +108,7 @@ export async function forgotPasswordAction(
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SIGNUP ACTION (NO CHANGE)
+// SIGNUP ACTION (100% UNTOUCHED LOGIC)
 // ─────────────────────────────────────────────────────────────────────────────
 export async function signupAction(
     _prev: AuthActionResult,
@@ -121,7 +125,7 @@ export async function signupAction(
         }
 
         console.log(`[signupAction] Calling Backend to register: "${email}"`);
-        const response = await fetch("http://127.0.0.1:5000/api/auth/signup", {
+        const response = await fetch(`${API_URL}/api/auth/signup`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ fullName, email, password }),
@@ -142,10 +146,45 @@ export async function signupAction(
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// LOGOUT ACTION (NO CHANGE)
+// LOGOUT ACTION (100% UNTOUCHED LOGIC)
 // ─────────────────────────────────────────────────────────────────────────────
 export async function logoutAction(): Promise<void> {
     const cookieStore = await cookies();
     cookieStore.delete(SESSION_COOKIE);
     redirect("/?logout=success");
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RESET PASSWORD ACTION (THE FINAL STEP)
+// ─────────────────────────────────────────────────────────────────────────────
+export async function resetPasswordAction(
+    _prev: AuthActionResult,
+    formData: FormData
+): Promise<AuthActionResult> {
+    try {
+        const token = formData.get("token") as string;
+        const newPassword = formData.get("password") as string;
+
+        if (!token || !newPassword) return { success: false, error: "Invalid data provided." };
+
+        console.log(`[resetPasswordAction] Updating password...`);
+
+        const response = await fetch(`${API_URL}/api/auth/reset-password`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ token, newPassword }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok || !data.success) {
+            return { success: false, error: data.error || "Password update fail hua." };
+        }
+
+        return { success: true, redirectTo: "/login?reset=success" };
+
+    } catch (err) {
+        console.error("[resetPasswordAction] 💥 Error:", err);
+        return { success: false, error: "Backend connectivity issue." };
+    }
 }
