@@ -36,15 +36,11 @@ const CATEGORIES = [
     { id: "News", label: "News", icon: Newspaper },
 ];
 
-const TRENDING_TAGS = ["#GenerativeAI", "#NextJs14", "#EnterpriseScale", "#ZeroTrust", "#LeanAgile", "#CloudNative", "#DevOps"];
-
 const dummyContent = `
   <p class="text-xl leading-relaxed text-slate-700 font-medium mb-8">From co-pilots to autonomous agents — explore how large language models are fundamentally transforming how enterprises build, ship, and maintain software at scale.</p>
   <h2 class="text-2xl font-bold text-textmain mt-10 mb-4">The New Paradigm of Development</h2>
   <p class="mb-6 text-slate-600 leading-relaxed text-lg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
   <blockquote class="border-l-4 border-brandOrange pl-6 my-10 italic text-xl text-slate-800 font-medium bg-gradient-to-r from-orange-50/80 to-transparent py-6 rounded-r-2xl">"AI will not replace developers, but developers who use AI will replace those who don't."</blockquote>
-  <h2 class="text-2xl font-bold text-textmain mt-10 mb-4">The Road Ahead for Enterprises</h2>
-  <p class="mb-6 text-slate-600 leading-relaxed text-lg">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
 `;
 
 const BLOG_POSTS: BlogPost[] = [
@@ -180,22 +176,16 @@ export default function BlogPage() {
         setTimeout(() => setIsSliding(false), 700);
     }, [isSliding]);
 
-    const filteredPosts = activeCategory === "all"
-        ? BLOG_POSTS.filter((p) => !p.featured)
-        : BLOG_POSTS.filter((p) => p.category === activeCategory && !p.featured);
-
-    const allGrid = activeCategory === "all"
-        ? BLOG_POSTS.filter((p) => !p.featured)
+    const gridPosts = activeCategory === "all"
+        ? BLOG_POSTS
         : BLOG_POSTS.filter((p) => p.category === activeCategory);
-
-    const gridPosts = activeCategory === "all" ? allGrid : filteredPosts;
 
     return (
         <>
             <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-      `}</style>
+                .scrollbar-hide::-webkit-scrollbar { display: none; }
+                .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+            `}</style>
 
             {/* 🚀 ARTICLE MODAL */}
             <AnimatePresence>
@@ -210,11 +200,9 @@ export default function BlogPage() {
                         <div className="container-custom max-w-4xl relative mt-4 md:mt-0">
                             <div className="bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-2xl border border-slate-100/50 overflow-hidden relative">
 
-                                {/* ✨ WORLD-CLASS SAFE CLOSE BUTTON (Inside Card) */}
                                 <button
                                     onClick={() => setSelectedPost(null)}
                                     className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 md:w-12 md:h-12 bg-white/80 backdrop-blur-md hover:bg-brandOrange text-black hover:text-white rounded-full flex items-center justify-center transition-all duration-300 z-[100] group shadow-lg"
-                                    aria-label="Close Article"
                                 >
                                     <X size={20} className="group-hover:rotate-90 transition-transform duration-300" />
                                 </button>
@@ -250,15 +238,6 @@ export default function BlogPage() {
                                         </div>
 
                                         <div className="article-body prose prose-lg max-w-none text-slate-700 leading-relaxed" dangerouslySetInnerHTML={{ __html: selectedPost.content || "" }} />
-
-                                        <div className="mt-16 pt-8 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between gap-6">
-                                            <h4 className="font-bold text-textmain flex items-center gap-2"><Share2 size={20} className="text-brandOrange" /> Share insight</h4>
-                                            <div className="flex gap-4">
-                                                <button className="w-10 h-10 rounded-full bg-slate-50 text-slate-500 hover:bg-brandOrange hover:text-white flex items-center justify-center transition-all shadow-sm"><Facebook className="w-4 h-4" /></button>
-                                                <button className="w-10 h-10 rounded-full bg-slate-50 text-slate-500 hover:bg-brandOrange hover:text-white flex items-center justify-center transition-all shadow-sm"><Twitter className="w-4 h-4" /></button>
-                                                <button className="w-10 h-10 rounded-full bg-slate-50 text-slate-500 hover:bg-brandOrange hover:text-white flex items-center justify-center transition-all shadow-sm"><Linkedin className="w-4 h-4" /></button>
-                                            </div>
-                                        </div>
                                     </div>
                                 </article>
                             </div>
@@ -287,8 +266,12 @@ export default function BlogPage() {
                                     </span>
                                     <h1 className="heading-xl !text-white !mb-6">{featuredPosts[activeSlide].title}</h1>
                                     <p className="text-muted !text-slate-200/90 !max-w-3xl">{featuredPosts[activeSlide].excerpt}</p>
+
                                     <div className="mt-8 md:mt-10 flex justify-center w-full">
-                                        <button onClick={() => setSelectedPost(featuredPosts[activeSlide])} className="btn-inverse">Read Article</button>
+                                        {/* 🔥 FIXED: Clean btn-inverse sync with Arrow */}
+                                        <button onClick={() => setSelectedPost(featuredPosts[activeSlide])} className="btn-inverse">
+                                            Read Article <ArrowRight size={18} />
+                                        </button>
                                     </div>
                                 </div>
                             </motion.div>
@@ -296,12 +279,12 @@ export default function BlogPage() {
                     </div>
 
                     <div className="absolute top-1/2 -translate-y-1/2 left-2 md:left-8 flex flex-col gap-4 z-30">
-                        <motion.button whileHover={{ scale: 1.1 }} onClick={() => goToSlide((activeSlide - 1 + featuredPosts.length) % featuredPosts.length)} className="w-10 h-10 md:w-12 md:h-12 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors"><ChevronLeft className="w-5 h-5 md:w-6 md:h-6" /></motion.button>
-                        <motion.button whileHover={{ scale: 1.1 }} onClick={() => goToSlide((activeSlide + 1) % featuredPosts.length)} className="w-10 h-10 md:w-12 md:h-12 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors"><ChevronRight className="w-5 h-5 md:w-6 md:h-6" /></motion.button>
+                        <button onClick={() => goToSlide((activeSlide - 1 + featuredPosts.length) % featuredPosts.length)} className="w-10 h-10 md:w-12 md:h-12 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors"><ChevronLeft className="w-5 h-5 md:w-6 md:h-6" /></button>
+                        <button onClick={() => goToSlide((activeSlide + 1) % featuredPosts.length)} className="w-10 h-10 md:w-12 md:h-12 rounded-full backdrop-blur-md bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/30 transition-colors"><ChevronRight className="w-5 h-5 md:w-6 md:h-6" /></button>
                     </div>
                 </section>
 
-                {/* ── Sticky Navbar ── */}
+                {/* ── Sticky Category Navbar ── */}
                 <div className="sticky top-0 z-30 bg-white/90 backdrop-blur-xl border-b border-slate-200 shadow-sm">
                     <div className="container-custom px-0 md:px-6">
                         <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide py-4 px-4 md:px-0">
@@ -339,41 +322,19 @@ export default function BlogPage() {
                     </motion.div>
                 </section>
 
-                {/* ── Industry Impact (Replaced Newsletter) ── */}
-                <section className="section-padding bg-textmain relative overflow-hidden">
-                    <div className="container-custom relative z-10 text-center">
-                        <h2 className="heading-xl !text-white !mb-12">Empowering Global Enterprises</h2>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-                            <div className="flex flex-col items-center justify-center space-y-3">
-                                <span className="text-4xl md:text-5xl font-black text-brandOrange">50+</span>
-                                <span className="text-slate-300 font-medium tracking-wide uppercase text-sm">Enterprise Clients</span>
-                            </div>
-                            <div className="flex flex-col items-center justify-center space-y-3">
-                                <span className="text-4xl md:text-5xl font-black text-brandOrange">10M+</span>
-                                <span className="text-slate-300 font-medium tracking-wide uppercase text-sm">Lines of Code</span>
-                            </div>
-                            <div className="flex flex-col items-center justify-center space-y-3">
-                                <span className="text-4xl md:text-5xl font-black text-brandOrange">99.9%</span>
-                                <span className="text-slate-300 font-medium tracking-wide uppercase text-sm">Uptime Delivered</span>
-                            </div>
-                            <div className="flex flex-col items-center justify-center space-y-3">
-                                <span className="text-4xl md:text-5xl font-black text-brandOrange">24/7</span>
-                                <span className="text-slate-300 font-medium tracking-wide uppercase text-sm">Global Support</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
                 {/* ── CTA ── */}
                 <section className="section-padding bg-slate-900 border-t-8 border-brandOrange">
                     <div className="container-custom flex flex-col items-center text-center">
                         <Rocket className="w-12 h-12 text-brandOrange mb-6" />
                         <h2 className="heading-xl !text-white !mb-4">Transform Ideas into Reality.</h2>
                         <p className="text-muted !text-slate-300 mb-10">Let's discuss how NighwanTech can accelerate your growth.</p>
-                        <button onClick={() => openModal("Blog Page Footer CTA")} className="btn-inverse">Start a Project</button>
+
+                        {/* 🔥 FIXED: Clean btn-inverse sync with Arrow */}
+                        <button onClick={() => openModal("Blog Page Footer CTA")} className="btn-inverse">
+                            Start a Project <ArrowRight size={18} />
+                        </button>
                     </div>
                 </section>
-
             </div>
         </>
     );
