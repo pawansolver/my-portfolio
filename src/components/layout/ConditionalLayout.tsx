@@ -4,8 +4,8 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/navbar/Navbar";
 import Footer from "@/components/layout/footer/Footer";
 
-// Routes where the main site Navbar, Footer, and main wrapper are hidden
-const HIDE_CHROME_ROUTES = ["/dashboard", "/login", "/signup", "/crm-dashboard"];
+// 🚀 FIX: Yahan "/sliders" add kar diya hai
+const HIDE_CHROME_ROUTES = ["/dashboard", "/login", "/signup", "/crm-dashboard", "/sliders"];
 
 export default function ConditionalLayout({
     children,
@@ -34,4 +34,3 @@ export default function ConditionalLayout({
         </>
     );
 }
-
