@@ -4,8 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Image as ImageIcon, Loader2 } from 'lucide-react';
 
 export default function SliderManagement() {
-    // 🚀 DYNAMIC URL LOGIC
-    const API_BASE_URL = process.env.NODE_ENV === 'development'
+    // 🚀 FOOLPROOF URL LOGIC: Ab ye kabhi 'undefined' nahi hoga
+    const API_BASE_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
         ? 'http://localhost:5000'
         : 'https://nighwan-tech-webbackend.onrender.com';
 
@@ -31,12 +31,15 @@ export default function SliderManagement() {
     // 1. GET ALL SLIDERS (Token Removed)
     // ==========================================
     const fetchSliders = async () => {
+        // 🛡️ Safety check (DevTools suggestion)
+        if (!API_BASE_URL) return;
+
         try {
             setLoading(true);
             const res = await fetch(`${API_BASE_URL}/api/slider/admin/all`);
             const result = await res.json();
 
-            console.log("Frontend received:", result); // Debugging ke liye
+            console.log("Frontend received:", result);
 
             if (result.success && result.data) {
                 setSliders(result.data);
@@ -200,7 +203,6 @@ export default function SliderManagement() {
                                 <tr key={s.id} className="hover:bg-slate-50">
                                     <td className="px-6 py-4"><input type="checkbox" className="rounded" checked={selectedIds.includes(s.id)} onChange={() => handleSelectOne(s.id)} /></td>
                                     <td className="px-6 py-4">
-                                        {/* 🚀 URL Updated for Image rendering */}
                                         <img src={`${API_BASE_URL}${s.imageUrl}`} className="h-12 w-20 object-cover rounded border" alt="" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
                                     </td>
                                     <td className="px-6 py-4">
