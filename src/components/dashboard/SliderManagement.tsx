@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Image as ImageIcon, Loader2 } from 'lucide-react';
 
 export default function SliderManagement() {
-    // 🚀 DYNAMIC URL LOGIC ADDED HERE
+    // 🚀 DYNAMIC URL LOGIC
     const API_BASE_URL = process.env.NODE_ENV === 'development'
         ? 'http://localhost:5000'
         : 'https://nighwan-tech-webbackend.onrender.com';
@@ -21,29 +21,30 @@ export default function SliderManagement() {
         label: '',
         title: '',
         description: '',
-        componentType: 'home', // 'growth' se 'home' kar diya default (Swagger ke hisaab se)
-        order: 1, // Default 1 kiya hai Swagger ke hisaab se
+        componentType: 'home',
+        order: 1,
         isActive: true
     });
     const [imageFile, setImageFile] = useState<File | null>(null);
 
-    // --- Helper: Token Get karna ---
-    const getToken = () => localStorage.getItem('token') || '';
-
     // ==========================================
-    // 1. GET ALL SLIDERS (Admin Route)
+    // 1. GET ALL SLIDERS (Token Removed)
     // ==========================================
     const fetchSliders = async () => {
         try {
             setLoading(true);
-            // 🚀 URL Updated with API_BASE_URL
-            const res = await fetch(`${API_BASE_URL}/api/slider/admin/all`, {
-                headers: { 'Authorization': `Bearer ${getToken()}` }
-            });
+            const res = await fetch(`${API_BASE_URL}/api/slider/admin/all`);
             const result = await res.json();
-            if (result.success) setSliders(result.data);
+
+            console.log("Frontend received:", result); // Debugging ke liye
+
+            if (result.success && result.data) {
+                setSliders(result.data);
+            } else if (Array.isArray(result)) {
+                setSliders(result);
+            }
         } catch (error) {
-            console.error(error);
+            console.error("Fetch Error:", error);
         } finally {
             setLoading(false);
         }
@@ -52,7 +53,7 @@ export default function SliderManagement() {
     useEffect(() => { fetchSliders(); }, []);
 
     // ==========================================
-    // 2. CREATE & UPDATE (POST / PUT)
+    // 2. CREATE & UPDATE (Token Removed)
     // ==========================================
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -69,7 +70,6 @@ export default function SliderManagement() {
         if (imageFile) data.append('image', imageFile);
 
         try {
-            // 🚀 URL Updated with API_BASE_URL
             const url = editingSlider
                 ? `${API_BASE_URL}/api/slider/${editingSlider.id}`
                 : `${API_BASE_URL}/api/slider`;
@@ -78,8 +78,7 @@ export default function SliderManagement() {
 
             const res = await fetch(url, {
                 method,
-                body: data,
-                headers: { 'Authorization': `Bearer ${getToken()}` }
+                body: data
             });
 
             const result = await res.json();
@@ -98,15 +97,13 @@ export default function SliderManagement() {
     };
 
     // ==========================================
-    // 3. DELETE SINGLE
+    // 3. DELETE SINGLE (Token Removed)
     // ==========================================
     const handleDelete = async (id: number) => {
         if (!window.confirm("Delete this slider?")) return;
         try {
-            // 🚀 URL Updated with API_BASE_URL
             const res = await fetch(`${API_BASE_URL}/api/slider/${id}`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${getToken()}` }
+                method: 'DELETE'
             });
             const result = await res.json();
             if (result.success || result.message === 'Deleted successfully') fetchSliders();
@@ -114,17 +111,15 @@ export default function SliderManagement() {
     };
 
     // ==========================================
-    // 4. BULK DELETE
+    // 4. BULK DELETE (Token Removed)
     // ==========================================
     const handleBulkDelete = async () => {
         if (!window.confirm(`Delete ${selectedIds.length} sliders?`)) return;
         try {
-            // 🚀 URL Updated with API_BASE_URL
             const res = await fetch(`${API_BASE_URL}/api/slider/DeleteMultiple`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${getToken()}`
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ ids: selectedIds })
             });
