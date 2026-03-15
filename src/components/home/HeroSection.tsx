@@ -4,12 +4,15 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 import dynamic from "next/dynamic";
-import { MessageCircle, X, ChevronUp, ChevronDown, ArrowRight } from "lucide-react"; // 🔥 ArrowRight import kiya
+import { MessageCircle, X, ChevronUp, ChevronDown, ArrowRight } from "lucide-react";
 import VideoSection from "./Video";
 import { useModal } from "@/components/context/ModalContext";
 
 // 🚀 DYNAMIC IMPORT
 const ParticleSection = dynamic(() => import("./Particle"), { ssr: false });
+
+// 🚀 API BASE URL CONFIG
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
 const partners = [
   { name: "Partner 1", logo: "/images/services/1.png" },
@@ -76,87 +79,136 @@ const HomeContactHub = () => {
   );
 };
 
-// --- 🚀 Growth Section ---
-const GrowthSection = ({ onContactClick, slideData }: { onContactClick: () => void, slideData?: any }) => (
-  <div className="w-full h-full bg-[#fcfcfc] flex items-center justify-center relative overflow-hidden">
-    <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brandOrange/5 rounded-full blur-[100px] md:blur-[120px] -z-10" />
-    <div className="container-custom h-full grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10 pt-24 pb-28 md:pt-32 md:pb-40">
-      <div className="text-center md:text-left flex flex-col items-center md:items-start justify-center mt-8 md:mt-0">
-        <motion.div initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5 }} className="flex flex-col items-center md:items-start">
-          <span className="text-brandOrange font-black text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 block border-l-0 md:border-l-4 border-brandOrange md:pl-3">
-            Engineering Excellence
-          </span>
-          <h1 className="heading-xl !text-center md:!text-left !mb-4 md:!mb-6 !text-textmain">
-            {slideData?.title ? slideData.title : "NIGHWAN TECH"} <br />
-          </h1>
-          <p className="text-muted !text-center md:!text-left !mx-0 mb-6 md:mb-8 opacity-80 max-w-md !text-sm md:!text-base">
-            {slideData?.description ? slideData.description : "Engineering your path to growth where your business goals meet our engineering expertise."}
-          </p>
-        </motion.div>
+// --- 🚀 Growth Section (HERO) ---
+const GrowthSection = ({ onContactClick, slideData }: { onContactClick: () => void, slideData?: any }) => {
+  const displayImage = slideData?.imageUrl
+    ? `${API_BASE_URL}${encodeURI(slideData.imageUrl)}`
+    : "https://illustrations.popsy.co/amber/success.svg";
 
-        <div className="flex justify-center md:justify-start w-full">
-          {/* 🔥 FIX: Yahan motion.button ki jagah normal button rakha hai aur animation Tailwind/CSS par chhod diya hai taaki global.css 100% force apply ho. Arrow bhi add kar diya hai alignment check karne ke liye. */}
-          <button onClick={onContactClick} className="btn-primary">
-            Get in Touch <ArrowRight size={18} />
-          </button>
+  return (
+    <div className="w-full h-full bg-[#fcfcfc] flex items-center justify-center relative overflow-hidden">
+      <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-brandOrange/5 rounded-full blur-[100px] md:blur-[120px] -z-10" />
+      <div className="container-custom h-full grid md:grid-cols-2 gap-8 md:gap-12 items-center relative z-10 pt-24 pb-28 md:pt-32 md:pb-40">
+        <div className="text-center md:text-left flex flex-col items-center md:items-start justify-center mt-8 md:mt-0">
+          <motion.div initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5 }} className="flex flex-col items-center md:items-start">
+            <span className="text-brandOrange font-black text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 block border-l-0 md:border-l-4 border-brandOrange md:pl-3">
+              {slideData?.label || "Engineering Excellence"}
+            </span>
+            <h1 className="heading-xl !text-center md:!text-left !mb-4 md:!mb-6 !text-textmain">
+              {slideData?.title || "NIGHWAN TECH"} <br />
+            </h1>
+            <p className="text-muted !text-center md:!text-left !mx-0 mb-6 md:mb-8 opacity-80 max-w-md !text-sm md:!text-base">
+              {slideData?.description || "Engineering your path to growth where your business goals meet our engineering expertise."}
+            </p>
+          </motion.div>
+
+          <div className="flex justify-center md:justify-start w-full">
+            <button onClick={onContactClick} className="btn-primary">
+              Get in Touch <ArrowRight size={18} />
+            </button>
+          </div>
         </div>
-      </div>
-      <div className="relative flex justify-center items-center px-4 md:px-0">
-        <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.7 }} className="relative w-full max-w-[280px] sm:max-w-md md:max-w-lg">
-          <div className="absolute -left-2 md:-left-8 top-10 space-y-4 z-20 hidden sm:block">
-            {['Quality >', 'Time <', 'Quantity >'].map((text, i) => (
-              <div key={i} className={`bg-white shadow-xl px-4 md:px-5 py-2 md:py-2.5 rounded-xl border-l-4 ${i === 1 ? 'border-brandGreen' : 'border-brandOrange'} font-bold text-[11px] md:text-sm text-textmain whitespace-nowrap`}>
-                {text}
-              </div>
-            ))}
-          </div>
-          <div className="bg-white rounded-[30px] md:rounded-[50px] p-4 border border-gray-100 shadow-xl md:shadow-2xl overflow-hidden flex justify-center items-center relative z-10">
-            <img src="https://illustrations.popsy.co/amber/success.svg" alt="Nighwan Tech Growth" className="w-full h-auto max-h-[220px] sm:max-h-[300px] md:max-h-[380px] object-contain drop-shadow-lg md:drop-shadow-xl" />
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  </div>
-);
-
-const LogoCloudPremium = () => (
-  <div className="absolute bottom-0 left-0 w-full z-40">
-    <div className="bg-white/95 backdrop-blur-md border-t border-gray-100 py-4 md:py-6 shadow-[0_-15px_40px_rgba(0,0,0,0.04)]">
-      <div className="container-custom">
-        <div className="relative flex overflow-hidden group select-none items-center">
-          <div className="absolute left-0 top-0 w-12 md:w-40 h-full bg-gradient-to-r from-white via-white/40 to-transparent z-10" />
-          <div className="absolute right-0 top-0 w-12 md:w-40 h-full bg-gradient-to-l from-white via-white/40 to-transparent z-10" />
-          <div className="flex animate-marquee whitespace-nowrap gap-12 md:gap-32 items-center">
-            {[...partners, ...partners, ...partners].map((item, idx) => (
-              <img key={idx} src={item.logo} alt={item.name} className="h-8 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105" />
-            ))}
-          </div>
+        <div className="relative flex justify-center items-center px-4 md:px-0">
+          <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ duration: 0.7 }} className="relative w-full max-w-[280px] sm:max-w-md md:max-w-lg">
+            <div className="absolute -left-2 md:-left-8 top-10 space-y-4 z-20 hidden sm:block">
+              {['Quality >', 'Time <', 'Quantity >'].map((text, i) => (
+                <div key={i} className={`bg-white shadow-xl px-4 md:px-5 py-2 md:py-2.5 rounded-xl border-l-4 ${i === 1 ? 'border-brandGreen' : 'border-brandOrange'} font-bold text-[11px] md:text-sm text-textmain whitespace-nowrap`}>
+                  {text}
+                </div>
+              ))}
+            </div>
+            <div className="bg-white rounded-[30px] md:rounded-[50px] p-4 border border-gray-100 shadow-xl md:shadow-2xl overflow-hidden flex justify-center items-center relative z-10">
+              <img
+                src={displayImage}
+                alt="Nighwan Tech Growth"
+                className="w-full h-auto max-h-[220px] sm:max-h-[300px] md:max-h-[380px] object-contain drop-shadow-lg md:drop-shadow-xl"
+                onError={(e) => { e.currentTarget.src = "https://illustrations.popsy.co/amber/success.svg"; }}
+              />
+            </div>
+          </motion.div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
+
+// --- 🚀 DYNAMIC LOGO CLOUD (Fixed Merge Logic) ---
+const LogoCloudPremium = ({ apiLogos }: { apiLogos: any[] }) => {
+  const displayLogos = apiLogos && apiLogos.length > 0
+    ? [...apiLogos, ...partners]
+    : partners;
+
+  return (
+    <div className="absolute bottom-0 left-0 w-full z-40">
+      <div className="bg-white/95 backdrop-blur-md border-t border-gray-100 py-4 md:py-6 shadow-[0_-15px_40px_rgba(0,0,0,0.04)]">
+        <div className="container-custom">
+          <div className="relative flex overflow-hidden group select-none items-center">
+            <div className="absolute left-0 top-0 w-12 md:w-40 h-full bg-gradient-to-r from-white via-white/40 to-transparent z-10" />
+            <div className="absolute right-0 top-0 w-12 md:w-40 h-full bg-gradient-to-l from-white via-white/40 to-transparent z-10" />
+            <div className="flex animate-marquee whitespace-nowrap gap-12 md:gap-32 items-center">
+              {[...displayLogos, ...displayLogos, ...displayLogos].map((item, idx) => {
+                const src = item.imageUrl ? `${API_BASE_URL}${encodeURI(item.imageUrl)}` : item.logo;
+                const fallbackStaticLogo = partners[idx % partners.length].logo;
+
+                return (
+                  <img
+                    key={idx}
+                    src={src}
+                    alt={item.title || item.name || "Partner Logo"}
+                    className="h-8 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
+                    onError={(e) => { e.currentTarget.src = fallbackStaticLogo; }}
+                  />
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default function HeroSection() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [apiSlides, setApiSlides] = useState<any[]>([]);
+
+  // Hero Data state retained to avoid breaking JSX, but will stay null
+  const [heroData, setHeroData] = useState<any>(null);
+  const [logoData, setLogoData] = useState<any[]>([]);
+
   const { openModal } = useModal();
   const pathname = usePathname();
 
   useEffect(() => {
     const fetchSlides = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/slider`);
+        const res = await fetch(`${API_BASE_URL}/api/slider`, {
+          method: 'GET',
+          mode: 'cors',
+          cache: 'no-store',
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
         const json = await res.json();
-        if (json.success) setApiSlides(json.data);
+
+        if (json.success && json.data) {
+          const activeSlides = json.data.filter((s: any) => s.isActive);
+
+          // 🔥 ONLY LOGOS FILTER REMAINS
+          const logos = activeSlides.filter((s: any) =>
+            s.label?.toLowerCase().trim() === 'partner' ||
+            s.componentType?.toLowerCase().trim() === 'partner'
+          );
+
+          setLogoData(logos);
+          // Hero logic is completely removed!
+        }
       } catch (err) {
         console.error("Slider fetch error:", err);
       }
     };
     fetchSlides();
   }, []);
-
-  const growthData = apiSlides.find(slide => slide.componentType === 'growth');
 
   return (
     <section className="relative w-full h-[100dvh] bg-white overflow-hidden m-0 p-0 block">
@@ -165,7 +217,7 @@ export default function HeroSection() {
 
       <motion.div animate={{ opacity: currentSlide === 0 ? 1 : 0 }} transition={{ duration: 0.8 }} className={`absolute inset-0 w-full h-full transition-all ${currentSlide === 0 ? "z-10 pointer-events-auto" : "z-0 pointer-events-none"}`}>
         <GrowthSection
-          slideData={growthData}
+          slideData={heroData}
           onContactClick={() => openModal(`Hero Section Slider - ${pathname}`)}
         />
       </motion.div>
@@ -178,51 +230,28 @@ export default function HeroSection() {
         <VideoSection />
       </motion.div>
 
-      <LogoCloudPremium />
+      <LogoCloudPremium apiLogos={logoData} />
 
-      {/* 🌟 🛠️ FIX: Mobile Horizontal, Desktop Vertical Glass Slider */}
       <div className="absolute bottom-28 left-1/2 -translate-x-1/2 md:bottom-auto md:left-auto md:right-8 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 z-50 flex flex-row md:flex-col items-center gap-3 md:gap-2 bg-white/90 backdrop-blur-2xl px-5 py-2 md:p-3 rounded-full border border-white/60 shadow-2xl drop-shadow-md">
 
-        {/* Previous Slide Button */}
-        <button
-          onClick={() => setCurrentSlide((prev) => (prev === 0 ? 2 : prev - 1))}
-          className="p-1 md:p-3 rounded-full text-slate-600 hover:text-brandOrange hover:bg-slate-100/50 transition-all duration-300"
-          aria-label="Previous Slide"
-        >
-          {/* Mobile par left arrow ban jayega (-rotate-90), Desktop par Up rahega */}
+        <button onClick={() => setCurrentSlide((prev) => (prev === 0 ? 2 : prev - 1))} className="p-1 md:p-3 rounded-full text-slate-600 hover:text-brandOrange hover:bg-slate-100/50 transition-all duration-300" aria-label="Previous Slide">
           <ChevronUp className="w-4 h-4 md:w-5 md:h-5 -rotate-90 md:rotate-0" strokeWidth={2.5} />
         </button>
 
-        {/* Animated Dynamic Label */}
         <div className="w-20 h-6 md:h-28 md:w-auto flex items-center justify-center relative overflow-hidden">
           <AnimatePresence mode="wait">
-            <motion.span
-              key={currentSlide}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.3 }}
-              // Mobile par horizontal text, Desktop (md:) par vertical text
-              className="text-[10px] md:text-[10px] font-black tracking-[0.2em] md:tracking-[0.35em] uppercase text-textmain md:[writing-mode:vertical-rl] md:rotate-180 absolute whitespace-nowrap"
-            >
-              {currentSlide === 0 ? (growthData?.label ? growthData.label : "Growth") : currentSlide === 1 ? "Neural" : "Identity"}
+            <motion.span key={currentSlide} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }} className="text-[10px] md:text-[10px] font-black tracking-[0.2em] md:tracking-[0.35em] uppercase text-textmain md:[writing-mode:vertical-rl] md:rotate-180 absolute whitespace-nowrap">
+              {currentSlide === 0 ? (heroData?.label || "Growth") : currentSlide === 1 ? "Neural" : "Identity"}
             </motion.span>
           </AnimatePresence>
         </div>
 
-        {/* Next Slide Button */}
-        <button
-          onClick={() => setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1))}
-          className="p-1 md:p-3 rounded-full text-slate-600 hover:text-brandOrange hover:bg-slate-100/50 transition-all duration-300"
-          aria-label="Next Slide"
-        >
-          {/* Mobile par right arrow ban jayega (-rotate-90), Desktop par Down rahega */}
+        <button onClick={() => setCurrentSlide((prev) => (prev === 2 ? 0 : prev + 1))} className="p-1 md:p-3 rounded-full text-slate-600 hover:text-brandOrange hover:bg-slate-100/50 transition-all duration-300" aria-label="Next Slide">
           <ChevronDown className="w-4 h-4 md:w-5 md:h-5 -rotate-90 md:rotate-0" strokeWidth={2.5} />
         </button>
 
       </div>
 
-      {/* Bottom Counter Logic Untouched */}
       <div className="absolute bottom-20 md:bottom-28 left-6 md:left-12 z-50 flex flex-col items-start pointer-events-none drop-shadow-lg">
         <span className="text-[14px] md:text-[16px] font-black text-brandOrange tracking-tighter drop-shadow-[0_0_8px_rgba(255,165,0,0.4)]">0{currentSlide + 1}</span>
         <div className="w-8 md:w-10 h-[2px] bg-brandOrange/60 my-1 shadow-[0_0_5px_rgba(255,165,0,0.3)]" />

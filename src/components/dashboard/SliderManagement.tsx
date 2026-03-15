@@ -4,10 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Image as ImageIcon, Loader2 } from 'lucide-react';
 
 export default function SliderManagement() {
-    // 🚀 FOOLPROOF URL LOGIC: Ab ye kabhi 'undefined' nahi hoga
-    const API_BASE_URL = typeof window !== 'undefined' && window.location.hostname === 'localhost'
-        ? 'http://localhost:5000'
-        : 'https://nighwan-tech-webbackend.onrender.com';
+    const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
 
     const [sliders, setSliders] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -17,29 +14,27 @@ export default function SliderManagement() {
     const [editingSlider, setEditingSlider] = useState<any | null>(null);
     const [submitting, setSubmitting] = useState(false);
 
+    // 🔥 Default state 'partner' kar diya
     const [formData, setFormData] = useState({
-        label: '',
-        title: '',
+        label: 'Partner',
+        title: 'Our Partner',
         description: '',
-        componentType: 'home',
+        componentType: 'partner',
         order: 1,
         isActive: true
     });
     const [imageFile, setImageFile] = useState<File | null>(null);
 
     // ==========================================
-    // 1. GET ALL SLIDERS (Token Removed)
+    // 1. GET ALL SLIDERS
     // ==========================================
     const fetchSliders = async () => {
-        // 🛡️ Safety check (DevTools suggestion)
         if (!API_BASE_URL) return;
 
         try {
             setLoading(true);
             const res = await fetch(`${API_BASE_URL}/api/slider/admin/all`);
             const result = await res.json();
-
-            console.log("Frontend received:", result);
 
             if (result.success && result.data) {
                 setSliders(result.data);
@@ -56,7 +51,7 @@ export default function SliderManagement() {
     useEffect(() => { fetchSliders(); }, []);
 
     // ==========================================
-    // 2. CREATE & UPDATE (Token Removed)
+    // 2. CREATE & UPDATE
     // ==========================================
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -100,7 +95,7 @@ export default function SliderManagement() {
     };
 
     // ==========================================
-    // 3. DELETE SINGLE (Token Removed)
+    // 3. DELETE SINGLE
     // ==========================================
     const handleDelete = async (id: number) => {
         if (!window.confirm("Delete this slider?")) return;
@@ -114,7 +109,7 @@ export default function SliderManagement() {
     };
 
     // ==========================================
-    // 4. BULK DELETE (Token Removed)
+    // 4. BULK DELETE
     // ==========================================
     const handleBulkDelete = async () => {
         if (!window.confirm(`Delete ${selectedIds.length} sliders?`)) return;
@@ -147,7 +142,8 @@ export default function SliderManagement() {
                 isActive: slider.isActive
             });
         } else {
-            setFormData({ label: '', title: '', description: '', componentType: 'home', order: 1, isActive: true });
+            // 🔥 Naya kholne par default Partner hi rahega
+            setFormData({ label: 'Partner', title: 'Our Partner', description: '', componentType: 'partner', order: 1, isActive: true });
         }
         setImageFile(null);
         setIsModalOpen(true);
@@ -171,8 +167,8 @@ export default function SliderManagement() {
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
                 <div>
-                    <h1 className="text-2xl font-bold text-slate-800">Hero Sliders</h1>
-                    <p className="text-sm text-slate-500">Manage home page sliders</p>
+                    <h1 className="text-2xl font-bold text-slate-800">Partner Logos</h1>
+                    <p className="text-sm text-slate-500">Manage footer marquee partner logos</p>
                 </div>
                 <div className="flex gap-3">
                     {selectedIds.length > 0 && (
@@ -181,7 +177,7 @@ export default function SliderManagement() {
                         </button>
                     )}
                     <button onClick={() => openModal()} className="bg-orange-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-orange-600 flex items-center gap-2 shadow-sm">
-                        <Plus size={16} /> Add Slider
+                        <Plus size={16} /> Add Logo
                     </button>
                 </div>
             </div>
@@ -228,14 +224,32 @@ export default function SliderManagement() {
                 <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
                     <div className="bg-white rounded-xl w-full max-w-lg overflow-hidden">
                         <div className="p-4 border-b bg-slate-50 flex justify-between">
-                            <h2 className="font-bold text-lg">{editingSlider ? 'Edit Slider' : 'Add Slider'}</h2>
+                            <h2 className="font-bold text-lg">{editingSlider ? 'Edit Logo' : 'Add Logo'}</h2>
                             <button onClick={closeModal} className="text-slate-400 text-xl">&times;</button>
                         </div>
                         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-                            <div className="grid grid-cols-2 gap-4">
-                                <div><label className="text-xs font-medium">Label</label><input type="text" required className="w-full border rounded p-2" value={formData.label} onChange={e => setFormData({ ...formData, label: e.target.value })} /></div>
-                                <div><label className="text-xs font-medium">Title</label><input type="text" required className="w-full border rounded p-2" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} /></div>
+
+                            <div>
+                                <label className="text-xs font-bold text-orange-500 mb-1 block">Where to show this image? *</label>
+                                <select
+                                    required
+                                    className="w-full border-2 border-slate-200 rounded-lg p-2 focus:border-orange-500 outline-none transition-colors"
+                                    value={formData.componentType}
+                                    onChange={e => {
+                                        const val = e.target.value;
+                                        setFormData({ ...formData, componentType: val, label: 'Partner', title: 'Our Partner' });
+                                    }}
+                                >
+                                    {/* 🔥 Home wala option hamesha ke liye hata diya gaya hai */}
+                                    <option value="partner">Partner Logo Slider (Bottom Marquee)</option>
+                                </select>
                             </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                                <div><label className="text-xs font-medium">Label</label><input type="text" className="w-full border rounded p-2" value={formData.label} onChange={e => setFormData({ ...formData, label: e.target.value })} /></div>
+                                <div><label className="text-xs font-medium">Title</label><input type="text" className="w-full border rounded p-2" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} /></div>
+                            </div>
+
                             <div><label className="text-xs font-medium">Description</label><textarea className="w-full border rounded p-2" value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} /></div>
 
                             <div className="grid grid-cols-2 gap-4">
@@ -257,7 +271,7 @@ export default function SliderManagement() {
                             <div className="flex justify-end gap-2 pt-4">
                                 <button type="button" onClick={closeModal} className="px-4 py-2 border rounded text-sm">Cancel</button>
                                 <button type="submit" disabled={submitting} className="bg-orange-500 text-white px-4 py-2 rounded text-sm disabled:opacity-50">
-                                    {submitting ? 'Saving...' : 'Save Slider'}
+                                    {submitting ? 'Saving...' : 'Save Logo'}
                                 </button>
                             </div>
                         </form>
