@@ -92,18 +92,16 @@ const ProjectInquiryModal = ({ isOpen, onClose, sourcePage }: ModalProps) => {
                   </div>
                 </div>
 
-                {/* --- YOUTUBE VIDEO --- */}
+                {/* --- LOCAL VIDEO --- */}
                 <div className="relative w-full aspect-video rounded-xl md:rounded-2xl overflow-hidden shadow-xl border-[2px] md:border-[3px] border-white/80 bg-black shrink-0">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/ZV-aV5kIdGQ?autoplay=1&mute=1&loop=1&playlist=ZV-aV5kIdGQ&controls=0&modestbranding=1&rel=0"
-                    title="Nighwan Showcase"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    className="absolute inset-0 scale-[1.02]"
-                    allowFullScreen
-                  ></iframe>
+                  <video
+                    src="/14294714_3840_2160_24fps.mp4"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover"
+                  ></video>
                 </div>
 
                 <div className="mt-auto pt-4 md:pt-6 text-center hidden md:block">

@@ -87,7 +87,7 @@ const HomeContactHub = () => {
 // --- 🚀 Growth Section (HERO) ---
 const GrowthSection = ({ onContactClick, slideData }: { onContactClick: () => void, slideData?: any }) => {
   const imagePath = slideData?.imageUrl ? (slideData.imageUrl.startsWith('/') ? slideData.imageUrl : `/${slideData.imageUrl}`) : "";
-  const displayImage = slideData?.imageUrl ? `${cleanBaseUrl}${imagePath}` : "https://illustrations.popsy.co/amber/success.svg";
+  const displayImage = slideData?.imageUrl ? `${cleanBaseUrl}${imagePath}` : "/images/hero-success.png";
 
   return (
     <div className="w-full h-full bg-[#fcfcfc] flex items-center justify-center relative overflow-hidden">
@@ -126,7 +126,7 @@ const GrowthSection = ({ onContactClick, slideData }: { onContactClick: () => vo
                 src={displayImage}
                 alt="Nighwan Tech Growth"
                 className="w-full h-auto max-h-[220px] sm:max-h-[300px] md:max-h-[380px] object-contain drop-shadow-lg md:drop-shadow-xl"
-                onError={(e) => { e.currentTarget.src = "https://illustrations.popsy.co/amber/success.svg"; }}
+                onError={(e) => { e.currentTarget.src = "/images/hero-success.png"; }}
               />
             </div>
           </motion.div>
