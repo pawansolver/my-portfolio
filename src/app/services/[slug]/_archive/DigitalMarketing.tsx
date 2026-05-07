@@ -323,7 +323,7 @@ export default function DigitalMarketingPage() {
 
       {/* --- 8. FINAL CTA --- */}
       <section className="section-padding bg-textmain text-white relative">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} />
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("/images/carbon-fibre.png")' }} />
         <div className="container-custom text-center relative z-10">
           <h2 className="heading-xl !text-white !mb-8">Stop Managing Crisis. <br />Start Dominating Growth.</h2>
           <p className="text-muted !text-gray-400 mb-12">Every day of delay is a day of lost revenue. Partner with growth experts who understand ROI.</p>

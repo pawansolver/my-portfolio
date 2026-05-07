@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Bot, Cpu, TrendingUp, ArrowUpRight, Shield } from 'lucide-react';
+import { Bot, Cpu, TrendingUp, ArrowUpRight, Shield, Layers, Factory } from 'lucide-react';
 
 // --- Terminal Animation ---
 const TypewriterDemo: React.FC = () => {
@@ -81,26 +81,26 @@ export default function AISolutionsBentoGrid() {
         {/* 🔥 FIX: mb-10 for tighter vertical flow */}
         <div className="flex flex-col items-center text-center mb-10 md:mb-14">
           <span className="font-black text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 block text-brandOrange">
-            Neural Excellence
+            Technological Excellence
           </span>
 
-          <h2 className="heading-xl">
-            AI SOLUTIONS & INTELLIGENCE
+          <h2 className="heading-xl uppercase">
+            Intelligent Business Ecosystems
           </h2>
 
           <p className="text-muted !text-brandGreen !text-sm md:!text-base">
-            Future-proof engineering designed to transform raw data into neural power.
+            Future-proof engineering designed to transform MSMEs into data-driven leaders.
           </p>
         </div>
 
         {/* --- 2. Bento Grid --- */}
         <div className="grid grid-cols-12 gap-4 md:gap-6 w-full max-w-7xl mx-auto px-4 md:px-0">
-          <BentoCard title="Neural Deployment" description="Real-time ML pipelines with sub-millisecond latency for high-frequency processing." icon={<Cpu size={24} />} spanCols={8} delay={0.1}>
+          <BentoCard title="Custom ERP & Automation" description="Bespoke business ecosystems built for MSME operational realities and seamless data flow." icon={<Layers size={24} />} spanCols={8} delay={0.1}>
             <TypewriterDemo />
           </BentoCard>
-          <BentoCard title="Secure AI" description="Encryption-first neural modeling for critical data safety." icon={<Shield size={24} />} spanCols={4} delay={0.2} />
-          <BentoCard title="Custom LLM" description="Bespoke RAG architectures for enterprise knowledge management." icon={<Bot size={24} />} spanCols={4} delay={0.3} />
-          <BentoCard title="Data Intelligence" description="Transforming raw data into market trends." icon={<TrendingUp size={24} />} spanCols={8} delay={0.4} />
+          <BentoCard title="Lean Consultancy" description="Integrating Kaizen and 5S methodologies to eliminate waste and optimize productivity." icon={<TrendingUp size={24} />} spanCols={4} delay={0.2} />
+          <BentoCard title="RAG & Private AI" description="Enterprise-grade Retrieval-Augmented Generation for private knowledge mining and AI agents." icon={<Bot size={24} />} spanCols={4} delay={0.3} />
+          <BentoCard title="Industry 4.0 & E-commerce" description="Connected smart factories and scalable digital storefronts for the modern global market." icon={<Factory size={24} />} spanCols={8} delay={0.4} />
         </div>
 
         {/* --- 3. Footer Link --- */}

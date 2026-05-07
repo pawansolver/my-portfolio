@@ -5,12 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, X } from 'lucide-react';
 
 const dataPoints = [
-  { id: 'enterprise-ai', title: 'Enterprise AI', description: 'Powering business with Custom LLMs and RAG pipelines for seamless knowledge automation.', subServices: ['GPTs', 'AI', 'NLP'] },
-  { id: 'fintech', title: 'Fintech', description: 'Secure, high-frequency trading systems and PCI-DSS compliant payment gateways.', subServices: ['Payments', 'Security'] },
-  { id: 'web3', title: 'Web3', description: 'Next-gen smart contracts, dApps, and private blockchain infrastructure.', subServices: ['Solidity', 'DeFi'] },
-  { id: 'scalable-saas', title: 'Scalable SaaS', description: 'High-performance multi-tenant cloud architectures built to scale with growth.', subServices: ['Cloud', 'K8s'] },
-  { id: 'health-tech', title: 'Health-Tech', description: 'Safe and secure HIPAA-compliant software for remote patient monitoring.', subServices: ['IoMT', 'Privacy'] },
-  { id: 'logistics', title: 'Logistics', description: 'Optimize supply chain with real-time tracking and AI-driven route optimization.', subServices: ['IoT', 'Fleet'] }
+  { id: 'industry-4-0', title: 'Industry 4.0', description: 'Empowering smart factories with connected ecosystems, real-time monitoring, and IoT automation.', subServices: ['IoT', 'Smart Factory', 'Automation'] },
+  { id: 'lean-consultancy', title: 'Lean Consultancy', description: 'Eliminating waste and optimizing productivity through world-class 5S and Kaizen methodologies.', subServices: ['Kaizen', '5S', 'Productivity'] },
+  { id: 'custom-erp', title: 'Custom ERP', description: 'Bespoke business architectures designed to bridge the gap between strategy and digital reality.', subServices: ['ERP', 'CRM', 'Business Ops'] },
+  { id: 'msme-growth', title: 'MSME Growth', description: 'Affordable, scalable technology engines specifically built for the operational realities of Indian MSMEs.', subServices: ['MSME Focus', 'Scalability', 'Growth'] },
+  { id: 'rag-ai', title: 'RAG & Private AI', description: 'Secure knowledge mining and intelligent agents built on private data for cognitive decision-making.', subServices: ['RAG AI', 'LLM', 'Knowledge'] },
+  { id: 'ecommerce', title: 'E-commerce Hub', description: 'High-performance digital storefronts and B2B platforms engineered for global market dominance.', subServices: ['B2B', 'B2C', 'Digital Trade'] }
 ];
 
 const WhyChooseUs: React.FC = () => {

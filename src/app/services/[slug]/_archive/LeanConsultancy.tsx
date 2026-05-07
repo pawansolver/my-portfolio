@@ -322,7 +322,7 @@ export default function LeanConsultancyPage() {
 
       {/* --- 8. FINAL CTA --- */}
       <section className="section-padding bg-textmain text-white relative">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} />
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("/images/carbon-fibre.png")' }} />
         <div className="container-custom text-center relative z-10">
           <h2 className="heading-xl !text-white !mb-8">Stop Managing Crisis. <br />Start Engineering Excellence.</h2>
           <p className="text-muted !text-gray-400 mb-12">Every day of delay is a day of lost margin. Partner with experts who understand the nuances of enterprise scaling.</p>

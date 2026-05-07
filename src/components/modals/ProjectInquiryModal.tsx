@@ -12,9 +12,9 @@ interface ModalProps {
 }
 
 const countries = [
-  { code: '+91', iso: 'IN', name: 'India', flag: 'https://flagcdn.com/w20/in.png' },
-  { code: '+1', iso: 'US', name: 'USA', flag: 'https://flagcdn.com/w20/us.png' },
-  { code: '+44', iso: 'GB', name: 'UK', flag: 'https://flagcdn.com/w20/gb.png' },
+  { code: '+91', iso: 'IN', name: 'India', flag: '/images/flag-in.png' },
+  { code: '+1', iso: 'US', name: 'USA', flag: '/images/flag-us.png' },
+  { code: '+44', iso: 'GB', name: 'UK', flag: '/images/flag-gb.png' },
 ];
 
 const ProjectInquiryModal = ({ isOpen, onClose, sourcePage }: ModalProps) => {

@@ -294,7 +294,7 @@ export default function WhyChooseUsPage() {
 
       {/* --- 7. FINAL CTA --- */}
       <section className="section-padding bg-textmain text-white relative px-4 sm:px-6">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} />
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("/images/carbon-fibre.png")' }} />
         <div className="container-custom flex flex-col items-center text-center relative z-10 py-8 md:py-12 w-full">
           <h2 className="heading-xl !text-white !mb-6 md:!mb-8">Ready to Choose <br />Better Engineering?</h2>
           <p className="text-muted !text-gray-400 mb-10 md:mb-12 max-w-2xl mx-auto text-sm md:text-base px-2 leading-relaxed">Stop settling for mediocre delivery. Partner with Nighwan Tech and build the future.</p>

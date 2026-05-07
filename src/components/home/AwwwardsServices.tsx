@@ -6,40 +6,40 @@ import { ArrowUpRight } from 'lucide-react';
 
 const services = [
   {
-    title: 'SOFTWARE DEVELOPMENT',
-    meta: 'CUSTOM SOLUTIONS • ENTERPRISE • SAAS',
+    title: 'CUSTOM ERP SOLUTIONS',
+    meta: 'ENTERPRISE • AUTOMATION • SCALABLE',
     image: '/images/software-dev.png',
-    slug: 'software-development'
+    slug: 'custom-erp-solutions'
   },
   {
-    title: 'WEB SOLUTIONS',
-    meta: 'REACT • NEXT.JS • TYPESCRIPT',
-    image: '/images/web-dev.png',
-    slug: 'web-solutions'
-  },
-  {
-    title: 'MOBILE APPS',
-    meta: 'REACT NATIVE • FLUTTER • SWIFT',
-    image: '/images/mobile-dev.png',
-    slug: 'mobile-apps'
-  },
-  {
-    title: 'CLOUD & DEVOPS',
-    meta: 'AWS • AZURE • KUBERNETES',
-    image: '/images/cloud-devops.png',
-    slug: 'cloud-devops'
-  },
-  {
-    title: 'AI & ML',
-    meta: 'LEARNING • VISION • NLP',
-    image: '/images/ai-automation.png',
-    slug: 'ai-ml'
-  },
-  {
-    title: 'UI/UX DESIGN',
-    meta: 'RESEARCH • DESIGN SYSTEMS',
+    title: 'LEAN CONSULTANCY',
+    meta: 'KAIZEN • 5S • PRODUCTIVITY',
     image: '/images/it-consulting.png',
-    slug: 'ui-ux-design'
+    slug: 'lean-consultancy'
+  },
+  {
+    title: 'INDUSTRY 4.0',
+    meta: 'SMART FACTORY • IOT • MONITORING',
+    image: '/images/cloud-devops.png',
+    slug: 'industry-4-0'
+  },
+  {
+    title: 'E-COMMERCE HUB',
+    meta: 'B2B • B2C • DIGITAL STORE',
+    image: '/images/web-dev.png',
+    slug: 'e-commerce-hub'
+  },
+  {
+    title: 'RAG & AI SYSTEMS',
+    meta: 'PRIVATE LLM • KNOWLEDGE MINING',
+    image: '/images/ai-automation.png',
+    slug: 'rag-ai-systems'
+  },
+  {
+    title: 'DIGITAL TRANSFORMATION',
+    meta: 'MSME • STRATEGY • GROWTH',
+    image: '/images/mobile-dev.png',
+    slug: 'digital-transformation'
   }
 ];
 

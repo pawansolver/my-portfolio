@@ -96,13 +96,13 @@ const GrowthSection = ({ onContactClick, slideData }: { onContactClick: () => vo
         <div className="text-center md:text-left flex flex-col items-center md:items-start justify-center mt-8 md:mt-0">
           <motion.div initial={{ x: -30, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5 }} className="flex flex-col items-center md:items-start">
             <span className="text-brandOrange font-black text-[10px] md:text-[11px] tracking-[0.3em] md:tracking-[0.4em] uppercase mb-4 block border-l-0 md:border-l-4 border-brandOrange md:pl-3">
-              {slideData?.label || "Engineering Excellence"}
+              {slideData?.label || "Since 2020 | Engineering Growth"}
             </span>
             <h1 className="heading-xl !text-center md:!text-left !mb-4 md:!mb-6 !text-textmain">
               {slideData?.title || "NIGHWAN TECH"} <br />
             </h1>
             <p className="text-muted !text-center md:!text-left !mx-0 mb-6 md:mb-8 opacity-80 max-w-md !text-sm md:!text-base">
-              {slideData?.description || "Engineering your path to growth where your business goals meet our engineering expertise."}
+              {slideData?.description || "Empowering MSMEs and industries through smart automation and Industry 4.0 transformation since 2020."}
             </p>
           </motion.div>
 

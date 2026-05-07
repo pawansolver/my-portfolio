@@ -4,12 +4,14 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const categories = ['All', 'AI Solutions', 'Cloud Tech', 'Fintech', 'Cyber Security'];
+const categories = ['All', 'Industrial AI', 'Business ERP', 'Lean Ops', 'Smart Factory'];
 
 const projects = [
-  { id: 1, title: 'NeuralPredict AI', category: 'AI Solutions', img: '/images/project-1.png', desc: 'Real-time diagnostics using Neural Networks.' },
-  { id: 2, title: 'Nighwan Cloud', category: 'Cloud Tech', img: '/images/project-2.png', desc: 'Auto-scaling serverless infrastructure.' },
-  { id: 3, title: 'SecuVault', category: 'Cyber Security', img: '/images/project-3.png', desc: 'Zero-trust biometric encryption.' },
+  { id: 1, title: 'Custom ERP Hub', category: 'Business ERP', img: '/images/project-erp.png', desc: 'Bespoke operational ecosystems designed for Indian MSME growth.' },
+  { id: 2, title: 'Kaizen Intelligence', category: 'Lean Ops', img: '/images/project-lean.png', desc: 'AI-powered Lean Manufacturing and operational waste reduction.' },
+  { id: 3, title: 'SmartFactory 4.0', category: 'Smart Factory', img: '/images/project-smart-factory.png', desc: 'Real-time production monitoring and IoT-driven factory connectivity.' },
+  { id: 4, title: 'RAG Knowledge Miner', category: 'Industrial AI', img: '/images/project-rag-ai.png', desc: 'Private AI agents for secure enterprise knowledge and document mining.' },
+  { id: 5, title: 'Digital Storefront', category: 'Business ERP', img: '/images/project-ecommerce.png', desc: 'High-performance E-commerce ecosystems for global trade scaling.' },
 ];
 
 export default function ProjectPortfolio() {

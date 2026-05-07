@@ -237,10 +237,10 @@ export default function LeadershipPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 responsive-grid">
             {[
-              { title: "Fintech Ops", icon: "💳", desc: "Expertise in secure banking and payment infrastructure." },
-              { title: "SaaS Scaling", icon: "☁️", desc: "Specializing in hyper-growth architecture for startups." },
-              { title: "Cyber Security", icon: "🛡️", desc: "Leading the charge in zero-trust and data protection." },
-              { title: "AI & Data", icon: "🤖", desc: "Integrating intelligent systems into legacy workflows." }
+              { title: "Industry 4.0", icon: "🏭", desc: "Expertise in connected, intelligent, and data-driven operations." },
+              { title: "Lean Manufacturing", icon: "📈", desc: "Bridging strategy and productivity through 5S and Kaizen." },
+              { title: "MSME Growth", icon: "🚀", desc: "Empowering small and medium enterprises with scalable tech." },
+              { title: "Smart Factories", icon: "🤖", desc: "Real-time production monitoring and digital workflow automation." }
             ].map((item, i) => (
               <div key={i} className="p-6 md:p-8 border border-gray-100 rounded-2xl hover:bg-textmain hover:text-white transition-all duration-500 group text-left w-full">
                 <div className="text-3xl md:text-4xl mb-4 md:mb-6">{item.icon}</div>
@@ -323,7 +323,7 @@ export default function LeadershipPage() {
 
       {/* --- 8. FINAL CTA --- */}
       <section className="section-padding bg-textmain text-white relative px-4 sm:px-6">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} />
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("/images/carbon-fibre.png")' }} />
         <div className="container-custom flex flex-col items-center text-center relative z-10 py-8 md:py-12 w-full">
           <h2 className="heading-xl !text-white !mb-6 md:!mb-8">Experience Leadership <br />That Delivers Results.</h2>
           <p className="text-muted !text-gray-400 mb-10 md:mb-12 max-w-2xl mx-auto text-sm md:text-base px-2 leading-relaxed">Connect directly with our leadership to discuss your vision and scaling challenges.</p>

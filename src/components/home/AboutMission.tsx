@@ -97,21 +97,21 @@ export default function AboutMission() {
               className="lg:col-span-7 flex flex-col gap-6 md:gap-8 lg:pl-10 lg:border-l border-white/10"
             >
               <p className="text-white text-lg md:text-xl font-medium leading-relaxed !text-center md:!text-left">
-                At NighwanTech, we operate at the intersection of high-fidelity design and uncompromising engineering.
+                Founded on 25th September 2020, NighwanTech operates at the intersection of Industry 4.0 and uncompromising engineering.
               </p>
               <p className="text-white/60 text-sm md:text-base font-normal leading-relaxed !text-center md:!text-left">
-                We define the new standard of digital excellence through scalable architecture and seamless human-centric design. We don't just build software; we build the foundational infrastructure for tomorrow's market leaders.
+                We bridge the gap between operational strategy and intelligent digital systems. Our mission is to empower Indian MSMEs with affordable, scalable, and AI-driven solutions specifically built for their operational realities.
               </p>
 
               {/* Stats / Features Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-8 md:pt-10 border-t border-white/10 mt-2">
                 <div className="bg-white/5 border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors duration-300 text-left">
-                  <h4 className="text-brandOrange font-black text-lg md:text-xl uppercase tracking-tight mb-1">Neural Ops</h4>
-                  <p className="text-white/50 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold">Intelligent Systems</p>
+                  <h4 className="text-brandOrange font-black text-lg md:text-xl uppercase tracking-tight mb-1">Industry 4.0</h4>
+                  <p className="text-white/50 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold">Smart Manufacturing</p>
                 </div>
                 <div className="bg-white/5 border border-white/10 p-6 rounded-2xl hover:bg-white/10 transition-colors duration-300 text-left">
-                  <h4 className="text-brandOrange font-black text-lg md:text-xl uppercase tracking-tight mb-1">Global Scale</h4>
-                  <p className="text-white/50 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold">Robust Infrastructure</p>
+                  <h4 className="text-brandOrange font-black text-lg md:text-xl uppercase tracking-tight mb-1">Lean Ops</h4>
+                  <p className="text-white/50 text-[10px] md:text-xs tracking-[0.2em] uppercase font-bold">MSME Growth Engine</p>
                 </div>
               </div>
             </motion.div>
@@ -123,7 +123,7 @@ export default function AboutMission() {
           style={{ transform: "translateZ(40px)" }}
           className="absolute -bottom-10 md:-bottom-20 left-1/2 -translate-x-1/2 md:left-10 md:translate-x-0 opacity-[0.03] font-black text-[35vw] md:text-[22vw] select-none text-white pointer-events-none leading-none overflow-hidden z-0 whitespace-nowrap"
         >
-          <span>DNA</span>
+          <span>2020</span>
         </div>
       </motion.div>
     </section>

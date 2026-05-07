@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CheckCircle, ArrowRight, Target, Shield, Heart, Zap, Eye, Globe, Star } from "lucide-react";
+import { CheckCircle, ArrowRight, Target, Shield, Heart, Zap, Eye, Globe, Star, Cpu, Factory, TrendingUp } from "lucide-react";
 import Image from "next/image";
 import { useModal } from "@/components/context/ModalContext";
 
@@ -9,24 +9,19 @@ export default function MissionValuesPage() {
   const { openModal } = useModal();
 
   return (
-    /* suppressHydrationWarning added to ignore attributes injected by browser extensions */
-    <div
-      suppressHydrationWarning
-      className="bg-white text-textmain overflow-x-hidden w-full max-w-[100vw] font-sans"
-    >
+    <div suppressHydrationWarning className="bg-white text-textmain overflow-x-hidden w-full max-w-[100vw] font-sans">
 
       {/* --- 1. HERO SECTION --- */}
-      {/* 🔥 FIX: Added pt-navbar and safe mobile padding */}
       <section className="section pt-navbar relative min-h-[90vh] md:min-h-[85vh] flex items-center justify-center text-white px-4 sm:px-6">
         <div className="absolute inset-0 w-full h-full z-0">
           <Image
             src="/images/cloud-devops.png"
-            alt="Company Visionary Mission"
+            alt="Nighwan Tech Mission"
             fill
-            className="object-cover object-center"
+            className="object-cover object-center grayscale brightness-50"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/90" />
         </div>
 
         <div className="relative z-10 text-center container-custom mt-12 md:mt-0 w-full">
@@ -35,7 +30,7 @@ export default function MissionValuesPage() {
             animate={{ opacity: 1, y: 0 }}
             className="text-brandOrange font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase text-xs md:text-sm mb-4 block"
           >
-            OUR MISSION
+            OUR MISSION & VISION
           </motion.span>
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -43,18 +38,16 @@ export default function MissionValuesPage() {
             transition={{ delay: 0.2 }}
             className="heading-xl !text-white !mb-6 md:!mb-8 leading-[1.15] md:leading-tight break-words"
           >
-            Empowering Progress <br />
-            <span className="text-gray-300">Through Pure Ethics.</span>
+            Empowering Growth <br />
+            <span className="text-brandOrange">Through Intelligence.</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-muted !text-gray-300 mb-10 w-full px-2 sm:px-0"
+            className="text-muted !text-gray-300 mb-10 w-full px-2 sm:px-0 max-w-3xl mx-auto"
           >
-            Our mission is to build technology that doesn't just work, but enriches lives.
-            We are driven by a core set of values that prioritize human-centric design,
-            absolute transparency, and the relentless pursuit of engineering perfection.
+            Our mission is to help Indian MSMEs transition into digitally empowered organizations. We believe the future belongs to companies that are connected, intelligent, and data-driven.
           </motion.p>
 
           <motion.div
@@ -63,273 +56,179 @@ export default function MissionValuesPage() {
             transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row justify-center items-center gap-4 w-full max-w-lg mx-auto"
           >
-            {/* 🔥 CSS SYNC: strictly using Universal White Pill classes */}
-            <button onClick={() => openModal("Mission Video")} className="btn-inverse">
-              Start a Project
+            <button onClick={() => openModal("Vision Consultation")} className="btn-inverse">
+              Partner With Our Vision
             </button>
-            <button onClick={() => openModal("Ethics Document")} className="btn-inverse">
-              Let's Talk
+            <button onClick={() => openModal("Our Ethics")} className="btn-inverse">
+              Our Core Values
             </button>
           </motion.div>
         </div>
       </section>
 
-      {/* --- 2. MISSION & VISION --- */}
+      {/* --- 2. MISSION & VISION BLOCKS --- */}
       <section className="section-padding bg-white px-5 sm:px-6 overflow-hidden">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            <div className="order-2 lg:order-1 w-full text-left">
-              <h2 className="heading-xl !text-left !mb-4 md:!mb-6">The North Star of <br />Our Organization</h2>
-              <p className="text-muted !text-left !mx-0 !max-w-none !mb-8 text-sm md:text-base leading-relaxed">
-                We don't believe in short-term gains at the cost of technical health.
-                Our mission is to provide the architectural backbone for the
-                companies that will lead the next century of global innovation.
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+            <div className="order-2 lg:order-1 text-left">
+              <h2 className="heading-xl !text-left !mb-6">The North Star of <br />Our Organization</h2>
+              <p className="text-muted !text-left !mx-0 !mb-10 leading-relaxed">
+                We started with a simple but powerful vision: to help businesses embrace technology not just as software, but as a growth engine. Today, we align this vision with Industry 4.0 principles.
               </p>
-              <div className="space-y-6 md:space-y-8">
+
+              <div className="space-y-8">
                 {[
-                  { t: "The Mission", d: "To democratize high-end engineering for ambitious startups and global enterprises alike." },
-                  { t: "The Vision", d: "Becoming the world's most trusted partner for mission-critical digital transformation." },
-                  { t: "The Promise", d: "Delivering zero-compromise quality and radical transparency in every line of code." }
+                  { t: "The Mission", d: "To democratize Industry 4.0 and AI-powered solutions for MSMEs specifically built for their operational realities.", icon: <Target className="text-brandOrange" /> },
+                  { t: "The Vision", d: "Helping businesses build a connected, intelligent, and data-driven future through smart ecosystems.", icon: <Eye className="text-brandOrange" /> },
+                  { t: "The Promise", d: "To bridge the gap between operational strategy, workforce productivity, and intelligent digital systems.", icon: <Shield className="text-brandOrange" /> }
                 ].map((item, i) => (
-                  <div key={i} className="flex gap-4 md:gap-5 items-start">
-                    <Target className="text-brandOrange w-6 h-6 md:w-7 md:h-7 flex-shrink-0 mt-1" />
+                  <div key={i} className="flex gap-5 items-start group">
+                    <div className="w-12 h-12 rounded-2xl bg-orange-50 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                      {item.icon}
+                    </div>
                     <div>
-                      <h4 className="font-bold text-textmain text-base md:text-lg leading-snug">{item.t}</h4>
-                      <p className="text-sm md:text-base text-gray-500 mt-1.5 leading-relaxed">{item.d}</p>
+                      <h4 className="font-bold text-textmain text-lg leading-tight mb-2 uppercase tracking-wide">{item.t}</h4>
+                      <p className="text-sm md:text-base text-gray-500 leading-relaxed">{item.d}</p>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            <div className="relative group order-1 lg:order-2 w-full mx-auto md:max-w-md lg:max-w-none mb-8 md:mb-0">
-              <div className="absolute inset-0 bg-orange-100/50 rounded-3xl transform md:scale-105 -z-10 transition-colors" />
-              <div className="bg-white p-6 sm:p-8 md:p-10 rounded-2xl shadow-xl md:shadow-2xl border border-gray-100 w-full text-left">
-                <h3 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-textmain">Value-Led Strategy</h3>
-                <p className="text-gray-600 mb-6 md:mb-8 text-sm md:text-base leading-relaxed">
-                  We follow a <strong>Human-Centric Engineering</strong> approach.
-                  Every software solution is built to maximize the potential of
-                  the people who use it, while minimizing environmental impact.
+            <div className="order-1 lg:order-2 relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl">
+              <Image
+                src="/images/ai-automation.png"
+                alt="Visionary Leadership"
+                fill
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-textmain via-transparent to-transparent" />
+              <div className="absolute bottom-10 left-10 right-10 p-8 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+                <p className="text-white text-lg italic font-medium leading-relaxed">
+                  "Most companies don't just need software. They need transformation."
                 </p>
+                <span className="text-brandOrange font-bold text-xs mt-4 block">— Company Realization</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                <ul className="space-y-4">
-                  {["Integrity in Communication", "Obsession with Security", "Culture of Open Innovation", "Social Responsibility First"].map((list, i) => (
-                    <li key={i} className="flex items-start justify-start gap-3 text-sm md:text-base font-semibold text-textmain">
-                      <CheckCircle className="text-brandOrange w-5 h-5 flex-shrink-0 mt-0.5" />
-                      <span className="leading-snug">{list}</span>
+      {/* --- 3. CORE VALUES --- */}
+      <section className="section-padding bg-gray-50 px-4 sm:px-6">
+        <div className="container-custom">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="text-brandGreen font-black text-[10px] tracking-[0.4em] uppercase mb-4 block">Our DNA</span>
+            <h2 className="heading-xl">Foundational Beliefs</h2>
+            <p className="text-muted">The core values that guide our engineering, consultancy, and global partnerships.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                t: "Innovation-Driven",
+                icon: <Zap />,
+                d: "Integrating AI, IoT, and Cloud to move from software development to a transformation partner.",
+                points: ["AI-First Mindset", "IoT Integration", "Cloud-Native Ops"]
+              },
+              {
+                t: "Operational Excellence",
+                icon: <TrendingUp />,
+                d: "Integrating Lean Manufacturing (5S, Kaizen) with technology to bridge strategy and productivity.",
+                points: ["Lean Methodologies", "Workflow Efficiency", "Process Optimization"]
+              },
+              {
+                t: "MSME Centricity",
+                icon: <Heart />,
+                d: "SolvingDisconnected systems and manual workflows with affordable, enterprise-grade tools.",
+                points: ["Affordable Scalability", "Operational Visibility", "Bespoke Ecosystems"]
+              }
+            ].map((value, i) => (
+              <div key={i} className="bg-white p-10 rounded-[2.5rem] border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500">
+                <div className="w-14 h-14 bg-orange-50 text-brandOrange rounded-2xl flex items-center justify-center mb-8">
+                  {value.icon}
+                </div>
+                <h3 className="text-xl font-black text-textmain mb-4 uppercase tracking-wide">{value.t}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed mb-8">{value.d}</p>
+                <ul className="space-y-3">
+                  {value.points.map((p, idx) => (
+                    <li key={idx} className="flex gap-3 items-center text-xs font-bold text-textmain">
+                      <CheckCircle size={14} className="text-brandGreen" />
+                      {p}
                     </li>
                   ))}
                 </ul>
-                <div className="mt-8 md:mt-10 flex justify-center md:justify-start">
-                  <button onClick={() => openModal("Culture Deck")} className="btn-primary">
-                    Let's Talk <ArrowRight size={18} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* --- 3. IMPACT STATS --- */}
-      <section className="section-padding bg-textmain text-white px-4 sm:px-6">
-        <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
-            <h2 className="heading-xl !text-white">Integrity Benchmarks</h2>
-            <p className="text-muted !text-gray-300 text-sm md:text-base px-2 leading-relaxed">Our values are not just words—they are measurable commitments.</p>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 text-center">
-            {[
-              { v: "100%", l: "Ethical Source", d: "All technologies used are vetted for security and ethics." },
-              { v: "Zero", l: "Data Breaches", d: "Maintaining a perfect track record in client data privacy." },
-              { v: "24/7", l: "Open Honesty", d: "Providing real-time project health access to every client." }
-            ].map((stat, i) => (
-              <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} key={i}>
-                <h3 className="text-4xl sm:text-5xl md:text-6xl font-bold text-brandOrange mb-3 md:mb-4">{stat.v}</h3>
-                <p className="text-lg md:text-xl font-bold mb-2">{stat.l}</p>
-                <p className="text-xs md:text-sm text-gray-400 max-w-[200px] mx-auto leading-relaxed">{stat.d}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* --- 4. CORE VALUES (Flip Cards) --- */}
-      <section className="section-padding bg-gray-50 px-4 sm:px-6">
-        <div className="container-custom text-center mb-12 md:mb-16">
-          <h2 className="heading-xl">Our Moral Pillars</h2>
-          <p className="text-muted text-sm md:text-base px-2 leading-relaxed">The foundational beliefs that guide our engineering and partnerships.</p>
-        </div>
-
-        <div className="container-custom grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {[
-            {
-              t: "Radical Transparency",
-              icon: <Eye />,
-              d: "No black boxes. You see every commit, every hour, and every architectural decision.",
-              backTitle: "Honest Delivery",
-              points: ["Open Source mindset", "Direct Engineer Access", "Real-time Reporting", "No Hidden Costs"]
-            },
-            {
-              t: "Security First DNA",
-              icon: <Shield />,
-              d: "Security is not an afterthought; it is woven into the first line of every project we start.",
-              backTitle: "Absolute Safety",
-              points: ["Encrypted Workflows", "Regular Pentesting", "Compliance Readiness", "Zero-Trust Focus"]
-            },
-            {
-              t: "Obsessive Quality",
-              icon: <Star />,
-              d: "We would rather delay a launch than release software that doesn't meet our elite standards.",
-              backTitle: "Peak Performance",
-              points: ["Modular Clean Code", "99% Test Coverage", "Scalable Architectures", "Technical Debt Mgmt"]
-            }
-          ].map((service, index) => (
-            <div key={index} className="group h-[380px] sm:h-[420px] md:h-[450px] [perspective:1000px] cursor-pointer w-full">
-              <div className="relative h-full w-full rounded-3xl transition-all duration-700 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)] shadow-md hover:shadow-xl">
-
-                {/* FRONT */}
-                <div className="absolute inset-0 h-full w-full rounded-3xl bg-white p-6 md:p-10 [backface-visibility:hidden] border border-gray-100 flex flex-col items-center text-center justify-center overflow-hidden">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-orange-50 text-brandOrange rounded-2xl flex items-center justify-center mb-5 md:mb-6 shadow-sm flex-shrink-0">
-                    {service.icon}
-                  </div>
-                  <h3 className="font-bold text-lg md:text-2xl mb-3 md:mb-4 text-textmain">{service.t}</h3>
-                  <p className="text-gray-500 text-xs md:text-sm leading-relaxed px-2 overflow-y-auto no-scrollbar">{service.d}</p>
-                  <div className="mt-auto md:mt-8 text-brandOrange font-bold text-[10px] md:text-xs uppercase tracking-widest flex items-center gap-2 flex-shrink-0">
-                    Hover to Flip <ArrowRight size={14} />
-                  </div>
-                </div>
-
-                {/* BACK */}
-                <div className="absolute inset-0 h-full w-full rounded-3xl bg-textmain p-6 md:p-10 text-white [transform:rotateY(180deg)] [backface-visibility:hidden] flex flex-col justify-center overflow-hidden">
-                  <h3 className="text-brandOrange font-bold text-lg md:text-xl mb-4 md:mb-6 text-center flex-shrink-0">{service.backTitle}</h3>
-                  <ul className="space-y-3 md:space-y-4 mb-auto overflow-y-auto no-scrollbar w-full">
-                    {service.points.map((point, i) => (
-                      <li key={i} className="flex items-start gap-2 md:gap-3 text-xs md:text-sm font-light text-gray-200 w-full">
-                        <CheckCircle size={16} className="text-brandOrange mt-0.5 flex-shrink-0" />
-                        <span className="text-left w-full leading-snug">{point}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {/* 🔥 CSS SYNC: Universal White Pill */}
-                  <button onClick={() => openModal(service.t)} className="btn-inverse mt-6">
-                    Let's Talk
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* --- 5. SOCIAL FOCUS --- */}
-      <section className="section-padding bg-white border-t border-gray-100 px-4 sm:px-6">
-        <div className="container-custom">
-          <div className="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 md:mb-12 gap-6 text-center md:text-left">
-            <div className="max-w-xl w-full">
-              <h2 className="heading-xl md:text-left !mb-2 md:!mb-4">Global Impact</h2>
-              <p className="text-brandGreen font-medium text-sm md:text-base leading-relaxed">We believe technology should be a force for good in the global community.</p>
-            </div>
-            <div className="text-gray-400 text-xs md:text-sm font-mono tracking-tighter hidden md:block">/ CORPORATE ETHOS</div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 responsive-grid">
-            {[
-              { title: "Open Source", icon: "🔓", desc: "Contributing back to the tools that build the internet." },
-              { title: "Sustainability", icon: "🌱", desc: "Optimizing code for lower server energy consumption." },
-              { title: "Education", icon: "📚", desc: "Mentoring the next generation of engineers globally." },
-              { title: "Inclusion", icon: "🤝", desc: "Building accessible software for every user type." }
-            ].map((item, i) => (
-              <div key={i} className="p-6 md:p-8 border border-gray-100 rounded-2xl hover:bg-textmain hover:text-white transition-all duration-500 group text-left w-full">
-                <div className="text-3xl md:text-4xl mb-4 md:mb-6">{item.icon}</div>
-                <h4 className="font-bold text-base md:text-lg mb-2 md:mb-3">{item.title}</h4>
-                <p className="text-sm text-gray-500 group-hover:text-gray-300 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* --- 6. PHILOSOPHY SECTION (SAFE BOX FIX) --- */}
-      <section className="section-padding bg-gray-50 px-4 sm:px-6">
-        <div className="container-custom">
-          <div className="bg-white rounded-[2rem] md:rounded-[3rem] p-6 sm:p-8 md:p-16 shadow-lg border border-gray-100 overflow-hidden w-full">
-            <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
-
-              <div className="space-y-8 order-2 lg:order-1 text-left w-full">
-                <h2 className="heading-xl md:text-left">Our Ethos: <br /><span className="text-brandOrange">Human First Tech</span></h2>
-                <div className="space-y-6">
-                  {[
-                    { p: "Empathetic Design", d: "Understanding the end-user's pain points before writing code." },
-                    { p: "Sustainable Ops", d: "Operating as a carbon-neutral engineering organization." },
-                    { p: "Continuous Trust", d: "Earning your confidence every single day through delivery." },
-                    { p: "Privacy Advocacy", d: "Standing up for user rights in every data architecture." },
-                    { p: "Bold Innovation", d: "Never being afraid to challenge the status quo for better tech." }
-                  ].map((pillar, i) => (
-                    <div key={i} className="flex gap-4 items-start w-full">
-                      <span className="bg-brandOrange/10 text-brandOrange font-bold px-3 py-1 rounded text-xs mt-0.5 flex-shrink-0">{i + 1}</span>
-                      <div className="text-left">
-                        <h5 className="font-bold text-textmain text-sm md:text-base leading-snug">{pillar.p}</h5>
-                        <p className="text-xs md:text-sm text-gray-500 mt-1.5 leading-relaxed">{pillar.d}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative order-1 lg:order-2 w-full aspect-[4/3] md:aspect-auto md:min-h-[450px] overflow-hidden rounded-2xl md:rounded-3xl">
-                <Image
-                  src="/images/ai-automation.png"
-                  alt="Team Integrity"
-                  fill
-                  className="object-cover grayscale brightness-75 hover:grayscale-0 hover:brightness-100 transition-all duration-700"
-                />
-                <div className="absolute inset-0 flex items-center justify-center p-4 w-full">
-                  <div className="bg-brandOrange text-white p-5 md:p-8 rounded-2xl shadow-2xl md:rotate-3 text-center w-full max-w-[95%] sm:max-w-[85%]">
-                    <p className="text-base sm:text-xl md:text-2xl font-black italic leading-tight">"Our values are the source of our strength."</p>
-                    <span className="text-[10px] md:text-xs mt-3 block opacity-90 uppercase tracking-wider">— Mission Motto</span>
+      {/* --- 4. INDUSTRY 4.0 PRINCIPLES --- */}
+      <section className="section-padding bg-textmain text-white px-4 sm:px-6 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("/images/carbon-fibre.png")' }} />
+        
+        <div className="container-custom relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="text-left">
+              <h2 className="heading-xl !text-white !text-left !mb-8">Upholding Industry 4.0 Standards</h2>
+              <p className="text-gray-400 mb-10 leading-relaxed max-w-xl">
+                We align our vision with the principles of the fourth industrial revolution—helping businesses move toward connected, intelligent, and autonomous operations.
+              </p>
+              
+              <div className="space-y-4">
+                {[
+                  "Smart Factory Integration",
+                  "Real-Time Production Analytics",
+                  "AI-Based Decision Making",
+                  "Digital Workflow Automation",
+                  "Predictive Maintenance Systems"
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4 items-center p-4 bg-white/5 rounded-2xl border border-white/10">
+                    <Cpu size={18} className="text-brandOrange" />
+                    <span className="text-sm font-bold tracking-wide uppercase">{item}</span>
                   </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="space-y-3 sm:space-y-4 mt-8 sm:mt-12">
+                <div className="aspect-square bg-brandOrange rounded-[2rem] sm:rounded-3xl p-5 sm:p-8 flex flex-col justify-end">
+                  <span className="text-2xl sm:text-4xl font-black mb-1 sm:mb-2">2020</span>
+                  <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest opacity-80">Founded</span>
+                </div>
+                <div className="aspect-[3/4] bg-white/10 backdrop-blur-md rounded-[2rem] sm:rounded-3xl border border-white/20 p-5 sm:p-8 flex flex-col justify-center">
+                  <Factory size={28} className="sm:w-10 sm:h-10 text-brandOrange mb-3 sm:mb-4" />
+                  <span className="text-sm sm:text-lg font-bold leading-tight">Industry 4.0 Focused</span>
                 </div>
               </div>
-
+              <div className="space-y-3 sm:space-y-4">
+                <div className="aspect-[3/4] bg-brandGreen rounded-[2rem] sm:rounded-3xl p-5 sm:p-8 flex flex-col justify-end">
+                  <span className="text-xl sm:text-3xl font-black mb-1 sm:mb-2">MSMEs</span>
+                  <span className="text-[10px] sm:text-xs font-bold uppercase tracking-widest opacity-80">Our Core Focus</span>
+                </div>
+                <div className="aspect-square bg-white/10 backdrop-blur-md rounded-[2rem] sm:rounded-3xl border border-white/20 p-5 sm:p-8 flex flex-col justify-center">
+                  <Target size={28} className="sm:w-10 sm:h-10 text-brandOrange mb-3 sm:mb-4" />
+                  <span className="text-sm sm:text-lg font-bold leading-tight">Result Driven</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* --- 7. RISK MITIGATION --- */}
-      <section className="section-padding bg-white px-4 sm:px-6">
-        <div className="container-custom text-center">
-          <h2 className="heading-xl">Ethics Protection</h2>
-          <p className="text-muted mb-12 md:mb-16 px-2 text-sm md:text-base leading-relaxed">We protect our values as fiercely as we protect your data.</p>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 md:gap-12 w-full">
-            {[
-              { icon: <Zap className="text-blue-600" />, t: "Energy Optimization", d: "Building efficient algorithms to reduce digital waste." },
-              { icon: <Shield className="text-green-600" />, t: "Ethical AI Audit", d: "Ensuring all AI modules are free from bias and prejudice." },
-              { icon: <Heart className="text-orange-600" />, t: "Community Focus", d: "Giving back through open tech and educational grants." }
-            ].map((risk, i) => (
-              <div key={i} className="flex flex-col items-center w-full">
-                <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-gray-50 flex items-center justify-center mb-4 md:mb-6 shadow-sm">{risk.icon}</div>
-                <h4 className="font-bold text-base md:text-lg mb-2">{risk.t}</h4>
-                <p className="text-sm text-gray-500 max-w-[280px] leading-relaxed mx-auto">{risk.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* --- 8. FINAL CTA --- */}
-      <section className="section-padding bg-textmain text-white relative px-4 sm:px-6">
-        <div className="absolute inset-0 opacity-10 pointer-events-none" style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/carbon-fibre.png")' }} />
-        <div className="container-custom flex flex-col items-center text-center relative z-10 py-8 md:py-12 w-full">
-          <h2 className="heading-xl !text-white !mb-6 md:!mb-8">Build Something <br />That Truly Matters.</h2>
-          <p className="text-muted !text-gray-400 mb-10 md:mb-12 max-w-2xl mx-auto text-sm md:text-base px-2 leading-relaxed">Partner with an engineering firm that aligns with your mission and values.</p>
+      {/* --- 5. FINAL CTA --- */}
+      <section className="section-padding bg-white relative px-4 sm:px-6">
+        <div className="container-custom flex flex-col items-center text-center py-8 md:py-12 w-full">
+          <h2 className="heading-xl !mb-6 md:!mb-8">Build the Connected <br />Future of Your Business.</h2>
+          <p className="text-muted mb-10 md:mb-12 max-w-2xl mx-auto">
+            Ready to transition into a data-driven organization? Let's discuss how our values align with your growth.
+          </p>
 
           <div className="flex justify-center items-center w-full max-w-sm mx-auto">
-            {/* 🔥 CSS SYNC: Universal White Pill */}
-            <button onClick={() => openModal("Mission Consultation")} className="btn-inverse">
-              Let's Talk
+            <button onClick={() => openModal("Connect Sales")} className="btn-primary">
+              Start Your Transformation
             </button>
           </div>
         </div>
