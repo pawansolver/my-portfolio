@@ -145,24 +145,24 @@ const ContactSection = ({ isFullPage = false }) => {
               {/* Subtle Ambient Glow behind form */}
               <div className="absolute -inset-1 bg-gradient-to-br from-brandOrange/20 to-brandGreen/20 rounded-[3rem] blur-2xl opacity-50 pointer-events-none"></div>
 
-              <div className="relative bg-white p-8 md:p-12 rounded-[2.5rem] border border-slate-100 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.1)] h-full flex flex-col justify-between">
+              <div className="relative bg-white p-6 md:p-8 rounded-[2rem] border border-slate-100 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.1)] h-full flex flex-col justify-between">
 
                 <div>
                   {!isFullPage ? (
-                    <div className="text-center mb-10 flex flex-col items-center">
+                    <div className="text-center mb-6 flex flex-col items-center">
                       {/* 🔥 STRICT GLOBAL SYNC */}
-                      <h2 className="heading-xl mb-3">Start a Conversation</h2>
-                      <p className="text-muted">Tell us about your next project.</p>
+                      <h2 className="heading-xl mb-1">Start a Conversation</h2>
+                      <p className="text-muted !text-xs">Tell us about your next project.</p>
                     </div>
                   ) : (
-                    <div className="mb-10">
+                    <div className="mb-6">
                       {/* 🔥 STRICT GLOBAL SYNC */}
-                      <h3 className="heading-xl !text-left mb-2">Send us a message</h3>
-                      <p className="text-muted !text-left">We typically respond within 24 hours.</p>
+                      <h3 className="heading-xl !text-left mb-1">Send us a message</h3>
+                      <p className="text-muted !text-left !text-xs">We typically respond within 24 hours.</p>
                     </div>
                   )}
 
-                  <form className="space-y-6" action={formAction}>
+                  <form className="space-y-4" action={formAction}>
                     <input type="hidden" name="source_page" value={`static_form_${pathname}`} />
 
                     <AnimatePresence>
@@ -178,46 +178,46 @@ const ContactSection = ({ isFullPage = false }) => {
                       )}
                     </AnimatePresence>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <PremiumInput name="firstName" label="First Name" required={true} disabled={isPending} />
                       <PremiumInput name="lastName" label="Last Name" required={true} disabled={isPending} />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <PremiumInput name="email" label="Work Email" type="email" required={true} disabled={isPending} />
                       <PremiumInput name="phone" label="Phone Number" type="tel" required={true} disabled={isPending} />
                     </div>
 
-                    <div className="space-y-2 group">
-                      <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-400 group-focus-within:text-brandOrange transition-colors block ml-1">
+                    <div className="space-y-1 group">
+                      <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 group-focus-within:text-brandOrange transition-colors block ml-1">
                         How can we help?
                       </label>
                       <textarea
                         name="message"
                         required
                         disabled={isPending}
-                        rows={4}
-                        className="w-full p-4 rounded-2xl bg-slate-50 border border-slate-200 focus:border-brandOrange focus:ring-4 focus:ring-brandOrange/10 focus:bg-white outline-none transition-all duration-300 text-[15px] text-slate-800 placeholder:text-slate-400 resize-none disabled:opacity-60"
-                        placeholder="Briefly describe your project goals, timeline, or any specific requirements..."
+                        rows={3}
+                        className="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 focus:border-brandOrange focus:ring-4 focus:ring-brandOrange/10 focus:bg-white outline-none transition-all duration-300 text-[14px] text-slate-800 placeholder:text-slate-400 resize-none disabled:opacity-60"
+                        placeholder="Briefly describe your project goals..."
                       />
                     </div>
 
-                    <div className="pt-4">
+                    <div className="pt-2">
                       {/* 🔥 STRICT GLOBAL SYNC: btn-primary */}
                       <button
                         type="submit"
                         disabled={isPending}
-                        className="btn-primary !w-full !py-4 shadow-lg shadow-brandOrange/20 flex items-center justify-center gap-3"
+                        className="btn-primary !w-full !py-3 shadow-lg shadow-brandOrange/20 flex items-center justify-center gap-3"
                       >
                         {isPending ? "Sending..." : "Send Message"}
-                        {!isPending && <Send size={18} className="ml-1" />}
+                        {!isPending && <Send size={16} className="ml-1" />}
                       </button>
                     </div>
                   </form>
                 </div>
 
-                <div className="mt-8 pt-6 border-t border-slate-100 flex items-center justify-center gap-2 text-[11px] text-slate-500 font-bold uppercase tracking-wider">
-                  <ShieldCheck size={16} className="text-brandGreen" /> Strict NDA & Privacy Maintained
+                <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-center gap-2 text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                  <ShieldCheck size={14} className="text-brandGreen" /> Strict NDA & Privacy Maintained
                 </div>
               </div>
             </motion.div>
@@ -338,8 +338,8 @@ const ContactSection = ({ isFullPage = false }) => {
 
 // 💎 HIGH-END INPUT COMPONENT
 const PremiumInput = ({ label, placeholder, name, type = "text", required = false, disabled = false }: any) => (
-  <div className="space-y-2 group">
-    <label className="text-[11px] font-bold uppercase tracking-[0.15em] text-slate-400 group-focus-within:text-brandOrange transition-colors block ml-1">
+  <div className="space-y-1 group">
+    <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400 group-focus-within:text-brandOrange transition-colors block ml-1">
       {label} {required && <span className="text-red-400">*</span>}
     </label>
     <input
@@ -347,7 +347,7 @@ const PremiumInput = ({ label, placeholder, name, type = "text", required = fals
       type={type}
       required={required}
       disabled={disabled}
-      className="w-full px-4 h-[56px] rounded-2xl bg-slate-50 border border-slate-200 focus:border-brandOrange focus:ring-4 focus:ring-brandOrange/10 focus:bg-white outline-none transition-all duration-300 text-[15px] text-slate-800 placeholder:text-slate-400 disabled:opacity-60"
+      className="w-full px-4 h-[48px] rounded-xl bg-slate-50 border border-slate-200 focus:border-brandOrange focus:ring-4 focus:ring-brandOrange/10 focus:bg-white outline-none transition-all duration-300 text-[14px] text-slate-800 placeholder:text-slate-400 disabled:opacity-60"
       placeholder={placeholder}
     />
   </div>

@@ -61,7 +61,7 @@ export default function VideoSection() {
           {/* 🚀 Popup Attach + Center Fix */}
           <div className="mt-2 md:mt-4 flex justify-center w-full pointer-events-auto">
             <button onClick={() => openModal(`Hero Video Section - ${pathname}`)} className="btn-primary mx-auto">
-              View Showcase
+              Let's Talk
             </button>
           </div>
         </motion.div>

@@ -26,7 +26,7 @@ export default function AboutMission() {
 
   return (
     // 🔥 CSS SYNC: Global section-padding and deep OLED black background
-    <section className="bg-[#050505] relative overflow-hidden z-20 section-padding">
+    <section className="py-8 md:py-12 relative overflow-hidden bg-[#050505] border-b border-white/10">
 
       {/* Background Image Layer with Premium Radial Fade */}
       <div

@@ -128,7 +128,7 @@ const BlogSection = () => {
 
     return (
         /* 🛠️ Fix: section-padding ki jagah direct py-12 md:py-16 diya hai taaki extra white space kam ho jaye */
-        <section className="py-12 md:py-16 bg-white relative overflow-hidden border-t border-gray-100 px-4 sm:px-6">
+        <section className="py-8 md:py-12 bg-slate-50 border-b border-slate-200 border-t border-gray-100 px-4 sm:px-6">
             <div className="container-custom relative z-10">
 
                 {/* 🛠️ Fix: Header margin mb-16 se hata kar mb-10 kar diya hai */}

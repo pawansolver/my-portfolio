@@ -83,7 +83,7 @@ export default function IndustriesSection() {
 
   return (
     /* 🔥 FIX: Added !pt-8 (mobile) and md:!pt-12 (desktop) to reduce top whitespace */
-    <section className="section !pt-8 md:!pt-12 relative bg-white overflow-hidden z-10">
+    <section className="py-8 md:py-12 relative bg-white overflow-hidden z-10 border-b border-slate-100">
 
       {/* Background Particles Layer */}
       {init && (

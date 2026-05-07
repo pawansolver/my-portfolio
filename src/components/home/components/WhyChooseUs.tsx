@@ -29,7 +29,7 @@ const WhyChooseUs: React.FC = () => {
 
   return (
     // 🛠️ FIX: py-10 md:py-20 ko kam karke py-8 md:py-12 kiya taaki screen par fit aaye
-    <section className="py-8 md:py-12 bg-white relative z-10 overflow-hidden">
+    <section className="py-8 md:py-12 bg-white relative z-10 overflow-hidden border-b border-slate-100">
       <div className="container-custom">
 
         {/* --- Header --- */}

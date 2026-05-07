@@ -120,7 +120,7 @@ export default function PremiumServicesSection() {
   if (!isMounted) return null;
 
   return (
-    <section className="py-8 md:py-12 bg-[#F8FAFC]">
+    <section className="py-8 md:py-12 bg-[#F8FAFC] border-b border-slate-100">
       <div className="container-custom">
         <div className="mb-6 md:mb-10 text-center flex flex-col items-center">
           <span className="font-black text-[10px] md:text-[11px] tracking-[0.4em] uppercase mb-2 block text-brandOrange">Our Core Offerings</span>

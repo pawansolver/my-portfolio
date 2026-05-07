@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const categories = ['All', 'Industrial AI', 'Business ERP', 'Lean Ops', 'Smart Factory'];
+const categories = ['All', 'Industrial AI', 'Business ERP', 'Lean Ops', 'Smart Factory', 'Digital Branding'];
 
 const projects = [
   { id: 1, title: 'Custom ERP Hub', category: 'Business ERP', img: '/images/project-erp.png', desc: 'Bespoke operational ecosystems designed for Indian MSME growth.' },
@@ -12,6 +12,7 @@ const projects = [
   { id: 3, title: 'SmartFactory 4.0', category: 'Smart Factory', img: '/images/project-smart-factory.png', desc: 'Real-time production monitoring and IoT-driven factory connectivity.' },
   { id: 4, title: 'RAG Knowledge Miner', category: 'Industrial AI', img: '/images/project-rag-ai.png', desc: 'Private AI agents for secure enterprise knowledge and document mining.' },
   { id: 5, title: 'Digital Storefront', category: 'Business ERP', img: '/images/project-ecommerce.png', desc: 'High-performance E-commerce ecosystems for global trade scaling.' },
+  { id: 6, title: 'Creative Branding', category: 'Digital Branding', img: '/images/project-branding.png', desc: 'Strategic digital marketing and premium corporate identity design.' },
 ];
 
 export default function ProjectPortfolio() {
@@ -30,7 +31,7 @@ export default function ProjectPortfolio() {
 
   return (
     // 🔥 FIX: py-12 md:py-20 manually set for tight spacing
-    <section className="py-12 md:py-20 relative bg-white z-20 overflow-hidden">
+    <section className="py-8 md:py-12 relative bg-white z-20 overflow-hidden border-b border-slate-100">
 
       <div className="container-custom flex flex-col items-center">
 

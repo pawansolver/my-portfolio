@@ -74,7 +74,7 @@ const BentoCard = ({ title, description, icon, spanCols = 6, delay = 0, children
 export default function AISolutionsBentoGrid() {
   return (
     // 🔥 FIX: py-12/20 manually set to reduce global padding gap
-    <section className="py-12 md:py-20 bg-white z-20">
+    <section className="py-8 md:py-12 relative bg-white overflow-hidden border-b border-slate-100">
       <div className="container-custom">
 
         {/* --- 🚀 HEADER --- */}

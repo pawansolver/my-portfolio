@@ -43,14 +43,14 @@ const SlotNumber = ({ val }: { val: string }) => {
 const StatsCounter: React.FC = () => {
   const stats = [
     { id: 1, icon: <Users size={20} />, number: "18", suffix: "+", label: "YEARS EXP" },
-    { id: 2, icon: <Globe size={20} />, number: "150", suffix: "+", label: "PROJECTS" },
-    { id: 3, icon: <CheckCircle size={20} />, number: "99", suffix: "%", label: "SUCCESS" },
+    { id: 2, icon: <Globe size={20} />, number: "1000", suffix: "+", label: "PROJECTS" },
+    { id: 3, icon: <CheckCircle size={20} />, number: "100", suffix: "%", label: "SUCCESS" },
     { id: 4, icon: <Calendar size={20} />, number: "2020", suffix: "", label: "FOUNDED" },
     { id: 5, icon: <Clock size={20} />, number: "02", suffix: "m", label: "RESPONSE" },
   ];
 
   return (
-    <section className="py-10 md:py-16 bg-white">
+    <section className="py-8 md:py-12 bg-white border-b border-slate-100">
       <div className="container-custom">
 
         {/* Global Heading Sync */}

@@ -5,6 +5,7 @@ import * as THREE from "three";
 import { motion } from "framer-motion";
 import { useModal } from "@/components/context/ModalContext";
 import { usePathname } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 
 const WaveMesh = () => {
   const meshRef = useRef<THREE.Points>(null);
@@ -99,14 +100,26 @@ export default function ParticleSection() {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="text-center w-full mt-[-5dvh] md:mt-0" // Slight visual lift on mobile
         >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="flex justify-center mb-6"
+          >
+            <img src="/images/industry4-logo.png" alt="Industry 4.0" className="w-24 h-24 md:w-36 md:h-36 object-contain drop-shadow-2xl" />
+          </motion.div>
+
           <h1 className="heading-xl !mb-2">
             Nighwan<span className="text-textmain">Tech</span>
           </h1>
 
-          {/* 🔥 FIX: Gap tight kiya aur text-muted ko mobile scale diya */}
-          <div className="flex flex-col items-center gap-4 md:gap-6 mt-2 md:mt-4 w-full">
-            <p className="text-muted !text-[10px] sm:!text-[12px] md:!text-sm tracking-[0.3em] md:tracking-[0.4em] uppercase !mb-0">
-              Neural Intelligence Systems
+          {/* 🔥 FIX: Industry 4.0 & MSME Content Sync */}
+          <div className="flex flex-col items-center gap-2 md:gap-4 mt-2 md:mt-4 w-full">
+            <p className="text-brandOrange !text-[12px] sm:!text-[14px] md:!text-base tracking-[0.3em] md:tracking-[0.4em] uppercase font-black !mb-0">
+              Industry 4.0 & Smart Automation
+            </p>
+            <p className="text-muted !text-[10px] md:!text-[11px] max-w-xs md:max-w-md font-medium">
+              Empowering Indian MSMEs with Scalable Technology & Lean Engineering Solutions since 2020.
             </p>
 
             <motion.div
@@ -116,7 +129,7 @@ export default function ParticleSection() {
               className="pointer-events-auto flex justify-center w-full mt-2"
             >
               <button onClick={() => openModal(`Hero Particle Section - ${pathname}`)} className="btn-primary mx-auto">
-                Discover More
+                Let's Talk <ArrowRight size={18} className="ml-2" />
               </button>
             </motion.div>
           </div>
